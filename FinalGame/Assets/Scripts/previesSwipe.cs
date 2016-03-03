@@ -11,8 +11,8 @@ public class previesSwipe : MonoBehaviour {
 		private Vector2 fingerStartPos = Vector2.zero;
 
 		private bool isSwipe = false;
-		private float minSwipeDist  = 50.0f;
-		private float maxSwipeTime = 0.5f;
+		private float minSwipeDist  = 0.1f;
+		private float maxSwipeTime = 2f;
 
 
 		// Update is called once per frame

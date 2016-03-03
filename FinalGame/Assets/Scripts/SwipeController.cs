@@ -15,7 +15,7 @@ public class SwipeController : MonoBehaviour {
 	public int leftRight = 0;
 	public int upDown = 0;
 
-
+	private bool isMoving = false;
 
 	public enum Movement
 	{
@@ -31,28 +31,39 @@ public class SwipeController : MonoBehaviour {
 
 
 	void Update () {
+		
+			
+
 		foreach(Touch touch in Input.touches)
 		{
 
 			if (touch.phase == TouchPhase.Began) {
 				fingerStart = touch.position;
-				//fingerEnd  = touch.position;
+				fingerEnd  = touch.position;
 			}
 
 			if(touch.phase == TouchPhase.Moved) {
+				if(!isMoving){
+
+
 				fingerEnd = touch.position;
 
 				//There is more movement on the X axis than the Y axis
 				if(Mathf.Abs(fingerStart.x - fingerEnd.x) > Mathf.Abs(fingerStart.y - fingerEnd.y)) {
 
 					//Right Swipe
-					if((fingerEnd.x - fingerStart.x) > 0)
-						onPlayerSwipeRight.Invoke();	
+						if((fingerEnd.x - fingerStart.x) > 0){
+						onPlayerSwipeRight.Invoke();
+							isMoving = true;
+						}
 						//movements.Add(Movement.Right);
 					//Left Swipe
 					else
+						{
 						//movements.Add(Movement.Left);
 						onPlayerSwipeLeft.Invoke();	
+							isMoving = true;
+						}
 				}
 
 				//More movement along the Y axis than the X axis
@@ -71,13 +82,16 @@ public class SwipeController : MonoBehaviour {
 				//In this example, I'm checking whether the pattern is Left, then Right, then Left again
 				//Debug.Log (CheckForPatternMove(0, 3, new List<Movement>() { Movement.Left, Movement.Right, Movement.Left } ));
 			}
+		}
 
 
 			if(touch.phase == TouchPhase.Ended)
 			{
+				isMoving = false;
 				fingerStart = Vector2.zero;
 				fingerEnd = Vector2.zero;
 				movements.Clear();
+
 			}
 		}
 	}
