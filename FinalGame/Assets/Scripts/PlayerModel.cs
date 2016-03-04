@@ -10,7 +10,6 @@ public class PlayerModel : MonoBehaviour
 	public bool isDead = false;
 	private bool swipedUp = false;
 	public static bool levelEnd = false;
-	private bool ended = false;
 	public GameObject gameover;
 	public GameObject winner;
 
@@ -29,7 +28,6 @@ public class PlayerModel : MonoBehaviour
 				if (player.transform.position.y < -75f) {
 					if (!levelEnd) {
 						levelEnd = true;
-						ended = true;
 					}
 				} else {
 					player.transform.position = new Vector3 (player.transform.position.x, player.transform.position.y - 0.1f, 0f);
@@ -37,10 +35,6 @@ public class PlayerModel : MonoBehaviour
 			} else {
 				player.transform.position = new Vector3 (player.transform.position.x, player.transform.position.y - 0.02f, 0f);
 			}
-		}
-
-		if (ended) {
-			ended = false;
 		}
 
 		if (BasketController.stopped)
