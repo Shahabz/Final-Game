@@ -15,10 +15,10 @@ public class BasketController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if (!stopped) {
-			if (basket.transform.position.x < -1.65f) {
+			if (basket.transform.position.x < -2.07f) {
 				direction = 0.15f;
 			}
-			if (basket.transform.position.x > 1.65f) {
+			if (basket.transform.position.x > 2.07f) {
 				direction = -0.15f;
 			}
 			basket.transform.position = new Vector3 (basket.transform.position.x + direction, basket.transform.position.y, 0);
