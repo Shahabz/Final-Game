@@ -6,7 +6,6 @@ using System.Collections.Generic;
 public class SwipeController : MonoBehaviour
 {
 
-
 	public UnityEvent onPlayerSwipeRight;
 	public UnityEvent onPlayerSwipeLeft;
 	public UnityEvent onPlayerSwipeUp;
@@ -25,77 +24,84 @@ public class SwipeController : MonoBehaviour
 		Left,
 		Right,
 		Up,
-		Down
-	};
+		Down}
+	;
 
 	public List<Movement> movements = new List<Movement> ();
 
-	void Update () {
+	void Update ()
+	{
 
-		if (!PlayerModel.levelEnd) {
-			foreach (Touch touch in Input.touches) {
+		//if (!PlayerModel.levelEnd) {
+		foreach (Touch touch in Input.touches) {
+				
+			if (touch.phase == TouchPhase.Began) {
+				fingerStart = touch.position;
+				fingerEnd = touch.position;
+			}
 
-				if (touch.phase == TouchPhase.Began) {
-					fingerStart = touch.position;
+			if (touch.phase == TouchPhase.Moved) {
+				if (!isMoving) {
+
 					fingerEnd = touch.position;
-				}
 
-				if (touch.phase == TouchPhase.Moved) {
-					if (!isMoving) {
+					//There is more movement on the X axis than the Y axis
+					if (Mathf.Abs (fingerStart.x - fingerEnd.x) > Mathf.Abs (fingerStart.y - fingerEnd.y)) {
 
-						fingerEnd = touch.position;
-
-						//There is more movement on the X axis than the Y axis
-						if (Mathf.Abs (fingerStart.x - fingerEnd.x) > Mathf.Abs (fingerStart.y - fingerEnd.y)) {
-
-							//Right Swipe
-							if ((fingerEnd.x - fingerStart.x) > 0) {
-								onPlayerSwipeRight.Invoke ();
-								isMoving = true;
-							}
+						//Right Swipe
+						if (((fingerEnd.x - fingerStart.x) > 0) && (!PlayerModel.levelEnd)) {
+							onPlayerSwipeRight.Invoke ();
+							isMoving = true;
+						}
 						//movements.Add(Movement.Right);
 					//Left Swipe
-					else {
-								//movements.Add(Movement.Left);
+						else {
+							//movements.Add(Movement.Left);
+							if (!PlayerModel.levelEnd) {	
 								onPlayerSwipeLeft.Invoke ();	
 								isMoving = true;
 							}
 						}
+					}
 
 				//More movement along the Y axis than the X axis
 				else {
-							//Upward Swipe
-							if ((fingerEnd.y - fingerStart.y) > 0) {
-								onPlayerSwipeUp.Invoke ();
-								isMoving = true;
+						//Upward Swipe
+						if (((fingerEnd.y - fingerStart.y) > 0) && (!PlayerModel.levelEnd)) {
+							onPlayerSwipeUp.Invoke ();
+							isMoving = true;
 
-								//movements.Add (Movement.Up);
-							}
-					//Downward Swipe
-					else
-								movements.Add (Movement.Down);
+							//movements.Add (Movement.Up);
 						}
-						//After the checks are performed, set the fingerStart & fingerEnd to be the same
-						fingerStart = touch.position;   
-
+					//Downward Swipe
+							else {
+							//if (PlayerModel.levelEnd) {
+							onPlayerTap.Invoke ();
+							isMoving = true;
+								
+						}
 					}
-				}
-
-				if (touch.phase == TouchPhase.Ended) {
-					isMoving = false;
-					fingerStart = Vector2.zero;
-					fingerEnd = Vector2.zero;
-					movements.Clear ();
+					//After the checks are performed, set the fingerStart & fingerEnd to be the same
+					fingerStart = touch.position;   
 
 				}
 			}
+
+			if (touch.phase == TouchPhase.Ended) {
+				isMoving = false;
+				fingerStart = Vector2.zero;
+				fingerEnd = Vector2.zero;
+				movements.Clear ();
+
+			}
 		}
+		//	}
 
 		if ((Input.GetKeyDown (KeyCode.Space)) && PlayerModel.levelEnd)
 			onPlayerTap.Invoke ();
 
-		if ((Input.touchCount > 0) && PlayerModel.levelEnd)
-			onPlayerTap.Invoke ();
+		//if ((Input.touchCount > 0) && PlayerModel.levelEnd)
+		//onPlayerTap.Invoke ();
 	}
 		
 }
