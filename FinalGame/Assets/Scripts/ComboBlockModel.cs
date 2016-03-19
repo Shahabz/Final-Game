@@ -10,7 +10,7 @@ public class ComboBlockModel : MonoBehaviour {
 	public float exitScreenY;
 	public UnityEvent comboDone;
 	public bool chosen = false;
-	public bool needsToMove = false;
+
 
 	// Use this for initialization
 	void Start () {
@@ -25,9 +25,8 @@ public class ComboBlockModel : MonoBehaviour {
 			chosen = false;
 		}
 
-		//if (needsToMove) {
 			combo.transform.position = new Vector2 (combo.transform.position.x, combo.transform.position.y + GravityModel.speed);
-		//}
+		
 	}
 
 	public void HandleChosen() 
@@ -40,4 +39,5 @@ public class ComboBlockModel : MonoBehaviour {
 			chosen = false;
 		}
 	}
+		
 }
