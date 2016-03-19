@@ -11,11 +11,7 @@ public class PlayerCollision : MonoBehaviour
 
 	void OnCollisionEnter2D (Collision2D other)
 	{
-		if (other.gameObject.tag == "basket") {
-			Destroy (player);
-			winLevel.Invoke ();
-		} else if (other.gameObject.tag == "enemy") {
-			Destroy (player);
+		if (other.gameObject.tag == "enemy") {
 			onPlayerCollisionEnemy.Invoke ();
 		}
 	}

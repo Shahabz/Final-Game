@@ -19,15 +19,14 @@ public class ArrowController : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
-		if (!PlayerModel.levelEnd) {
-			if (Input.GetKeyDown (KeyCode.RightArrow))
-				onPlayerSwipeRight.Invoke ();		
-			if (Input.GetKeyDown (KeyCode.LeftArrow))
-				onPlayerSwipeLeft.Invoke ();	
-			if (Input.GetKeyDown (KeyCode.UpArrow))
-				onPlayerSwipeUp.Invoke ();
-		}
-		if ((Input.GetKeyDown (KeyCode.Space)) && PlayerModel.levelEnd)
+		if (Input.GetKeyDown (KeyCode.RightArrow))
+			onPlayerSwipeRight.Invoke ();		
+		if (Input.GetKeyDown (KeyCode.LeftArrow))
+			onPlayerSwipeLeft.Invoke ();	
+		if (Input.GetKeyDown (KeyCode.UpArrow))
+			onPlayerSwipeUp.Invoke ();
+		
+		if (Input.GetKeyDown (KeyCode.Space))
 			onPlayerTap.Invoke ();
 	}
 }
