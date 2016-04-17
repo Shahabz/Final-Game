@@ -11,7 +11,7 @@ public class MarbleModel : MonoBehaviour
 
 	void Start ()
 	{
-		marble.transform.position = new Vector3 (-2f, -2f, 0f);
+		marble.transform.position = new Vector3 (-2f, -4f, -0f);
 	}
 
 
