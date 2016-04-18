@@ -8,22 +8,30 @@ public class MarbleModel : MonoBehaviour
 {
 
 	public GameObject marble;
+	public bool pressedStart;
 
 	void Start ()
 	{
-		marble.transform.position = new Vector3 (-2f, -4f, -0f);
+		marble.transform.position = new Vector3 (-2f, -4f, 0f);
 	}
 
 
 
 	void Update ()
 	{
-		
+		if (pressedStart)
+			marble.transform.position = new Vector3 (marble.transform.position.x + 0.05f, marble.transform.position.y, 0);
 	}
 		
 	public void HandleEnemyCollision ()
 	{
-		marble.transform.rotation = Quaternion.Euler (marble.transform.rotation.x, marble.transform.rotation.y, 50f);
+		Debug.Log ("works");
+
+	}
+
+	public void HandlePressedStart ()
+	{
+		pressedStart = true;
 	}
 		
 }

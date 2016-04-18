@@ -76,9 +76,12 @@
 -define:UNITY_EDITOR
 -define:UNITY_EDITOR_64
 -define:UNITY_EDITOR_OSX
+'Assets/Scripts/BlockController.cs'
+'Assets/Scripts/BlockModel.cs'
 'Assets/Scripts/DestinationModel.cs'
 'Assets/Scripts/MarbleArrowModel.cs'
 'Assets/Scripts/MarbleCollision.cs'
 'Assets/Scripts/MarbleModel.cs'
+'Assets/Scripts/TouchController.cs'
 -r:'/Applications/Unity/Unity.app/Contents/Frameworks/Mono/lib/mono/unity/System.Runtime.Serialization.dll'
 -r:'/Applications/Unity/Unity.app/Contents/Frameworks/Mono/lib/mono/unity/System.Xml.Linq.dll'
