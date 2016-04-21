@@ -8,7 +8,10 @@ public class MarbleModel : MonoBehaviour
 {
 
 	public GameObject marble;
+	public GameObject arrow;
 	public bool pressedStart;
+	public Vector2 arrowDirection;
+	public float marbleSpeed;
 
 	void Start ()
 	{
@@ -22,9 +25,12 @@ public class MarbleModel : MonoBehaviour
 		if (pressedStart) {
 			
 			// uses addforce to push the marble so that the physics works, only needs to do this once 
-			// has to be in the direction of the vector that the marble arrow points to (for now set to right
-			// as arrow is set pointing right)
-			marble.GetComponent<Rigidbody2D>().AddForce(transform.right * 90f);
+			// arrowDirection coordinates the direction is shot with the arrow direction
+			// speed of marble can be set by changing the marbleSpeed
+
+			arrowDirection = arrow.transform.right;
+			marbleSpeed = 90f;
+			marble.GetComponent<Rigidbody2D>().AddForce(arrowDirection * marbleSpeed);
 			pressedStart = false;
 		}
 	}
