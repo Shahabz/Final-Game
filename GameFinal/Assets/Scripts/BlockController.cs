@@ -18,6 +18,7 @@ public class BlockController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
+		// for now to test out on computer..
 		if (Input.GetMouseButtonDown(0))
 			onPlayerDragBlock.Invoke ();
 		if (Input.GetKey (KeyCode.Space))

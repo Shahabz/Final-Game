@@ -7,7 +7,11 @@ public class BlockModel : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+
+		// the starting location of the block
 		block.transform.position = new Vector3 (2.25f, -3.96f, 0f);
+
+		// the rotation of the block - change the z value to change the rotation
 		block.transform.rotation = Quaternion.Euler (block.transform.rotation.x, block.transform.rotation.y, 50f);
 	}
 	
@@ -18,7 +22,7 @@ public class BlockModel : MonoBehaviour {
 
 	public void HandlePlayerDraggedBlock ()
 	{
-		block.transform.position = new Vector3 (block.transform.position.x + 0.05f, block.transform.position.y, 0f); 
+		
 	}
 
 	public void HandlePlayerRotatedBlock ()
@@ -38,6 +42,6 @@ public class BlockModel : MonoBehaviour {
 
 	public void HandleCollisionWithMarble ()
 	{
-
+		Destroy (block);
 	}
 }

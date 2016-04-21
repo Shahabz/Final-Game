@@ -7,7 +7,7 @@ public class DestinationModel : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		destination.transform.position = new Vector3 (1f, 1f, 0f);
+		destination.transform.position = new Vector3 (0.7f, 1f, 0f);
 	}
 	
 	// Update is called once per frame

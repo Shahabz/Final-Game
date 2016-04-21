@@ -13,7 +13,6 @@ public class MarbleCollision : MonoBehaviour
 		
 		if (other.gameObject.tag == "block") {
 			onMarbleCollisionBlock.Invoke ();
-			//Instantiate (blood, new Vector2 (transform.position.x, transform.position.y), Quaternion.identity);
 
 		}
 
