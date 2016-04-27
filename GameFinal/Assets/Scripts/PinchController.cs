@@ -29,9 +29,9 @@ public class PinchController : MonoBehaviour {
 				onPlayerPinchIn.Invoke ();	
 		}
 
-		if (Input.GetKeyDown (KeyCode.UpArrow))
-			onPlayerPinchIn.Invoke ();
-		if (Input.GetKeyDown (KeyCode.DownArrow))
-			onPlayerPinchOut.Invoke ();
+		//if (Input.GetKeyDown (KeyCode.UpArrow))
+		//	onPlayerPinchIn.Invoke ();
+		//if (Input.GetKeyDown (KeyCode.DownArrow))
+		//	onPlayerPinchOut.Invoke ();
 	}
 }

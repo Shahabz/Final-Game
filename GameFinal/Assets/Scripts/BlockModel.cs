@@ -4,31 +4,43 @@ using System.Collections;
 public class BlockModel : MonoBehaviour
 {
 
-	public GameObject block;
-	public Sprite bigBlock;
-	public Sprite regularBlock;
-	public Sprite smallBlock;
+	//public GameObject block;
+	private static Sprite bigBlock;
+	private static Sprite regularBlock;
+	private Texture regular;
+	private static Sprite smallBlock;
 	private SpriteRenderer blockSprite;
-	private Sprite currBlock;
+	private static Sprite currBlock;
 
 
 	// Use this for initialization
 	void Start ()
 	{
-		blockSprite = block.GetComponent<SpriteRenderer> ();
+		blockSprite = gameObject.GetComponent<SpriteRenderer>();
+
+		bigBlock = Resources.Load<Sprite>("Textures/bigblock");
+		regularBlock = Resources.Load<Sprite>("Textures/block");
+		regular = Resources.Load<Texture>("Textures/block");
+		smallBlock = Resources.Load<Sprite>("Textures/smallblock");
+		//smallBlock = Resources.Load<UnityEngine.Sprite>("Textures/smallblock");
+
 		currBlock = regularBlock;
+		currBlock = smallBlock;
+		//blockSprite.sprite = currBlock;
 
 		// the starting location of the block
-		block.transform.position = new Vector3 (2.25f, -3.96f, 0f);
+		transform.position = new Vector3 (2.25f, -3.96f, 0f);
 
 		// the rotation of the block - change the z value to change the rotation
-		block.transform.rotation = Quaternion.Euler (block.transform.rotation.x, block.transform.rotation.y, 50f);
+		transform.rotation = Quaternion.Euler (transform.rotation.x, transform.rotation.y, 50f);
 	}
 
 	// Update is called once per frame
 	void Update ()
 	{
 		blockSprite.sprite = currBlock;
+
+		//GetComponent<SpriteRenderer> ().sprite = currBlock;
 	}
 
 	public void HandlePlayerDraggedBlock ()
@@ -43,31 +55,61 @@ public class BlockModel : MonoBehaviour
 
 	public void HandlePlayerEnlargeBlock ()
 	{
-		if (blockSprite.sprite == regularBlock)
-			currBlock = bigBlock;
-
-		if (blockSprite.sprite == smallBlock)
+		//GetComponent<SpriteRenderer> ().sprite = bigBlock;
+		Debug.Log("hi");
+		if (currBlock == smallBlock) {
+			//Debug.Log (currBlock.name);
 			currBlock = regularBlock;
-
-		if (blockSprite.sprite == bigBlock)
+		} else if (currBlock == bigBlock) {
+			Debug.Log ("here3");
 			currBlock = bigBlock;
+		} else if (currBlock == regularBlock) {
+			Debug.Log ("here1");
+			currBlock = bigBlock;
+		}
 	}
 
 	public void HandlePlayerShrinkBlock ()
 	{
-		if (blockSprite.sprite == regularBlock)
-			currBlock = smallBlock;
 
-		if (blockSprite.sprite == bigBlock)
+		if (currBlock == smallBlock) {
+			//Debug.Log (currBlock.name);
+			currBlock = smallBlock;
+		} else if (currBlock == bigBlock) {
+			Debug.Log ("here3");
 			currBlock = regularBlock;
-
-		if (blockSprite.sprite == smallBlock)
+		} else if (currBlock == regularBlock) {
+			Debug.Log ("here1");
 			currBlock = smallBlock;
+		}
+
+
+
+		//Debug.Log ("ds");
+		//gameObject.GetComponent<SpriteRenderer>().sprite = regularBlock;
+		//blockSprite.sprite = regularBlock;
+		//if (gameObject.GetComponent<SpriteRenderer>().sprite.texture == regular) {
+		//	Debug.Log (gameObject.GetComponent<SpriteRenderer> ().sprite.texture);
+		//	Debug.Log ("here4");
+		//	currBlock = smallBlock;
+		//}
+
+		//if (gameObject.GetComponent<SpriteRenderer>().sprite == Resources.Load<Sprite>("Textures/bigblock")) {
+		//	Debug.Log ("here5");
+		//	currBlock = regularBlock;
+		//}
+
+		//if (gameObject.GetComponent<SpriteRenderer>().sprite == Resources.Load<Sprite>("Textures/smallblock")) {
+		//	Debug.Log ("here6");
+		//	currBlock = smallBlock;
+
+		//}
+
 	}
 
 	public void HandleCollisionWithMarble ()
 	{
-		Destroy (block);
+		Destroy (gameObject);
 	}
 
 

@@ -19,10 +19,10 @@ public class BlockController : MonoBehaviour {
 	void Update () {
 
 		// for now to test out on computer..
-		if (Input.GetMouseButtonDown(0))
-			onPlayerDragBlock.Invoke ();
-		if (Input.GetKey (KeyCode.Space))
-			onPlayerRotateBlock.Invoke ();
+		//if (Input.GetMouseButtonDown(0))
+		//	onPlayerDragBlock.Invoke ();
+		//if (Input.GetKey (KeyCode.Space))
+		//	onPlayerRotateBlock.Invoke ();
 		if (Input.GetKeyDown (KeyCode.UpArrow))
 			onPlayerEnlargeBlock.Invoke ();
 		if (Input.GetKeyDown (KeyCode.DownArrow))
