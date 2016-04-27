@@ -3,18 +3,17 @@ using System.Collections;
 
 public class BlockModel : MonoBehaviour
 {
-	private static Sprite currBlock;
+	private Sprite currBlock;
 	private static Sprite bigBlock;
 	private static Sprite regularBlock;
 	private static Sprite smallBlock;
 	private SpriteRenderer blockSprite;
 	private GameObject ring;
-	bool isPressed;
+	private bool isPressed;
 
 	void OnMouseDown ()
 	{
 		StartCoroutine (MouseOnBlock ());
-		//isPressed = true;
 	}
 
 	// Use this for initialization
@@ -30,29 +29,32 @@ public class BlockModel : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
-		//Debug.Log (isPressed);
+		Destroy (GetComponent<PolygonCollider2D> ());
+		gameObject.AddComponent<PolygonCollider2D> ();
+
+		//only if the block is highlighted
 		if(isPressed) 
 		{
+			if (Input.GetKeyDown (KeyCode.UpArrow))
+				HandlePlayerEnlargeBlock ();
+			if (Input.GetKeyDown (KeyCode.DownArrow))
+				HandlePlayerShrinkBlock ();	
+
+			//if click on background- remove highlight
 			if (Input.GetMouseButtonDown(0) && !RingScript.pressOnRing) {
-				//Debug.Log ("hi");
 				isPressed = false;
 				Destroy (ring);
 			}
 
+			//ring follow block  and blok rotate with ring
 			ring.transform.position = transform.position;
 			transform.rotation = ring.transform.rotation;
-
-			//blockSprite.sprite = currBlock;
 		}
 		blockSprite.sprite = currBlock;
 	}
-
+		
 	public void HandlePlayerEnlargeBlock ()
 	{
-		Debug.Log (1);
-		Debug.Log (isPressed);
-		if (isPressed) {
-			Debug.Log (2);
 			if (currBlock == smallBlock) {			
 				currBlock = regularBlock;
 			} else if (currBlock == bigBlock) {			
@@ -60,12 +62,10 @@ public class BlockModel : MonoBehaviour
 			} else if (currBlock == regularBlock) {			
 				currBlock = bigBlock;
 			}
-		}
 	}
 
 	public void HandlePlayerShrinkBlock ()
 	{
-		if (isPressed) {
 			if (currBlock == smallBlock) {
 				currBlock = smallBlock;
 			} else if (currBlock == bigBlock) {			
@@ -73,22 +73,15 @@ public class BlockModel : MonoBehaviour
 			} else if (currBlock == regularBlock) {
 				currBlock = smallBlock;
 			}
-		}
 	}
 
 	public void HandleCollisionWithMarble ()
 	{
-		Destroy (gameObject);
+		Destroy(gameObject);
 	}
 
-	public void HandleClickOnScreen() {
-		//Debug.Log ("click screen");
-		//isPressed = false;
-		//Destroy (ring);
-	}
-
+	//create new highlight with click on block
 	public IEnumerator MouseOnBlock () {
-		//Debug.Log (isPressed);
 		yield return new WaitForSeconds (0.02f);
 		isPressed = true;
 		Destroy (ring);
