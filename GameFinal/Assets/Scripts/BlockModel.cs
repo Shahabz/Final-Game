@@ -10,10 +10,13 @@ public class BlockModel : MonoBehaviour
 	private SpriteRenderer blockSprite;
 	private GameObject ring;
 	private bool isPressed;
+	private static bool gameStarted = false;
 
 	void OnMouseDown ()
 	{
-		StartCoroutine (MouseOnBlock ());
+		if (!gameStarted) {
+			StartCoroutine (MouseOnBlock ());
+		}
 	}
 
 	// Use this for initialization
@@ -29,12 +32,18 @@ public class BlockModel : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
+		if (gameStarted) {
+			isPressed = false;
+			Destroy (ring);
+		}
+
 		Destroy (GetComponent<PolygonCollider2D> ());
 		gameObject.AddComponent<PolygonCollider2D> ();
 
 		//only if the block is highlighted
 		if(isPressed) 
 		{
+			PinchUpdate ();
 			if (Input.GetKeyDown (KeyCode.UpArrow))
 				HandlePlayerEnlargeBlock ();
 			if (Input.GetKeyDown (KeyCode.DownArrow))
@@ -42,8 +51,7 @@ public class BlockModel : MonoBehaviour
 
 			//if click on background- remove highlight
 			if (Input.GetMouseButtonDown(0) && !RingScript.pressOnRing) {
-				isPressed = false;
-				Destroy (ring);
+				StartCoroutine (RemoveRing ());
 			}
 
 			//ring follow block  and blok rotate with ring
@@ -75,17 +83,60 @@ public class BlockModel : MonoBehaviour
 			}
 	}
 
-	public void HandleCollisionWithMarble ()
-	{
-		Destroy(gameObject);
+	public IEnumerator RemoveRing () {
+		yield return new WaitForSeconds (0.1f);
+		if (!twoFingers) {
+			isPressed = false;
+			Destroy (ring);
+		}
 	}
 
 	//create new highlight with click on block
 	public IEnumerator MouseOnBlock () {
-		yield return new WaitForSeconds (0.02f);
+		yield return new WaitForSeconds (0.11f);
 		isPressed = true;
 		Destroy (ring);
 		ring = Instantiate (Resources.Load ("ring"), new Vector2 (transform.position.x, transform.position.y), Quaternion.identity) as GameObject;		
 		ring.transform.rotation = transform.rotation;
+	}
+
+	public void HandleGameStarted () {
+		gameStarted = true;
+	}
+
+
+	//pinch Code
+
+	private bool isTouch = false;
+	private float firstDistance = 0f;
+	private float currentDistance = 0f;
+	private float distance = 0f;
+	public static bool twoFingers = false;
+
+
+	void PinchUpdate ()
+	{
+		if (Input.touchCount == 2) {
+			twoFingers = true;
+			Touch firstFinger = Input.GetTouch (0);
+			Touch secondFinger = Input.GetTouch (1);
+			if (!isTouch) {				
+				firstDistance = (firstFinger.position - secondFinger.position).magnitude;
+				isTouch = true;
+
+			} else {								
+				currentDistance = (firstFinger.position - secondFinger.position).magnitude;				
+				distance = firstDistance - currentDistance;
+				if (distance > 52f) {
+					HandlePlayerShrinkBlock ();
+					isTouch = false;
+				} else if (distance < -52f) {
+					HandlePlayerEnlargeBlock ();
+					isTouch = false;
+				}
+			}                  
+		} else
+			twoFingers = false;
+
 	}
 }

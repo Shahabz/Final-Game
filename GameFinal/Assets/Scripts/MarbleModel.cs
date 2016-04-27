@@ -15,6 +15,7 @@ public class MarbleModel : MonoBehaviour
 
 	void Start ()
 	{
+		marble.GetComponent<Rigidbody2D> ().isKinematic = true;
 		marble.transform.position = new Vector3 (-2f, -4f, 0f);
 	}
 
@@ -43,6 +44,14 @@ public class MarbleModel : MonoBehaviour
 
 	public void HandlePressedStart ()
 	{
+		StartCoroutine (WaitToStart ());
+		//pressedStart = true;
+		//marble.GetComponent<Rigidbody2D> ().isKinematic = false;
+	}
+
+	public IEnumerator WaitToStart () {
+		yield return new WaitForSeconds (0.02f);
 		pressedStart = true;
+		marble.GetComponent<Rigidbody2D> ().isKinematic = false;
 	}
 }
