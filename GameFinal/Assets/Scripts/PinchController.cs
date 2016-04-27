@@ -23,10 +23,12 @@ public class PinchController : MonoBehaviour {
 			float prevTouchDeltaMag = (touchZeroPrevPos - touchOnePrevPos).magnitude;
 			float touchDeltaMag = (touchZero.position - touchOne.position).magnitude;
 
-			if (prevTouchDeltaMag < touchDeltaMag)
-				onPlayerPinchOut.Invoke ();
-			else if (prevTouchDeltaMag > touchDeltaMag)
-				onPlayerPinchIn.Invoke ();	
+			if (Mathf.Abs (touchDeltaMag - prevTouchDeltaMag) > 0.5f) {
+				if (prevTouchDeltaMag < touchDeltaMag)
+					onPlayerPinchOut.Invoke ();
+				else if (prevTouchDeltaMag > touchDeltaMag)
+					onPlayerPinchIn.Invoke ();	
+			}
 		}
 
 		//if (Input.GetKeyDown (KeyCode.UpArrow))

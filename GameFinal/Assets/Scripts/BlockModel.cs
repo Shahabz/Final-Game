@@ -12,6 +12,17 @@ public class BlockModel : MonoBehaviour
 	private SpriteRenderer blockSprite;
 	private static Sprite currBlock;
 
+	private GameObject ring;
+	private bool isPressed = false;
+
+	void OnMouseDown ()
+	{
+		isPressed = true;
+		Destroy (ring);
+		ring = Instantiate (Resources.Load ("ring"), new Vector2 (transform.position.x, transform.position.y), Quaternion.identity) as GameObject;		
+		ring.transform.rotation = transform.rotation;
+	}
+
 
 	// Use this for initialization
 	void Start ()
@@ -38,9 +49,15 @@ public class BlockModel : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
+
+		if(isPressed) 
+		{
+			ring.transform.position = transform.position;
+			transform.rotation = ring.transform.rotation;
+		}
+
 		blockSprite.sprite = currBlock;
 
-		//GetComponent<SpriteRenderer> ().sprite = currBlock;
 	}
 
 	public void HandlePlayerDraggedBlock ()
