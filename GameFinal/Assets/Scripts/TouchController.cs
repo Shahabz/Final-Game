@@ -17,5 +17,4 @@ public class TouchController : MonoBehaviour {
 		if (Input.GetKeyUp(KeyCode.Return))
 			onPlayerPressStart.Invoke ();
 	}
-		
 }

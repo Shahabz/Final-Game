@@ -18,8 +18,6 @@ public class MarbleModel : MonoBehaviour
 		marble.transform.position = new Vector3 (-2f, -4f, 0f);
 	}
 
-
-
 	void Update ()
 	{
 		if (pressedStart) {
@@ -47,5 +45,4 @@ public class MarbleModel : MonoBehaviour
 	{
 		pressedStart = true;
 	}
-		
 }

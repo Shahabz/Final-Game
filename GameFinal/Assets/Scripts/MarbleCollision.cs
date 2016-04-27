@@ -9,20 +9,14 @@ public class MarbleCollision : MonoBehaviour
 	public UnityEvent winLevel;
 
 	void OnCollisionEnter2D (Collision2D other)
-	{
-		
+	{		
 		if (other.gameObject.tag == "block") {
 			onMarbleCollisionBlock.Invoke ();
-
 		}
 
 		if (other.gameObject.tag == "destination") {
 			onMarbleCollisionDestination.Invoke ();
 		}
-			
 	}
-
-
-		
 }
 
