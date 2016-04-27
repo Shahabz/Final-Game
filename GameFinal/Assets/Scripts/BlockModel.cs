@@ -9,14 +9,12 @@ public class BlockModel : MonoBehaviour
 	private static Sprite smallBlock;
 	private SpriteRenderer blockSprite;
 	private GameObject ring;
-	private bool isPressed = false;
+	bool isPressed;
 
 	void OnMouseDown ()
 	{
-		isPressed = true;
-		Destroy (ring);
-		ring = Instantiate (Resources.Load ("ring"), new Vector2 (transform.position.x, transform.position.y), Quaternion.identity) as GameObject;		
-		ring.transform.rotation = transform.rotation;
+		StartCoroutine (MouseOnBlock ());
+		//isPressed = true;
 	}
 
 	// Use this for initialization
@@ -32,38 +30,69 @@ public class BlockModel : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
+		//Debug.Log (isPressed);
 		if(isPressed) 
 		{
+			if (Input.GetMouseButtonDown(0) && !RingScript.pressOnRing) {
+				//Debug.Log ("hi");
+				isPressed = false;
+				Destroy (ring);
+			}
+
 			ring.transform.position = transform.position;
 			transform.rotation = ring.transform.rotation;
+
+			//blockSprite.sprite = currBlock;
 		}
 		blockSprite.sprite = currBlock;
 	}
 
 	public void HandlePlayerEnlargeBlock ()
 	{
-		if (currBlock == smallBlock) {			
-			currBlock = regularBlock;
-		} else if (currBlock == bigBlock) {			
-			currBlock = bigBlock;
-		} else if (currBlock == regularBlock) {			
-			currBlock = bigBlock;
+		Debug.Log (1);
+		Debug.Log (isPressed);
+		if (isPressed) {
+			Debug.Log (2);
+			if (currBlock == smallBlock) {			
+				currBlock = regularBlock;
+			} else if (currBlock == bigBlock) {			
+				currBlock = bigBlock;
+			} else if (currBlock == regularBlock) {			
+				currBlock = bigBlock;
+			}
 		}
 	}
 
 	public void HandlePlayerShrinkBlock ()
 	{
-		if (currBlock == smallBlock) {
-			currBlock = smallBlock;
-		} else if (currBlock == bigBlock) {			
-			currBlock = regularBlock;
-		} else if (currBlock == regularBlock) {
-			currBlock = smallBlock;
+		if (isPressed) {
+			if (currBlock == smallBlock) {
+				currBlock = smallBlock;
+			} else if (currBlock == bigBlock) {			
+				currBlock = regularBlock;
+			} else if (currBlock == regularBlock) {
+				currBlock = smallBlock;
+			}
 		}
 	}
 
 	public void HandleCollisionWithMarble ()
 	{
 		Destroy (gameObject);
+	}
+
+	public void HandleClickOnScreen() {
+		//Debug.Log ("click screen");
+		//isPressed = false;
+		//Destroy (ring);
+	}
+
+	public IEnumerator MouseOnBlock () {
+		//Debug.Log (isPressed);
+		yield return new WaitForSeconds (0.02f);
+		isPressed = true;
+		Destroy (ring);
+		ring = Instantiate (Resources.Load ("ring"), new Vector2 (transform.position.x, transform.position.y), Quaternion.identity) as GameObject;		
+		ring.transform.rotation = transform.rotation;
 	}
 }

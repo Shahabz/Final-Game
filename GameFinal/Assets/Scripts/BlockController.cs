@@ -15,10 +15,11 @@ public class BlockController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-
-		if (Input.GetKeyDown (KeyCode.UpArrow))
-			onPlayerEnlargeBlock.Invoke ();
-		if (Input.GetKeyDown (KeyCode.DownArrow))
-			onPlayerShrinkBlock.Invoke ();	
+		//if (BlockModel.isPressed) {
+			if (Input.GetKeyDown (KeyCode.UpArrow))
+				onPlayerEnlargeBlock.Invoke ();
+			if (Input.GetKeyDown (KeyCode.DownArrow))
+				onPlayerShrinkBlock.Invoke ();	
+		//}
 	}
 }
