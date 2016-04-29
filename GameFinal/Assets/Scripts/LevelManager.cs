@@ -6,13 +6,18 @@ public class LevelManager : MonoBehaviour {
 
 	public GameObject goodJob;
 	public GameObject newBlock;
-	public GameObject greyBlock;
 	public GameObject currentNewBlock;
-	public static int numOfBlocks = 5;
-	public Text blocks_Text;
+	public static int numOfBlocks = 2;
+	public static int numOfLevelBlocks = 5;
+	public static int numOfLeftBlocks = 5;
+	public static int numOfAvailableBlocks = 5;
+	public Text numOfTotalBlocks;
+	public Text numOfAvailableLevelBlocks;
 
 	// Use this for initialization
 	void Start () {		
+		numOfAvailableBlocks = Mathf.Min(numOfLevelBlocks,numOfBlocks);
+		numOfLeftBlocks = numOfAvailableBlocks;
 	}
 	
 	// Update is called once per frame
@@ -24,8 +29,9 @@ public class LevelManager : MonoBehaviour {
 		if(Input.GetMouseButtonUp(0) && currentNewBlock){
 			currentNewBlock = null;
 		}
-		blocks_Text.text = "" + numOfBlocks;
-	}
+		numOfTotalBlocks.text = "" + numOfBlocks;
+		numOfAvailableLevelBlocks.text = "" + numOfLeftBlocks;
+	}	
 
 	public void HandleOutOfBounds()
 	{
@@ -37,9 +43,9 @@ public class LevelManager : MonoBehaviour {
 	}
 
 	public void HandleClickedForAnotherBlock() {
-		if (numOfBlocks > 0){
-		currentNewBlock = (GameObject) Instantiate (newBlock, new Vector2 (-2.5f, -4.7f), Quaternion.identity);
-		numOfBlocks--;
+		if (numOfLeftBlocks > 0){
+		currentNewBlock = (GameObject) Instantiate (newBlock, new Vector2 (-2.5f, -4.7f), Quaternion.identity);		
+			numOfLeftBlocks--;
 		}
 	}
 }
