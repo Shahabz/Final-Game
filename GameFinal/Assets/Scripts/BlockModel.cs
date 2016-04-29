@@ -11,14 +11,13 @@ public class BlockModel : MonoBehaviour
 	private GameObject ring;
 	private bool isPressed;
 	private static bool gameStarted = false;
-
 	void OnMouseDown ()
 	{
 		if (!gameStarted) {
 			StartCoroutine (MouseOnBlock ());
 		}
 	}
-		
+
 	// Use this for initialization
 	void Start ()
 	{
@@ -28,12 +27,11 @@ public class BlockModel : MonoBehaviour
 		regularBlock = Resources.Load<Sprite> ("Textures/block");
 		smallBlock = Resources.Load<Sprite> ("Textures/smallblock");
 		currBlock = regularBlock;
-
+		blockSprite.sprite = currBlock;
 		if (Input.GetMouseButton (0)) {
 			OnMouseDown ();		
 		}
 	}
-
 	// Update is called once per frame
 	void Update ()
 	{
@@ -41,10 +39,8 @@ public class BlockModel : MonoBehaviour
 			isPressed = false;
 			Destroy (ring);
 		} 
-
-		Destroy (GetComponent<PolygonCollider2D> ());
-		gameObject.AddComponent<PolygonCollider2D> ();
-
+		//Destroy (GetComponent<PolygonCollider2D> ());
+		//gameObject.AddComponent<PolygonCollider2D> ();
 		//only if the block is highlighted
 		if (isPressed) {
 			PinchUpdate ();
@@ -52,20 +48,17 @@ public class BlockModel : MonoBehaviour
 				HandlePlayerEnlargeBlock ();
 			if (Input.GetKeyDown (KeyCode.DownArrow))
 				HandlePlayerShrinkBlock ();
-
 			//if click on background- remove highlight
 			if (Input.GetMouseButtonDown (0) && !RingScript.pressOnRing) {
 				StartCoroutine (RemoveRing ());
 			}
-
 			//ring follow block  and blok rotate with ring
 			ring.transform.position = transform.position;
 			transform.rotation = ring.transform.rotation;
 		}
-		blockSprite.sprite = currBlock;
-		
-	}
+		//blockSprite.sprite = currBlock;
 
+	}
 	public void HandlePlayerEnlargeBlock ()
 	{
 		if (currBlock == smallBlock) {			
@@ -75,8 +68,10 @@ public class BlockModel : MonoBehaviour
 		} else if (currBlock == regularBlock) {			
 			currBlock = bigBlock;
 		}
+		blockSprite.sprite = currBlock;
+		Destroy(GetComponent<PolygonCollider2D>());
+		gameObject.AddComponent<PolygonCollider2D>();
 	}
-
 	public void HandlePlayerShrinkBlock ()
 	{
 		if (currBlock == smallBlock) {
@@ -86,8 +81,10 @@ public class BlockModel : MonoBehaviour
 		} else if (currBlock == regularBlock) {
 			currBlock = smallBlock;
 		}
+		blockSprite.sprite = currBlock;
+		Destroy(GetComponent<PolygonCollider2D>());
+		gameObject.AddComponent<PolygonCollider2D>();
 	}
-
 	public IEnumerator RemoveRing ()
 	{
 		yield return new WaitForSeconds (0.1f);
@@ -96,7 +93,6 @@ public class BlockModel : MonoBehaviour
 			Destroy (ring);
 		}
 	}
-
 	//create new highlight with click on block
 	public IEnumerator MouseOnBlock ()
 	{
@@ -106,22 +102,16 @@ public class BlockModel : MonoBehaviour
 		ring = Instantiate (Resources.Load ("ring"), new Vector2 (transform.position.x, transform.position.y), Quaternion.identity) as GameObject;		
 		ring.transform.rotation = transform.rotation;
 	}
-
 	public void HandleGameStarted ()
 	{
 		gameStarted = true;
 	}
-
-
 	//pinch Code
-
 	private bool isTouch = false;
 	private float firstDistance = 0f;
 	private float currentDistance = 0f;
 	private float distance = 0f;
 	public static bool twoFingers = false;
-
-
 	void PinchUpdate ()
 	{
 		if (Input.touchCount == 2) {
@@ -131,7 +121,6 @@ public class BlockModel : MonoBehaviour
 			if (!isTouch) {				
 				firstDistance = (firstFinger.position - secondFinger.position).magnitude;
 				isTouch = true;
-
 			} else {								
 				currentDistance = (firstFinger.position - secondFinger.position).magnitude;				
 				distance = firstDistance - currentDistance;
@@ -145,6 +134,24 @@ public class BlockModel : MonoBehaviour
 			}                  
 		} else
 			twoFingers = false;
-
 	}
+
+	void OnMouseUp ()
+	{
+		checkIfInStash();
+	}
+
+
+	private void checkIfInStash(){
+		float positionX = gameObject.transform.position.x;
+		float positionY = gameObject.transform.position.y;
+		if (-2.65 < positionX  && positionX < -1.28 && -4.9 < positionY  && positionY < -4){
+			Destroy(gameObject);
+			Destroy(ring);
+			isPressed = false;
+			LevelManager.numOfBlocks++;
+		}			
+	}
+
+
 }

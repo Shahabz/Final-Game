@@ -23,6 +23,7 @@ public class DragScript : MonoBehaviour {
 			transform.position = objPosition;
 		}
 	}
+		
 
 	public void HandleGameStarted ()
 	{
