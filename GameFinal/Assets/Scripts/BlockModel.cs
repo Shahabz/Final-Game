@@ -135,8 +135,7 @@ public class BlockModel : MonoBehaviour
 		} else
 			twoFingers = false;
 	}
-
-
+		
 	void OnMouseUp ()
 	{
 		checkIfInStash();
@@ -150,11 +149,8 @@ public class BlockModel : MonoBehaviour
 			Destroy(gameObject);
 			Destroy(ring);
 			isPressed = false;
-			if (LevelManager.numOfBlocks < 5 && !BlockStashModel.isIncreaseBlockTime){
-			//LevelManager.numOfBlocks++;
-			}
-
 			LevelManager.numOfLeftBlocks++;
+			LevelManager.numOfUsedBlocks--;
 		}			
 	}
 
