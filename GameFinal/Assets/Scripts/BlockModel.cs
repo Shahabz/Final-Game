@@ -18,15 +18,20 @@ public class BlockModel : MonoBehaviour
 			StartCoroutine (MouseOnBlock ());
 		}
 	}
-
+		
 	// Use this for initialization
 	void Start ()
 	{
-		blockSprite = gameObject.GetComponent<SpriteRenderer>();
-		bigBlock = Resources.Load<Sprite>("Textures/bigblock");
-		regularBlock = Resources.Load<Sprite>("Textures/block");
-		smallBlock = Resources.Load<Sprite>("Textures/smallblock");
+		gameStarted = false;
+		blockSprite = gameObject.GetComponent<SpriteRenderer> ();
+		bigBlock = Resources.Load<Sprite> ("Textures/bigblock");
+		regularBlock = Resources.Load<Sprite> ("Textures/block");
+		smallBlock = Resources.Load<Sprite> ("Textures/smallblock");
 		currBlock = regularBlock;
+
+		if (Input.GetMouseButton (0)) {
+			OnMouseDown ();		
+		}
 	}
 
 	// Update is called once per frame
@@ -35,22 +40,21 @@ public class BlockModel : MonoBehaviour
 		if (gameStarted) {
 			isPressed = false;
 			Destroy (ring);
-		}
+		} 
 
 		Destroy (GetComponent<PolygonCollider2D> ());
 		gameObject.AddComponent<PolygonCollider2D> ();
 
 		//only if the block is highlighted
-		if(isPressed) 
-		{
+		if (isPressed) {
 			PinchUpdate ();
 			if (Input.GetKeyDown (KeyCode.UpArrow))
 				HandlePlayerEnlargeBlock ();
 			if (Input.GetKeyDown (KeyCode.DownArrow))
-				HandlePlayerShrinkBlock ();	
+				HandlePlayerShrinkBlock ();
 
 			//if click on background- remove highlight
-			if (Input.GetMouseButtonDown(0) && !RingScript.pressOnRing) {
+			if (Input.GetMouseButtonDown (0) && !RingScript.pressOnRing) {
 				StartCoroutine (RemoveRing ());
 			}
 
@@ -59,31 +63,33 @@ public class BlockModel : MonoBehaviour
 			transform.rotation = ring.transform.rotation;
 		}
 		blockSprite.sprite = currBlock;
-	}
 		
+	}
+
 	public void HandlePlayerEnlargeBlock ()
 	{
-			if (currBlock == smallBlock) {			
-				currBlock = regularBlock;
-			} else if (currBlock == bigBlock) {			
-				currBlock = bigBlock;
-			} else if (currBlock == regularBlock) {			
-				currBlock = bigBlock;
-			}
+		if (currBlock == smallBlock) {			
+			currBlock = regularBlock;
+		} else if (currBlock == bigBlock) {			
+			currBlock = bigBlock;
+		} else if (currBlock == regularBlock) {			
+			currBlock = bigBlock;
+		}
 	}
 
 	public void HandlePlayerShrinkBlock ()
 	{
-			if (currBlock == smallBlock) {
-				currBlock = smallBlock;
-			} else if (currBlock == bigBlock) {			
-				currBlock = regularBlock;
-			} else if (currBlock == regularBlock) {
-				currBlock = smallBlock;
-			}
+		if (currBlock == smallBlock) {
+			currBlock = smallBlock;
+		} else if (currBlock == bigBlock) {			
+			currBlock = regularBlock;
+		} else if (currBlock == regularBlock) {
+			currBlock = smallBlock;
+		}
 	}
 
-	public IEnumerator RemoveRing () {
+	public IEnumerator RemoveRing ()
+	{
 		yield return new WaitForSeconds (0.1f);
 		if (!twoFingers) {
 			isPressed = false;
@@ -92,7 +98,8 @@ public class BlockModel : MonoBehaviour
 	}
 
 	//create new highlight with click on block
-	public IEnumerator MouseOnBlock () {
+	public IEnumerator MouseOnBlock ()
+	{
 		yield return new WaitForSeconds (0.11f);
 		isPressed = true;
 		Destroy (ring);
@@ -100,7 +107,8 @@ public class BlockModel : MonoBehaviour
 		ring.transform.rotation = transform.rotation;
 	}
 
-	public void HandleGameStarted () {
+	public void HandleGameStarted ()
+	{
 		gameStarted = true;
 	}
 

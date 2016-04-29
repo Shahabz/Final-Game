@@ -12,11 +12,12 @@ public class MarbleModel : MonoBehaviour
 	public bool pressedStart;
 	public Vector2 arrowDirection;
 	public float marbleSpeed;
+	public UnityEvent outOfBounds;
 
 	void Start ()
 	{
 		marble.GetComponent<Rigidbody2D> ().isKinematic = true;
-		marble.transform.position = new Vector3 (-2f, -4f, 0f);
+		marble.transform.position = new Vector3 (-2f, -3f, 0f);
 	}
 
 	void Update ()
@@ -31,6 +32,11 @@ public class MarbleModel : MonoBehaviour
 			marbleSpeed = 90f;
 			marble.GetComponent<Rigidbody2D>().AddForce(arrowDirection * marbleSpeed);
 			pressedStart = false;
+		}
+
+		if (marble.transform.position.x < -3.8f || marble.transform.position.x > 3.8f ||
+		    marble.transform.position.y < -4f || marble.transform.position.y > 5.5f) {
+			outOfBounds.Invoke ();
 		}
 	}
 		

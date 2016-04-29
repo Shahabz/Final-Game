@@ -16,6 +16,7 @@ public class MarbleCollision : MonoBehaviour
 
 		if (other.gameObject.tag == "destination") {
 			onMarbleCollisionDestination.Invoke ();
+			winLevel.Invoke ();
 		}
 	}
 
