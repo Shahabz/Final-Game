@@ -7,7 +7,7 @@ public class LevelManager : MonoBehaviour
 	public GameObject newBlock;
 	public GameObject currentNewBlock;
 	public int NUM_OF_LEVEL_BLOCKS;
-	public static int numOfBlocks = 2;
+	public static int numOfBlocks = 10;
 	public static int numOfLevelBlocks;
 	public static int numOfLeftBlocks;
 	public static int numOfAvailableBlocks;
