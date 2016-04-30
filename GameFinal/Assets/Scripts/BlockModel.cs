@@ -11,6 +11,9 @@ public class BlockModel : MonoBehaviour
 	private GameObject ring;
 	private bool isPressed;
 	private static bool gameStarted = false;
+
+	private int blockIndex;
+
 	void OnMouseDown ()
 	{
 		if (!gameStarted) {
@@ -31,6 +34,16 @@ public class BlockModel : MonoBehaviour
 		if (Input.GetMouseButton (0)) {
 			OnMouseDown ();		
 		}
+
+		for (int i = 0; i < LevelManager.blocksSizes.Length; i++) {
+			//Debug.Log (i);
+			if (LevelManager.blocksSizes[i].Equals("")) {
+				//Debug.Log ("index: " + i);
+				blockIndex = i;
+				break;
+			}
+		}
+		LevelManager.blocksSizes[blockIndex] = "regular";
 	}
 	// Update is called once per frame
 	void Update ()
@@ -48,26 +61,31 @@ public class BlockModel : MonoBehaviour
 				HandlePlayerEnlargeBlock ();
 			if (Input.GetKeyDown (KeyCode.DownArrow))
 				HandlePlayerShrinkBlock ();
+			
 			//if click on background- remove highlight
 			if (Input.GetMouseButtonDown (0) && !RingScript.pressOnRing) {
 				StartCoroutine (RemoveRing ());
 			}
-			//ring follow block  and blok rotate with ring
+			//ring follow block  and block rotate with ring
 			ring.transform.position = transform.position;
 			transform.rotation = ring.transform.rotation;
 		}
-		//blockSprite.sprite = currBlock;
 
 	}
 	public void HandlePlayerEnlargeBlock ()
 	{
 		if (currBlock == smallBlock) {			
 			currBlock = regularBlock;
+			LevelManager.blocksSizes [blockIndex] = "regular";
 		} else if (currBlock == bigBlock) {			
 			currBlock = bigBlock;
+			LevelManager.blocksSizes [blockIndex] = "big";
 		} else if (currBlock == regularBlock) {			
 			currBlock = bigBlock;
+			LevelManager.blocksSizes [blockIndex] = "big";
 		}
+			
+
 		blockSprite.sprite = currBlock;
 		Destroy(GetComponent<PolygonCollider2D>());
 		gameObject.AddComponent<PolygonCollider2D>();
@@ -76,10 +94,13 @@ public class BlockModel : MonoBehaviour
 	{
 		if (currBlock == smallBlock) {
 			currBlock = smallBlock;
+			LevelManager.blocksSizes [blockIndex] = "small";
 		} else if (currBlock == bigBlock) {			
 			currBlock = regularBlock;
+			LevelManager.blocksSizes [blockIndex] = "regular";
 		} else if (currBlock == regularBlock) {
 			currBlock = smallBlock;
+			LevelManager.blocksSizes [blockIndex] = "small";
 		}
 		blockSprite.sprite = currBlock;
 		Destroy(GetComponent<PolygonCollider2D>());
@@ -146,6 +167,7 @@ public class BlockModel : MonoBehaviour
 		float positionX = gameObject.transform.position.x;
 		float positionY = gameObject.transform.position.y;
 		if (-2.65 < positionX  && positionX < -1.28 && -4.9 < positionY  && positionY < -4){
+			LevelManager.blocksSizes [blockIndex] = null;
 			Destroy(gameObject);
 			Destroy(ring);
 			isPressed = false;

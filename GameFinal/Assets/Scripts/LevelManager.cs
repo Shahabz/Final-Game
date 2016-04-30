@@ -17,14 +17,25 @@ public class LevelManager : MonoBehaviour {
 	public static int numOfAvailableBlocks;
 	public static int numOfUsedBlocks = 0;
 
+	public static string[] blocksSizes;
+	public Text scoreText;
+
 	public Text numOfTotalBlocks;
 	public Text numOfAvailableLevelBlocks;
 
 	// Use this for initialization
-	void Start () {		
+	void Start () {	
+
+		scoreText.GetComponent<Text> ().enabled = false;
+
 		numOfLevelBlocks = NUM_OF_LEVEL_BLOCKS;
 		numOfAvailableBlocks = Mathf.Min(numOfLevelBlocks,numOfBlocks);
 		numOfLeftBlocks = numOfAvailableBlocks;
+
+		blocksSizes = new string[numOfLevelBlocks];
+		for (int i = 0; i < blocksSizes.Length; i++) {
+			blocksSizes[i] = "";
+		}
 	}
 	
 	// Update is called once per frame
@@ -47,6 +58,7 @@ public class LevelManager : MonoBehaviour {
 	}
 
 	public void HandleWinLevel() {
+		PointsCalc ();
 		Instantiate (goodJob, new Vector2(0f,0f), Quaternion.identity);
 	}
 
@@ -56,5 +68,32 @@ public class LevelManager : MonoBehaviour {
 			numOfLeftBlocks--;
 			numOfUsedBlocks++;
 		}
+	}
+
+	public void PointsCalc() {
+		int points = 10000;
+		int decreaseBig = 9900 / numOfLevelBlocks;
+		int decreaseRegular = (int) (0.75 * decreaseBig);
+		//Debug.Log (decreaseRegular);
+		int decreaseSmall = decreaseBig / 2;
+		int count = 0;
+		for (int i = 0; i < blocksSizes.Length; i++) {
+			if (blocksSizes [i].Equals ("big")) {
+				points -= decreaseBig;
+				count++;
+			} else if (blocksSizes [i].Equals ("regular")) {
+				points -= decreaseRegular;
+				count++;
+			} else if (blocksSizes [i].Equals ("small")) {
+				points -= decreaseSmall;
+				count++;
+			}
+		}
+		if (count == 1) {
+			points += decreaseSmall;
+		}
+		scoreText.GetComponent<Text> ().enabled = true;;
+		scoreText.text += " " + points;
+		//Debug.Log (points);
 	}
 }

@@ -31,7 +31,7 @@ public class BlockStashModel : MonoBehaviour {
 		LevelManager.numOfBlocks = LevelManager.numOfBlocks - (LevelManager.numOfAvailableBlocks - LevelManager.numOfLeftBlocks);
 		LevelManager.numOfAvailableBlocks = Mathf.Min(LevelManager.numOfLevelBlocks - LevelManager.numOfUsedBlocks,LevelManager.numOfBlocks);
 		isIncreaseBlockTime = true;
-		Debug.Log(isIncreaseBlockTime);
+		//Debug.Log(isIncreaseBlockTime);
 
 	}
 
