@@ -17,7 +17,7 @@ public class MarbleModel : MonoBehaviour
 	void Start ()
 	{
 		marble.GetComponent<Rigidbody2D> ().isKinematic = true;
-		marble.transform.position = new Vector3 (-2f, -3f, 0f);
+		//marble.transform.position = new Vector3 (-2f, -3f, 0f);
 	}
 
 	void Update ()

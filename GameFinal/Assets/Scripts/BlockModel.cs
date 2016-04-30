@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using System.Collections;
-
 public class BlockModel : MonoBehaviour
 {
 	private Sprite currBlock;
@@ -11,16 +10,13 @@ public class BlockModel : MonoBehaviour
 	private GameObject ring;
 	private bool isPressed;
 	private static bool gameStarted = false;
-
 	private int blockIndex;
-
 	void OnMouseDown ()
 	{
 		if (!gameStarted) {
 			StartCoroutine (MouseOnBlock ());
 		}
 	}
-
 	// Use this for initialization
 	void Start ()
 	{
@@ -34,16 +30,13 @@ public class BlockModel : MonoBehaviour
 		if (Input.GetMouseButton (0)) {
 			OnMouseDown ();		
 		}
-
 		for (int i = 0; i < LevelManager.blocksSizes.Length; i++) {
-			//Debug.Log (i);
-			if (LevelManager.blocksSizes[i].Equals("")) {
-				//Debug.Log ("index: " + i);
+			if (LevelManager.blocksSizes [i].Equals ("")) {
 				blockIndex = i;
 				break;
 			}
 		}
-		LevelManager.blocksSizes[blockIndex] = "regular";
+		LevelManager.blocksSizes [blockIndex] = "regular";
 	}
 	// Update is called once per frame
 	void Update ()
@@ -52,8 +45,6 @@ public class BlockModel : MonoBehaviour
 			isPressed = false;
 			Destroy (ring);
 		} 
-		//Destroy (GetComponent<PolygonCollider2D> ());
-		//gameObject.AddComponent<PolygonCollider2D> ();
 		//only if the block is highlighted
 		if (isPressed) {
 			PinchUpdate ();
@@ -61,7 +52,7 @@ public class BlockModel : MonoBehaviour
 				HandlePlayerEnlargeBlock ();
 			if (Input.GetKeyDown (KeyCode.DownArrow))
 				HandlePlayerShrinkBlock ();
-			
+
 			//if click on background- remove highlight
 			if (Input.GetMouseButtonDown (0) && !RingScript.pressOnRing) {
 				StartCoroutine (RemoveRing ());
@@ -70,7 +61,6 @@ public class BlockModel : MonoBehaviour
 			ring.transform.position = transform.position;
 			transform.rotation = ring.transform.rotation;
 		}
-
 	}
 	public void HandlePlayerEnlargeBlock ()
 	{
@@ -84,11 +74,10 @@ public class BlockModel : MonoBehaviour
 			currBlock = bigBlock;
 			LevelManager.blocksSizes [blockIndex] = "big";
 		}
-			
 
 		blockSprite.sprite = currBlock;
-		Destroy(GetComponent<PolygonCollider2D>());
-		gameObject.AddComponent<PolygonCollider2D>();
+		Destroy (GetComponent<PolygonCollider2D> ());
+		gameObject.AddComponent<PolygonCollider2D> ();
 	}
 	public void HandlePlayerShrinkBlock ()
 	{
@@ -103,8 +92,8 @@ public class BlockModel : MonoBehaviour
 			LevelManager.blocksSizes [blockIndex] = "small";
 		}
 		blockSprite.sprite = currBlock;
-		Destroy(GetComponent<PolygonCollider2D>());
-		gameObject.AddComponent<PolygonCollider2D>();
+		Destroy (GetComponent<PolygonCollider2D> ());
+		gameObject.AddComponent<PolygonCollider2D> ();
 	}
 	public IEnumerator RemoveRing ()
 	{
@@ -156,25 +145,21 @@ public class BlockModel : MonoBehaviour
 		} else
 			twoFingers = false;
 	}
-		
 	void OnMouseUp ()
 	{
-		checkIfInStash();
+		checkIfInStash ();
 	}
-
-
-	private void checkIfInStash(){
+	private void checkIfInStash ()
+	{
 		float positionX = gameObject.transform.position.x;
 		float positionY = gameObject.transform.position.y;
-		if (-2.65 < positionX  && positionX < -1.28 && -4.9 < positionY  && positionY < -4){
+		if (-2.65 < positionX && positionX < -1.28 && -4.9 < positionY && positionY < -4) {
 			LevelManager.blocksSizes [blockIndex] = null;
-			Destroy(gameObject);
-			Destroy(ring);
+			Destroy (gameObject);
+			Destroy (ring);
 			isPressed = false;
 			LevelManager.numOfLeftBlocks++;
 			LevelManager.numOfUsedBlocks--;
 		}			
 	}
-
-
 }

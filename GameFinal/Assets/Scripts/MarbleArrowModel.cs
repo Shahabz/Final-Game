@@ -9,10 +9,10 @@ public class MarbleArrowModel : MonoBehaviour {
 	void Start () {
 
 		// set the position of the arrow
-		arrow.transform.position = new Vector3 (-1.5f, -3.1f, 0f);
+		//arrow.transform.position = new Vector3 (-1.5f, -3.1f, 0f);
 
 		// set the rotation of the arrow (the larger the z-value, the more rotation to the left)
-		arrow.transform.rotation = Quaternion.Euler (arrow.transform.rotation.x, arrow.transform.rotation.y, 0f);
+		//arrow.transform.rotation = Quaternion.Euler (arrow.transform.rotation.x, arrow.transform.rotation.y, 0f);
 	}
 	
 	// Update is called once per frame
