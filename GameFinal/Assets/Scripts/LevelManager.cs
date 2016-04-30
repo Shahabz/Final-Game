@@ -16,9 +16,12 @@ public class LevelManager : MonoBehaviour
 	public Text scoreText;
 	public Text numOfTotalBlocks;
 	public Text numOfAvailableLevelBlocks;
+	public Button nextLevel;
+
 	// Use this for initialization
 	void Start ()
 	{	
+		nextLevel.gameObject.SetActive (false);
 		scoreText.GetComponent<Text> ().enabled = false;
 		numOfLevelBlocks = NUM_OF_LEVEL_BLOCKS;
 		numOfAvailableBlocks = Mathf.Min (numOfLevelBlocks, numOfBlocks);
@@ -48,6 +51,7 @@ public class LevelManager : MonoBehaviour
 	}
 	public void HandleWinLevel ()
 	{
+		nextLevel.gameObject.SetActive (true);
 		PointsCalc ();
 		Instantiate (goodJob, new Vector2 (0f, 0f), Quaternion.identity);
 	}
@@ -84,5 +88,23 @@ public class LevelManager : MonoBehaviour
 		scoreText.GetComponent<Text> ().enabled = true;
 		;
 		scoreText.text += " " + points;
+	}
+
+	public void HandleMoveNextLevel ()
+	{
+		string levelName = Application.loadedLevelName;
+		switch (levelName) {
+		case "Level1":
+			Application.LoadLevel ("Level2");
+			break;
+
+		case "Level2":
+			Application.LoadLevel ("Level3");
+			break;
+
+		case "Level3":
+			Application.LoadLevel ("Level4");
+			break;
+		}
 	}
 }
