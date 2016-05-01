@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+
 public class LevelManager : MonoBehaviour
 {
 	public GameObject goodJob;
@@ -43,18 +44,21 @@ public class LevelManager : MonoBehaviour
 			currentNewBlock = null;
 		}
 		numOfTotalBlocks.text = "" + numOfBlocks;
-		numOfAvailableLevelBlocks.text = "" + numOfLeftBlocks;
+		numOfAvailableLevelBlocks.text = "" + numOfLeftBlocks + " / " + numOfLevelBlocks;
 	}
+
 	public void HandleOutOfBounds ()
 	{
 		Application.LoadLevel (Application.loadedLevel);
 	}
+
 	public void HandleWinLevel ()
 	{
 		nextLevel.gameObject.SetActive (true);
 		PointsCalc ();
 		Instantiate (goodJob, new Vector2 (0f, 0f), Quaternion.identity);
 	}
+
 	public void HandleClickedForAnotherBlock ()
 	{
 		if (numOfLeftBlocks > 0) {
@@ -63,6 +67,7 @@ public class LevelManager : MonoBehaviour
 			numOfUsedBlocks++;
 		}
 	}
+
 	public void PointsCalc ()
 	{
 		int points = 10000;
@@ -104,6 +109,10 @@ public class LevelManager : MonoBehaviour
 
 		case "Level3":
 			Application.LoadLevel ("Level4");
+			break;
+
+		case "Level4":
+			Application.LoadLevel ("Level5");
 			break;
 		}
 	}
