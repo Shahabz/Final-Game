@@ -19,4 +19,15 @@ public class MarbleArrowModel : MonoBehaviour {
 	void Update () {
 	
 	}
+
+	public void HandlePressedStart () 
+	{
+		StartCoroutine (destroyArrow ());
+	}
+
+	public IEnumerator destroyArrow() 
+	{
+		yield return new WaitForSeconds(0.2f);
+		Destroy(arrow);
+	}
 }
