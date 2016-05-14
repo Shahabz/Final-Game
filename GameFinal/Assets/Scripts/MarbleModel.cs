@@ -34,8 +34,8 @@ public class MarbleModel : MonoBehaviour
 			pressedStart = false;
 		}
 
-		if (marble.transform.position.x < -3.8f || marble.transform.position.x > 3.8f ||
-		    marble.transform.position.y < -5.5f || marble.transform.position.y > 5.5f) {
+		if (marble.transform.position.x < -10.96f || marble.transform.position.x > 10.96f ||
+		    marble.transform.position.y < -6.8f || marble.transform.position.y > 6.5f) {
 			outOfBounds.Invoke ();
 		}
 	}

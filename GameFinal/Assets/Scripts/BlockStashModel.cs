@@ -8,13 +8,18 @@ public class BlockStashModel : MonoBehaviour
 	public UnityEvent onPlayerClickNewBlock;
 	private bool isIncreaseBlockTime = true;
 	public int MAX_NUM_OF_BLOCK_TO_ICREASE;
+	private bool gameStarted;
+
 	void OnMouseDown ()
 	{
-		onPlayerClickNewBlock.Invoke ();
+		if (!gameStarted) {
+			onPlayerClickNewBlock.Invoke ();
+		}
 	}
 	void Update ()
 	{
-		if (LevelManager.numOfLeftBlocks == 0) {
+		//if (LevelManager.numOfLeftBlocks == 0) {
+			if (LevelManager.numOfBlocks == 0) {
 			gameObject.GetComponent<SpriteRenderer> ().sprite = empty;
 		} else {
 			gameObject.GetComponent<SpriteRenderer> ().sprite = full;
@@ -22,9 +27,10 @@ public class BlockStashModel : MonoBehaviour
 	}
 	public void HandlePressStart ()
 	{
-		LevelManager.numOfBlocks = LevelManager.numOfBlocks - LevelManager.numOfUsedBlocks;
-		LevelManager.numOfAvailableBlocks = Mathf.Min (LevelManager.numOfLevelBlocks - LevelManager.numOfUsedBlocks, LevelManager.numOfBlocks);
-		LevelManager.numOfUsedBlocks = 0;
+		//LevelManager.numOfBlocks = LevelManager.numOfBlocks - LevelManager.numOfUsedBlocks;
+		//LevelManager.numOfAvailableBlocks = Mathf.Min (LevelManager.numOfLevelBlocks - LevelManager.numOfUsedBlocks, LevelManager.numOfBlocks);
+		//LevelManager.numOfUsedBlocks = 0;
 		isIncreaseBlockTime = true;
+		gameStarted = true;
 	}
 }

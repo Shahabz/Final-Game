@@ -28,8 +28,8 @@ public class barScript : MonoBehaviour
 		isIncreaseBar = true;
 		if (secondsOver == NUM_OF_SECOND_TO_ADD_BLOCK) {
 			LevelManager.numOfBlocks++;
-			LevelManager.numOfLeftBlocks = 
-				Mathf.Min (LevelManager.numOfBlocks - LevelManager.numOfUsedBlocks, LevelManager.numOfLevelBlocks - LevelManager.numOfUsedBlocks);
+			//LevelManager.numOfLeftBlocks = 
+			//	Mathf.Min (LevelManager.numOfBlocks - LevelManager.numOfUsedBlocks, LevelManager.numOfLevelBlocks - LevelManager.numOfUsedBlocks);
 		}
 	}
 }

@@ -11,8 +11,12 @@ public class BlockModel : MonoBehaviour
 	private bool isPressed;
 	private static bool gameStarted = false;
 	private int blockIndex;
+	private bool updateCollider = false;
+	public static bool stamCheck = false;
+
 	void OnMouseDown ()
-	{
+	{				
+		//checkIfInStash ();
 		if (!gameStarted) {
 			StartCoroutine (MouseOnBlock ());
 		}
@@ -30,20 +34,37 @@ public class BlockModel : MonoBehaviour
 		if (Input.GetMouseButton (0)) {
 			OnMouseDown ();		
 		}
-		for (int i = 0; i < LevelManager.blocksSizes.Length; i++) {
-			if (LevelManager.blocksSizes [i].Equals ("")) {
-				blockIndex = i;
-				break;
-			}
-		}
-		LevelManager.blocksSizes [blockIndex] = "regular";
+		gameObject.GetComponent<CircleCollider2D>().enabled = true;
+		gameObject.GetComponent<PolygonCollider2D>().enabled = true;
+	//	for (int i = 0; i < LevelManager.blocksSizes.Length; i++) {
+	//		if (LevelManager.blocksSizes [i].Equals ("")) {
+	//			blockIndex = i;
+	//			break;
+	//		}
+	//	}
+	//	LevelManager.blocksSizes [blockIndex] = "regular";
 	}
 	// Update is called once per frame
 	void Update ()
 	{
+		if (stamCheck && isPressed) {
+			Destroy(gameObject);
+			Destroy (ring);
+			isPressed = false;
+			LevelManager.numOfBlocks++;
+			stamCheck = false;
+		}
+
 		if (gameStarted) {
 			isPressed = false;
 			Destroy (ring);
+
+//			gameObject.GetComponent<CircleCollider2D>().enabled = false;
+			//GetComponent<CircleCollider2D> ();
+			//		GetComponent<PolygonCollider2D> ().enabled = true;
+//			Destroy(gameObject.GetComponent<PolygonCollider2D> ());
+//			gameObject.AddComponent<PolygonCollider2D> ();
+			//updateCollider = true;
 		} 
 		//only if the block is highlighted
 		if (isPressed) {
@@ -66,34 +87,34 @@ public class BlockModel : MonoBehaviour
 	{
 		if (currBlock == smallBlock) {			
 			currBlock = regularBlock;
-			LevelManager.blocksSizes [blockIndex] = "regular";
+	//		LevelManager.blocksSizes [blockIndex] = "regular";
 		} else if (currBlock == bigBlock) {			
 			currBlock = bigBlock;
-			LevelManager.blocksSizes [blockIndex] = "big";
+	//		LevelManager.blocksSizes [blockIndex] = "big";
 		} else if (currBlock == regularBlock) {			
 			currBlock = bigBlock;
-			LevelManager.blocksSizes [blockIndex] = "big";
+	//		LevelManager.blocksSizes [blockIndex] = "big";
 		}
 
 		blockSprite.sprite = currBlock;
-		Destroy (GetComponent<PolygonCollider2D> ());
-		gameObject.AddComponent<PolygonCollider2D> ();
+//		Destroy (GetComponent<PolygonCollider2D> ());
+//		gameObject.AddComponent<PolygonCollider2D> ();
 	}
 	public void HandlePlayerShrinkBlock ()
 	{
 		if (currBlock == smallBlock) {
 			currBlock = smallBlock;
-			LevelManager.blocksSizes [blockIndex] = "small";
+	//		LevelManager.blocksSizes [blockIndex] = "small";
 		} else if (currBlock == bigBlock) {			
 			currBlock = regularBlock;
-			LevelManager.blocksSizes [blockIndex] = "regular";
+	//		LevelManager.blocksSizes [blockIndex] = "regular";
 		} else if (currBlock == regularBlock) {
 			currBlock = smallBlock;
-			LevelManager.blocksSizes [blockIndex] = "small";
+	//		LevelManager.blocksSizes [blockIndex] = "small";
 		}
 		blockSprite.sprite = currBlock;
-		Destroy (GetComponent<PolygonCollider2D> ());
-		gameObject.AddComponent<PolygonCollider2D> ();
+//		Destroy (GetComponent<PolygonCollider2D> ());
+//		gameObject.AddComponent<PolygonCollider2D> ();
 	}
 	public IEnumerator RemoveRing ()
 	{
@@ -114,8 +135,22 @@ public class BlockModel : MonoBehaviour
 	}
 	public void HandleGameStarted ()
 	{
+		
+		gameObject.GetComponent<CircleCollider2D>().enabled = false;
+//		DestroyImmediate (GetComponent<CircleCollider2D> (), true);
+		//GetComponent<CircleCollider2D> ();
+		//		GetComponent<PolygonCollider2D> ().enabled = true;
+		updatePolygon();
+
 		gameStarted = true;
+
 	}
+
+	private void updatePolygon() {
+		Destroy(gameObject.GetComponent<PolygonCollider2D> ());
+		gameObject.AddComponent<PolygonCollider2D> ();
+	}
+
 	//pinch Code
 	private bool isTouch = false;
 	private float firstDistance = 0f;
@@ -145,21 +180,33 @@ public class BlockModel : MonoBehaviour
 		} else
 			twoFingers = false;
 	}
+
 	void OnMouseUp ()
 	{
+		//Debug.Log("sfsdfasd");
 		checkIfInStash ();
 	}
-	private void checkIfInStash ()
+
+	public void checkIfInStash ()
 	{
+		Debug.Log("xxxx");
 		float positionX = gameObject.transform.position.x;
 		float positionY = gameObject.transform.position.y;
-		if (-2.65 < positionX && positionX < -1.28 && -4.9 < positionY && positionY < -4) {
-			LevelManager.blocksSizes [blockIndex] = null;
+		if (7.15f < positionX && positionX < 8.62f && -4.75f < positionY && positionY < -3.24f) {
+	//		LevelManager.blocksSizes [blockIndex] = null;
 			Destroy (gameObject);
 			Destroy (ring);
 			isPressed = false;
-			LevelManager.numOfLeftBlocks++;
-			LevelManager.numOfUsedBlocks--;
+			LevelManager.numOfBlocks++;
+			//LevelManager.numOfLeftBlocks++;
+			//LevelManager.numOfUsedBlocks--;
 		}			
 	}
+
+	public void HandleDraggedABlockBackToStash()
+	{
+		stamCheck = true;
+	}
+
+
 }
