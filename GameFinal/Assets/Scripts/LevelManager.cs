@@ -20,7 +20,7 @@ public class LevelManager : MonoBehaviour
 	public Text numOfTotalBlocks;
 	public Text numOfAvailableLevelBlocks;
 	public Button nextLevel;
-	public UnityEvent draggedABlock;
+	//public UnityEvent draggedABlock;
 
 	// Use this for initialization
 	void Start ()
@@ -44,7 +44,7 @@ public class LevelManager : MonoBehaviour
 		if (Input.GetMouseButtonUp (0) && currentNewBlock) {
 			if (7.15f < currentNewBlock.transform.position.x && currentNewBlock.transform.position.x < 8.62f && -4.75f < currentNewBlock.transform.position.y && currentNewBlock.transform.position.y < -3.24f) {
 				//Destroy (currentNewBlock.gameObject);
-				BlockModel.stamCheck = true;
+				BlockModel.inStash = true;
 			}
 			currentNewBlock = null; 
 		}
@@ -105,7 +105,6 @@ public class LevelManager : MonoBehaviour
 			points += decreaseSmall;
 		}
 		scoreText.GetComponent<Text> ().enabled = true;
-		;
 		scoreText.text += " " + points;
 	}
 

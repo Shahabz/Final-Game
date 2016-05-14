@@ -9,10 +9,10 @@ public class BlockModel : MonoBehaviour
 	private SpriteRenderer blockSprite;
 	private GameObject ring;
 	private bool isPressed;
-	private static bool gameStarted = false;
+	private bool gameStarted = false;
 	private int blockIndex;
-	private bool updateCollider = false;
-	public static bool stamCheck = false;
+	//private bool updateCollider = false;
+	public static bool inStash = false;
 
 	void OnMouseDown ()
 	{				
@@ -47,12 +47,12 @@ public class BlockModel : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
-		if (stamCheck && isPressed) {
+		if (inStash && isPressed) {
 			Destroy(gameObject);
 			Destroy (ring);
 			isPressed = false;
 			LevelManager.numOfBlocks++;
-			stamCheck = false;
+			inStash = false;
 		}
 
 		if (gameStarted) {
@@ -65,7 +65,7 @@ public class BlockModel : MonoBehaviour
 //			Destroy(gameObject.GetComponent<PolygonCollider2D> ());
 //			gameObject.AddComponent<PolygonCollider2D> ();
 			//updateCollider = true;
-		} 
+		}
 		//only if the block is highlighted
 		if (isPressed) {
 			PinchUpdate ();
@@ -135,21 +135,15 @@ public class BlockModel : MonoBehaviour
 	}
 	public void HandleGameStarted ()
 	{
-		
-		gameObject.GetComponent<CircleCollider2D>().enabled = false;
-//		DestroyImmediate (GetComponent<CircleCollider2D> (), true);
-		//GetComponent<CircleCollider2D> ();
-		//		GetComponent<PolygonCollider2D> ().enabled = true;
-		updatePolygon();
+		GameObject.FindGameObjectWithTag("block").GetComponent<CircleCollider2D>().enabled = false;
+
+		Destroy(GameObject.FindGameObjectWithTag("block").GetComponent<PolygonCollider2D> ());
+		GameObject.FindGameObjectWithTag("block").AddComponent<PolygonCollider2D> ();
 
 		gameStarted = true;
 
 	}
-
-	private void updatePolygon() {
-		Destroy(gameObject.GetComponent<PolygonCollider2D> ());
-		gameObject.AddComponent<PolygonCollider2D> ();
-	}
+		
 
 	//pinch Code
 	private bool isTouch = false;
@@ -189,7 +183,7 @@ public class BlockModel : MonoBehaviour
 
 	public void checkIfInStash ()
 	{
-		Debug.Log("xxxx");
+		//Debug.Log("xxxx");
 		float positionX = gameObject.transform.position.x;
 		float positionY = gameObject.transform.position.y;
 		if (7.15f < positionX && positionX < 8.62f && -4.75f < positionY && positionY < -3.24f) {
@@ -202,11 +196,5 @@ public class BlockModel : MonoBehaviour
 			//LevelManager.numOfUsedBlocks--;
 		}			
 	}
-
-	public void HandleDraggedABlockBackToStash()
-	{
-		stamCheck = true;
-	}
-
 
 }
