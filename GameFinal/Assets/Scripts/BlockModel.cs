@@ -35,7 +35,7 @@ public class BlockModel : MonoBehaviour
 			OnMouseDown ();		
 		}
 		gameObject.GetComponent<CircleCollider2D>().enabled = true;
-		gameObject.GetComponent<PolygonCollider2D>().enabled = true;
+		//gameObject.GetComponent<PolygonCollider2D>().enabled = true;
 	//	for (int i = 0; i < LevelManager.blocksSizes.Length; i++) {
 	//		if (LevelManager.blocksSizes [i].Equals ("")) {
 	//			blockIndex = i;
@@ -135,9 +135,9 @@ public class BlockModel : MonoBehaviour
 	}
 	public void HandleGameStarted ()
 	{
-		GameObject.FindGameObjectWithTag("block").GetComponent<CircleCollider2D>().enabled = false;
+		//GameObject.FindGameObjectWithTag("block").GetComponent<CircleCollider2D>().enabled = false;
 
-		Destroy(GameObject.FindGameObjectWithTag("block").GetComponent<PolygonCollider2D> ());
+		Destroy(GameObject.FindGameObjectWithTag("block").GetComponent<CircleCollider2D> ());
 		GameObject.FindGameObjectWithTag("block").AddComponent<PolygonCollider2D> ();
 
 		gameStarted = true;
