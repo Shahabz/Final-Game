@@ -9,9 +9,9 @@ public class BlockModel : MonoBehaviour
 	private SpriteRenderer blockSprite;
 	private GameObject ring;
 	private bool isPressed;
-	private bool gameStarted = false;
+	private static bool gameStarted = false;
 	private int blockIndex;
-	//private bool updateCollider = false;
+	private bool updateCollider = false;
 	public static bool inStash = false;
 
 	void OnMouseDown ()
@@ -34,8 +34,9 @@ public class BlockModel : MonoBehaviour
 		if (Input.GetMouseButton (0)) {
 			OnMouseDown ();		
 		}
+		updateCollider = false;
 		gameObject.GetComponent<CircleCollider2D>().enabled = true;
-		//gameObject.GetComponent<PolygonCollider2D>().enabled = true;
+		gameObject.GetComponent<PolygonCollider2D>().enabled = false;
 	//	for (int i = 0; i < LevelManager.blocksSizes.Length; i++) {
 	//		if (LevelManager.blocksSizes [i].Equals ("")) {
 	//			blockIndex = i;
@@ -55,16 +56,16 @@ public class BlockModel : MonoBehaviour
 			inStash = false;
 		}
 
-		if (gameStarted) {
+		if (gameStarted && !updateCollider) {
+
+			gameObject.GetComponent<CircleCollider2D>().enabled = false;
+			//GetComponent<CircleCollider2D> ();
+			gameObject.GetComponent<PolygonCollider2D> ().enabled = true;
+			Destroy(gameObject.GetComponent<PolygonCollider2D> ());
+			gameObject.AddComponent<PolygonCollider2D> ();
 			isPressed = false;
 			Destroy (ring);
-
-//			gameObject.GetComponent<CircleCollider2D>().enabled = false;
-			//GetComponent<CircleCollider2D> ();
-			//		GetComponent<PolygonCollider2D> ().enabled = true;
-//			Destroy(gameObject.GetComponent<PolygonCollider2D> ());
-//			gameObject.AddComponent<PolygonCollider2D> ();
-			//updateCollider = true;
+			updateCollider = true;
 		}
 		//only if the block is highlighted
 		if (isPressed) {
@@ -83,6 +84,7 @@ public class BlockModel : MonoBehaviour
 			transform.rotation = ring.transform.rotation;
 		}
 	}
+
 	public void HandlePlayerEnlargeBlock ()
 	{
 		if (currBlock == smallBlock) {			
@@ -135,13 +137,7 @@ public class BlockModel : MonoBehaviour
 	}
 	public void HandleGameStarted ()
 	{
-		//GameObject.FindGameObjectWithTag("block").GetComponent<CircleCollider2D>().enabled = false;
-
-		Destroy(GameObject.FindGameObjectWithTag("block").GetComponent<CircleCollider2D> ());
-		GameObject.FindGameObjectWithTag("block").AddComponent<PolygonCollider2D> ();
-
 		gameStarted = true;
-
 	}
 		
 
