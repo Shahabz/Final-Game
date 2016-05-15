@@ -61,8 +61,9 @@ public class BlockModel : MonoBehaviour
 			gameObject.GetComponent<CircleCollider2D>().enabled = false;
 			//GetComponent<CircleCollider2D> ();
 			gameObject.GetComponent<PolygonCollider2D> ().enabled = true;
-			Destroy(gameObject.GetComponent<PolygonCollider2D> ());
-			gameObject.AddComponent<PolygonCollider2D> ();
+
+//			Destroy(gameObject.GetComponent<PolygonCollider2D> ());
+//			gameObject.AddComponent<PolygonCollider2D> ();
 			isPressed = false;
 			Destroy (ring);
 			updateCollider = true;
