@@ -108,25 +108,12 @@ public class LevelManager : MonoBehaviour
 		scoreText.text += " " + points;
 	}
 
-	public void HandleMoveNextLevel ()
+	public void HandlePressLevelsButton(){
+		Application.LoadLevel ("Levels");
+	}
+
+	public void HandleMoveNextLevel (int level)
 	{
-		string levelName = Application.loadedLevelName;
-		switch (levelName) {
-		case "Level1":
-			Application.LoadLevel ("Level2");
-			break;
-
-		case "Level2":
-			Application.LoadLevel ("Level3");
-			break;
-
-		case "Level3":
-			Application.LoadLevel ("Level4");
-			break;
-
-		case "Level4":
-			Application.LoadLevel ("Level5");
-			break;
-		}
+		Application.LoadLevel ("Level" + level);		
 	}
 }
