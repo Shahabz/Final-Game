@@ -5,13 +5,18 @@ public class barScript : MonoBehaviour
 {
 	public Image bar;
 	private static float secondsOver = 0;
-	public float NUM_OF_SECOND_TO_ADD_BLOCK = 5;
+	public float NUM_OF_SECOND_TO_ADD_BLOCK = 120;
 	private bool isIncreaseBar = true;
-	public int MAX_NUM_OF_BLOCK_TO_ICREASE = 5;
+	public static int MAX_NUM_OF_BLOCK_TO_ICREASE = 5;
+
+	void Start(){
+		secondsOver = NUM_OF_SECOND_TO_ADD_BLOCK - ((LevelManager.minutesForNextBlock * 60) + LevelManager.secondsForNextBlock);
+	}
+
 	// Update is called once per frame
 	void Update ()
-	{
-		bar.fillAmount = secondsOver / (NUM_OF_SECOND_TO_ADD_BLOCK);
+	{		
+		bar.fillAmount = secondsOver / (NUM_OF_SECOND_TO_ADD_BLOCK);	
 		if (isIncreaseBar && LevelManager.numOfBlocks < MAX_NUM_OF_BLOCK_TO_ICREASE) {
 			StartCoroutine (IncreaseBar ());
 		}

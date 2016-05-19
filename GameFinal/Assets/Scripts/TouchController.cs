@@ -7,10 +7,11 @@ public class TouchController : MonoBehaviour {
 
 	public UnityEvent onPlayerPressStart;
 	public UnityEvent onPlayerClickNewBlock;
-	public Button button;
+	public Button playButton;
+	public Button levelsButton;
 
 	// Use this for initialization
-	void Start () {
+	void Start () {	
 	
 	}
 		
@@ -19,12 +20,14 @@ public class TouchController : MonoBehaviour {
 		
 		if (Input.GetKeyUp (KeyCode.Return)) {
 			onPlayerPressStart.Invoke ();
-			button.enabled = false;
+			playButton.enabled = false;
+			levelsButton.enabled = false;
 		}
 	}
 
 	public void HandleStartButtonClicked () {
 		onPlayerPressStart.Invoke ();
-		button.enabled = false;
+		playButton.enabled = false;
+		levelsButton.enabled = false;
 	}
 }

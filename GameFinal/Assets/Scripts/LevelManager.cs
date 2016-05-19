@@ -8,30 +8,26 @@ public class LevelManager : MonoBehaviour
 	public GameObject goodJob;
 	public GameObject newBlock;
 	public GameObject currentNewBlock;
-	//public int NUM_OF_LEVEL_BLOCKS;
-	//public static int numOfBlocks = 10;
-	//public static int numOfLevelBlocks;
-	//public static int numOfLeftBlocks;
-	//public static int numOfAvailableBlocks;
-	//public static int numOfUsedBlocks = 0;
-	public static int numOfBlocks = 10;
+	public static int numOfBlocks = 3;
 	//public static string[] blocksSizes;
 	public Text scoreText;
 	public Text numOfTotalBlocks;
 	public Text numOfAvailableLevelBlocks;
+	public Text nextBlockTime;
 	public Button nextLevel;
-	//public UnityEvent draggedABlock;
+	public static int minutesForNextBlock = 0;
+	public static int secondsForNextBlock = 11;
+	private bool isChangeFillTime;
+		
 
 	// Use this for initialization
 	void Start ()
 	{	
+//		secondsForNextBlock = 11;
+//		minutesForNextBlock = 0;
+		isChangeFillTime = true;
 		nextLevel.gameObject.SetActive (false);
 		scoreText.GetComponent<Text> ().enabled = false;
-
-		//blocksSizes = new string[numOfLevelBlocks];
-		//for (int i = 0; i < blocksSizes.Length; i++) {
-		//	blocksSizes [i] = "";
-		//}
 	}
 
 	// Update is called once per frame
@@ -48,9 +44,38 @@ public class LevelManager : MonoBehaviour
 			}
 			currentNewBlock = null; 
 		}
-		numOfTotalBlocks.text = "" + numOfBlocks;
-		//numOfAvailableLevelBlocks.text = "" + numOfLeftBlocks + " / " + numOfLevelBlocks;
+		numOfTotalBlocks.text = "x" + numOfBlocks;
+		if(secondsForNextBlock < 10){
+			nextBlockTime.text = "More in "+ minutesForNextBlock + ":" + "0" + secondsForNextBlock ;
+		}else{
+			nextBlockTime.text = "More in "+ minutesForNextBlock + ":" + secondsForNextBlock;
+		}
+		if(isChangeFillTime){
+		StartCoroutine (FillCircle ());
+		}
 	}
+
+	public IEnumerator FillCircle ()
+	{
+		isChangeFillTime = false;
+		yield return new WaitForSeconds (1f);
+		if (0 == secondsForNextBlock) {
+			if(numOfBlocks < barScript.MAX_NUM_OF_BLOCK_TO_ICREASE){
+			secondsForNextBlock = 59;
+			if(minutesForNextBlock == 0){				
+				minutesForNextBlock = 2;			
+				secondsForNextBlock = 0;
+				
+			}else{
+				minutesForNextBlock--;
+			}
+		}
+		}else{			
+			secondsForNextBlock--;			
+		}
+		isChangeFillTime = true;
+	}
+
 
 	public void HandleOutOfBounds ()
 	{
@@ -65,19 +90,11 @@ public class LevelManager : MonoBehaviour
 	}
 
 	public void HandleClickedForAnotherBlock ()
-	{
-		//if (numOfLeftBlocks > 0) {
-		//	currentNewBlock = (GameObject)Instantiate (newBlock, new Vector2 (-2.5f, -4.7f), Quaternion.identity);		
-		//	numOfLeftBlocks--;
-		//	numOfUsedBlocks++;
-		//}
-
+	{		
 		if (numOfBlocks > 0) {
-			currentNewBlock = (GameObject)Instantiate (newBlock, new Vector2 (-2.5f, -4.7f), Quaternion.identity);
-			//draggedABlock.Invoke();	
+			currentNewBlock = (GameObject)Instantiate (newBlock, new Vector2 (-2.5f, -4.7f), Quaternion.identity);		
 			numOfBlocks--;
 		}
-
 	}
 
 

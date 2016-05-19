@@ -160,10 +160,10 @@ public class BlockModel : MonoBehaviour
 			} else {								
 				currentDistance = (firstFinger.position - secondFinger.position).magnitude;				
 				distance = firstDistance - currentDistance;
-				if (distance > 52f) {
+				if (distance > 60f) {
 					HandlePlayerShrinkBlock ();
 					isTouch = false;
-				} else if (distance < -52f) {
+				} else if (distance < -60f) {
 					HandlePlayerEnlargeBlock ();
 					isTouch = false;
 				}
