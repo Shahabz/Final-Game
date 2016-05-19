@@ -19,6 +19,12 @@ public class MenuModel : MonoBehaviour {
 		Application.LoadLevel ("Level1");
 	}
 
+	public void HandleClickedLevelsButton ()
+	{
+		//Application.LoadLevel ("LevelMenu");
+		Application.LoadLevel ("Levels");
+	}
+
 	public void HandleClickedAbout ()
 	{
 		//Application.LoadLevel ("About");
