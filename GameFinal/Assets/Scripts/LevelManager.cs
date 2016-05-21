@@ -18,6 +18,15 @@ public class LevelManager : MonoBehaviour
 	public Text numOfAvailableLevelBlocks;
 	public Text nextBlockTime;
 	public Button nextLevel;
+	public Button replayLevel;
+	public Button menu;
+	public Button startGame;
+	public Button pause;
+	public Image threeStars;
+	public Image twoStars;
+	public Image oneStar;
+	public Image circle;
+
 	public static int minutesForNextBlock = 2;
 	public static int secondsForNextBlock = 0;
 	private bool isChangeFillTime;
@@ -27,13 +36,23 @@ public class LevelManager : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{	
+
+		numOfTotalBlocks.GetComponent<Text> ().enabled = true;
+		//nextBlockTime.GetComponent<Text> ().enabled = true;
 		won = false;
 		MarbleCollision.kindOfBlock = new int[3];
 //		secondsForNextBlock = 11;
 //		minutesForNextBlock = 0;
 		isChangeFillTime = true;
 		nextLevel.gameObject.SetActive (false);
+		replayLevel.gameObject.SetActive (false);
+		menu.gameObject.SetActive (false);
+		pause.gameObject.SetActive (true);
+		startGame.gameObject.SetActive (true);
 		scoreText.GetComponent<Text> ().enabled = false;
+		threeStars.GetComponent<Image> ().enabled = false;
+		twoStars.GetComponent<Image> ().enabled = false;
+		oneStar.GetComponent<Image> ().enabled = false;
 	}
 
 	// Update is called once per frame
@@ -51,6 +70,9 @@ public class LevelManager : MonoBehaviour
 			currentNewBlock = null; 
 		}
 		numOfTotalBlocks.text = "x" + GameControl.control.numOfBlocks;
+
+		if(GameControl.control.numOfBlocks < 10){
+			nextBlockTime.GetComponent<Text> ().enabled = true;
 		if(secondsForNextBlock < 10){
 			nextBlockTime.text = "More in "+ minutesForNextBlock + ":" + "0" + secondsForNextBlock ;
 		}else{
@@ -58,6 +80,13 @@ public class LevelManager : MonoBehaviour
 		}
 		if(isChangeFillTime){
 		StartCoroutine (FillCircle ());
+			}
+		}
+		else{
+			nextBlockTime.GetComponent<Text> ().enabled = false;
+			barScript.secondsOver = 0;
+			minutesForNextBlock = 2;
+			secondsForNextBlock = 0;
 		}
 	}
 
@@ -98,6 +127,7 @@ public class LevelManager : MonoBehaviour
 //		PointsCalc ();
 		//Debug.Log(getCurrentLeverIndex());
 		PointScripts.setPointInLevel(getCurrentLeverIndex());
+		scoreText.text = "" + PointScripts.currentPoints;
 		StartCoroutine (levelCompleted ());
 	//	Instantiate (goodJob, new Vector2 (0f, 0f), Quaternion.identity);
 	}
@@ -105,7 +135,31 @@ public class LevelManager : MonoBehaviour
 	public IEnumerator levelCompleted() {
 		yield return new WaitForSeconds (2f);
 		nextLevel.gameObject.SetActive (true);
+		replayLevel.gameObject.SetActive (true);
+		menu.gameObject.SetActive (true);
+		pause.gameObject.SetActive (false);
+		startGame.gameObject.SetActive (false);
+		nextBlockTime.GetComponent<Text> ().enabled = false;
+		numOfTotalBlocks.GetComponent<Text> ().enabled = false;
+		scoreText.GetComponent<Text> ().enabled = true;
+		printStarsImage(PointScripts.currentStars);
+		circle.GetComponent<Image> ().enabled = false;
 		Instantiate (goodJob, new Vector2 (0f, 0f), Quaternion.identity);
+	}
+
+	public void printStarsImage(int numOfStars){
+		switch(numOfStars){
+		case 1:
+			oneStar.GetComponent<Image> ().enabled = true;
+			break;
+		case 2:
+			twoStars.GetComponent<Image> ().enabled = true;
+			break;
+		case 3:
+			threeStars.GetComponent<Image> ().enabled = true;
+			break;
+		}
+
 	}
 
 	public static int getCurrentLeverIndex(){

@@ -3,7 +3,10 @@ using System.Collections;
 
 public class PointScripts : MonoBehaviour
 {
-	
+
+	public static int currentPoints;
+	public static int currentStars;
+
 	// Use this for initialization
 	void Start ()
 	{
@@ -19,8 +22,7 @@ public class PointScripts : MonoBehaviour
 
 
 	public static void setPointInLevel (int level)
-	{
-		int currentPoints = 0;
+	{		
 		int numOfSmallBlock = MarbleCollision.kindOfBlock [0];
 		int numOfRegularBlock = MarbleCollision.kindOfBlock [1];
 		int numOfbigBlock = MarbleCollision.kindOfBlock [2];
@@ -61,19 +63,21 @@ public class PointScripts : MonoBehaviour
 				ChangeLevel.starsArray [level - 1] = 1;
 				GameControl.control.starsArray[level - 1] = 
 					Mathf.Max(GameControl.control.starsArray[level - 1], 1);
+				currentStars = 1;
 
 			} else if (points >= 2000 && points <= 2999) {
 				Debug.Log("4");
 				ChangeLevel.starsArray [level - 1] = 2;
 				GameControl.control.starsArray[level - 1] = 
 					Mathf.Max(GameControl.control.starsArray[level - 1], 2);
+				currentStars = 2;
 
 			} else if (points >= 3000) {
 				Debug.Log("5");
 				ChangeLevel.starsArray [level - 1] = 3;
 				GameControl.control.starsArray[level - 1] = 
 					Mathf.Max(GameControl.control.starsArray[level - 1], 3);
-
+				currentStars = 3;
 
 			}
 		} else if (level >= 2 || level <= 5) {
@@ -91,16 +95,19 @@ public class PointScripts : MonoBehaviour
 				ChangeLevel.starsArray [level - 1] = 1;
 				GameControl.control.starsArray [level - 1] = 
 					Mathf.Max (GameControl.control.starsArray [level - 1], 1);
+				currentStars = 1;
 
 			} else if (points >= 3000 && points <= 4999) {
 				ChangeLevel.starsArray [level - 1] = 2;
 				GameControl.control.starsArray[level - 1] = 
 					Mathf.Max (GameControl.control.starsArray [level - 1], 2);
+				currentStars = 2;
 
 			} else if (points >= 5000) {
 				ChangeLevel.starsArray [level - 1] = 3;
 				GameControl.control.starsArray[level - 1] = 
 					Mathf.Max (GameControl.control.starsArray [level - 1], 3);
+				currentStars = 3;
 			}
 			
 		} else if (level >= 6 && level <= 10) {
@@ -118,16 +125,19 @@ public class PointScripts : MonoBehaviour
 				ChangeLevel.starsArray [level - 1] = 1;
 				GameControl.control.starsArray [level - 1] = 
 					Mathf.Max (GameControl.control.starsArray [level - 1], 1);
+				currentStars = 1;
 
 			} else if (points >= 4000 && points <= 6999) {
 				ChangeLevel.starsArray [level - 1] = 2;
 				GameControl.control.starsArray [level - 1] = 
 					Mathf.Max (GameControl.control.starsArray [level - 1], 2);
+				currentStars = 2;
 
 			} else if (points >= 7000) {
 				ChangeLevel.starsArray [level - 1] = 3;
 				GameControl.control.starsArray [level - 1] = 
 					Mathf.Max (GameControl.control.starsArray [level - 1], 3);
+				currentStars = 3;
 			}
 			
 		} else if (level >= 11 && level <= 20) {			

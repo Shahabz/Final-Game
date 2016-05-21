@@ -4,7 +4,7 @@ using System.Collections;
 public class barScript : MonoBehaviour
 {
 	public Image bar;
-	private static float secondsOver = 0;
+	public static float secondsOver = 0;
 	public float NUM_OF_SECOND_TO_ADD_BLOCK = 120;
 	private bool isIncreaseBar = true;
 	public static int MAX_NUM_OF_BLOCK_TO_ICREASE = 10;
