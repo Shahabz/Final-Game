@@ -2,6 +2,7 @@
 using System.Collections;
 using UnityEngine.UI;
 using UnityEngine.Events;
+using System.Collections.Generic;
 
 public class LevelManager : MonoBehaviour
 {
@@ -126,11 +127,13 @@ public class LevelManager : MonoBehaviour
 	}
 
 	public void HandlePressLevelsButton(){
+		LastPlacedBlocks.lastBlocksList = new List<BlockData> ();
 		Application.LoadLevel ("Levels");
 	}
 
 	public void HandleMoveNextLevel (int level)
 	{
+		LastPlacedBlocks.lastBlocksList = new List<BlockData> ();
 		Application.LoadLevel ("Level" + level);		
 	}
 }

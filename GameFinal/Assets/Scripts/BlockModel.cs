@@ -37,13 +37,6 @@ public class BlockModel : MonoBehaviour
 		updateCollider = false;
 		gameObject.GetComponent<CircleCollider2D>().enabled = true;
 		gameObject.GetComponent<PolygonCollider2D>().enabled = false;
-	//	for (int i = 0; i < LevelManager.blocksSizes.Length; i++) {
-	//		if (LevelManager.blocksSizes [i].Equals ("")) {
-	//			blockIndex = i;
-	//			break;
-	//		}
-	//	}
-	//	LevelManager.blocksSizes [blockIndex] = "regular";
 	}
 	// Update is called once per frame
 	void Update ()
@@ -61,7 +54,7 @@ public class BlockModel : MonoBehaviour
 			gameObject.GetComponent<CircleCollider2D>().enabled = false;
 			//GetComponent<CircleCollider2D> ();
 			gameObject.GetComponent<PolygonCollider2D> ().enabled = true;
-
+			saveBlockInList ();
 //			Destroy(gameObject.GetComponent<PolygonCollider2D> ());
 //			gameObject.AddComponent<PolygonCollider2D> ();
 			isPressed = false;
@@ -90,13 +83,10 @@ public class BlockModel : MonoBehaviour
 	{
 		if (currBlock == smallBlock) {			
 			currBlock = regularBlock;
-	//		LevelManager.blocksSizes [blockIndex] = "regular";
 		} else if (currBlock == bigBlock) {			
 			currBlock = bigBlock;
-	//		LevelManager.blocksSizes [blockIndex] = "big";
 		} else if (currBlock == regularBlock) {			
 			currBlock = bigBlock;
-	//		LevelManager.blocksSizes [blockIndex] = "big";
 		}
 
 		blockSprite.sprite = currBlock;
@@ -107,13 +97,10 @@ public class BlockModel : MonoBehaviour
 	{
 		if (currBlock == smallBlock) {
 			currBlock = smallBlock;
-	//		LevelManager.blocksSizes [blockIndex] = "small";
 		} else if (currBlock == bigBlock) {			
 			currBlock = regularBlock;
-	//		LevelManager.blocksSizes [blockIndex] = "regular";
 		} else if (currBlock == regularBlock) {
 			currBlock = smallBlock;
-	//		LevelManager.blocksSizes [blockIndex] = "small";
 		}
 		blockSprite.sprite = currBlock;
 //		Destroy (GetComponent<PolygonCollider2D> ());
@@ -139,6 +126,12 @@ public class BlockModel : MonoBehaviour
 	public void HandleGameStarted ()
 	{
 		gameStarted = true;
+	}
+
+	public void saveBlockInList () {
+		BlockData myBlock = new BlockData (transform.position.x,
+			transform.position.y, currBlock.name, transform.rotation);
+		LastPlacedBlocks.lastBlocksList.Add (myBlock);
 	}
 		
 
