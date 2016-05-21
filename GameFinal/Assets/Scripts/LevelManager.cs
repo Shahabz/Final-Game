@@ -4,6 +4,8 @@ using UnityEngine.UI;
 using UnityEngine.Events;
 using System.Collections.Generic;
 
+
+
 public class LevelManager : MonoBehaviour
 {
 	public GameObject goodJob;
@@ -24,6 +26,7 @@ public class LevelManager : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{	
+		MarbleCollision.kindOfBlock = new int[3];
 //		secondsForNextBlock = 11;
 //		minutesForNextBlock = 0;
 		isChangeFillTime = true;
@@ -87,8 +90,37 @@ public class LevelManager : MonoBehaviour
 	{
 		nextLevel.gameObject.SetActive (true);
 		PointsCalc ();
+		PointScripts.setPointInLevel(getCurrentLeverIndex());
 		Instantiate (goodJob, new Vector2 (0f, 0f), Quaternion.identity);
 	}
+
+	public static int getCurrentLeverIndex(){
+		string levelName = Application.loadedLevelName;
+		switch(levelName){
+		case"Level1":
+			return 1;
+		case"Level2":
+			return 2;
+		case"Level3":
+			return 3;
+		case"Level4":
+			return 4;
+		case"Level5":
+			return 5;
+		case"Level6":
+			return 6;
+		case"Level7":
+			return 7;
+		case"Level8":
+			return 8;
+		case"Level9":
+			return 9;
+		case"Level10":
+			return 10;
+		}			
+		return 1;
+	}
+
 
 	public void HandleClickedForAnotherBlock ()
 	{		
