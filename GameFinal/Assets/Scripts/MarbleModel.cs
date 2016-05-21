@@ -13,16 +13,19 @@ public class MarbleModel : MonoBehaviour
 	public Vector2 arrowDirection;
 	public float marbleSpeed;
 	public UnityEvent outOfBounds;
+	private Animator marbleAnimator;
 
 	void Start ()
 	{
 		marble.GetComponent<Rigidbody2D> ().isKinematic = true;
+		marbleAnimator = marble.GetComponent<Animator> ();
 		//marble.transform.position = new Vector3 (-2f, -3f, 0f);
 	}
 
 	void Update ()
 	{
 		if (pressedStart) {
+			marbleAnimator.SetBool ("pressedStart", true);
 			
 			// uses addforce to push the marble so that the physics works, only needs to do this once 
 			// arrowDirection coordinates the direction is shot with the arrow direction
