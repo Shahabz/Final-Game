@@ -7,15 +7,21 @@ public class DestinationModel : MonoBehaviour {
 	private float speed = 0.04f;
 	private float startX;
 	private float startY;
+	private Animator crystalAnimator;
 
 	// Use this for initialization
 	void Start () {
 		startX = transform.position.x;
 		startY = transform.position.y;
+
+		crystalAnimator = gameObject.GetComponent<Animator> ();
 	}
 	
 	// Update is called once per frame
 	void Update () {
+
+		transform.Rotate (0, 0, 0.2f, Space.Self);
+
 		if (Application.loadedLevelName.Equals ("Level3")) {
 			if (moveVertical) {
 				MoveUpAndDown ();
@@ -49,6 +55,8 @@ public class DestinationModel : MonoBehaviour {
 	}
 
 	public void HandleWinLevel() {
+		transform.localScale = new Vector3 (0.6f, 0.6f, 1);
+		crystalAnimator.SetBool ("crystalHit", true);
 		speed = 0f;
 	}
 }

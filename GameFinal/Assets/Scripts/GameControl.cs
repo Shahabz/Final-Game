@@ -55,12 +55,12 @@ public class GameControl : MonoBehaviour {
 	}
 
 	// for debugging purposes only - show info on page...)
-	void OnGUI() 
-	{
-		GUI.Label (new Rect (100, 10, 100, 300), "Num of Blocks: " + numOfBlocks);
-		GUI.Label (new Rect (100, 40, 150, 300), "Stars level 1: " + starsArray[0]);
-		GUI.Label (new Rect (100, 80, 200, 300), "Stars level 2: " + starsArray [1]);
-	}
+//	void OnGUI() 
+//	{
+//		GUI.Label (new Rect (100, 10, 100, 300), "Num of Blocks: " + numOfBlocks);
+//		GUI.Label (new Rect (100, 40, 150, 300), "Stars level 1: " + starsArray[0]);
+//		GUI.Label (new Rect (100, 80, 200, 300), "Stars level 2: " + starsArray [1]);
+//	}
 }
 
 [Serializable]

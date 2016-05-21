@@ -46,7 +46,7 @@ public class MarbleModel : MonoBehaviour
 	public void HandleDestinationCollision ()
 	{
 		// freezes marble once it has reached its destination
-		marble.GetComponent<Rigidbody2D> ().isKinematic = true;
+		//marble.GetComponent<Rigidbody2D> ().isKinematic = true;
 
 		// insert win level and transition
 	}

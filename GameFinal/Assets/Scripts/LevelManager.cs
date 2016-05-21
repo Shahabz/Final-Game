@@ -21,11 +21,13 @@ public class LevelManager : MonoBehaviour
 	public static int minutesForNextBlock = 2;
 	public static int secondsForNextBlock = 0;
 	private bool isChangeFillTime;
+	private bool won;
 		
 
 	// Use this for initialization
 	void Start ()
 	{	
+		won = false;
 		MarbleCollision.kindOfBlock = new int[3];
 //		secondsForNextBlock = 11;
 //		minutesForNextBlock = 0;
@@ -83,17 +85,26 @@ public class LevelManager : MonoBehaviour
 
 	public void HandleOutOfBounds ()
 	{
-		GameControl.control.Save ();
-		Application.LoadLevel (Application.loadedLevel);
+		if (!won) {
+			GameControl.control.Save ();
+			Application.LoadLevel (Application.loadedLevel);
+		}
 	}
 
 	public void HandleWinLevel ()
 	{
+		won = true;
 		GameControl.control.Save ();
-		nextLevel.gameObject.SetActive (true);
 //		PointsCalc ();
 		//Debug.Log(getCurrentLeverIndex());
 		PointScripts.setPointInLevel(getCurrentLeverIndex());
+		StartCoroutine (levelCompleted ());
+	//	Instantiate (goodJob, new Vector2 (0f, 0f), Quaternion.identity);
+	}
+
+	public IEnumerator levelCompleted() {
+		yield return new WaitForSeconds (2f);
+		nextLevel.gameObject.SetActive (true);
 		Instantiate (goodJob, new Vector2 (0f, 0f), Quaternion.identity);
 	}
 
