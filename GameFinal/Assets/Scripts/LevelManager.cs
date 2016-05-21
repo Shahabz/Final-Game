@@ -18,8 +18,8 @@ public class LevelManager : MonoBehaviour
 	public Text numOfAvailableLevelBlocks;
 	public Text nextBlockTime;
 	public Button nextLevel;
-	public static int minutesForNextBlock = 0;
-	public static int secondsForNextBlock = 11;
+	public static int minutesForNextBlock = 2;
+	public static int secondsForNextBlock = 0;
 	private bool isChangeFillTime;
 		
 
@@ -83,6 +83,7 @@ public class LevelManager : MonoBehaviour
 
 	public void HandleOutOfBounds ()
 	{
+		GameControl.control.Save ();
 		Application.LoadLevel (Application.loadedLevel);
 	}
 
