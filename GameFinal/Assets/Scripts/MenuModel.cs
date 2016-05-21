@@ -5,7 +5,7 @@ public class MenuModel : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-	
+		GameControl.control.Load ();
 	}
 	
 	// Update is called once per frame

@@ -36,6 +36,10 @@ public class PointScripts : MonoBehaviour
 		} else if (level >= 11 && level <= 20) {			
 		}
 		setNumOfStarsInLevel (currentPoints, level);
+
+		if (GameControl.control.starsArray [level] == -1) {
+			GameControl.control.starsArray [level] = 0;
+		}
 	}
 
 	public static void setNumOfStarsInLevel (int points, int level)
@@ -49,24 +53,26 @@ public class PointScripts : MonoBehaviour
 			} else if (points >= 1 && points <= 999) {
 				Debug.Log("2");
 				ChangeLevel.starsArray [level - 1] = 0;
-				GameControl.control.starsArray[level - 1] = 0;
+				GameControl.control.starsArray[level - 1] = 
+					Mathf.Max(GameControl.control.starsArray[level - 1], 0);
 
 			} else if (points >= 1000 && points <= 1999) {
 				Debug.Log("3");
 				ChangeLevel.starsArray [level - 1] = 1;
-				GameControl.control.starsArray[level - 1] = 1;
+				GameControl.control.starsArray[level - 1] = 
+					Mathf.Max(GameControl.control.starsArray[level - 1], 1);
 
 			} else if (points >= 2000 && points <= 2999) {
 				Debug.Log("4");
 				ChangeLevel.starsArray [level - 1] = 2;
-				GameControl.control.starsArray[level - 1] = 2;
+				GameControl.control.starsArray[level - 1] = 
+					Mathf.Max(GameControl.control.starsArray[level - 1], 2);
 
 			} else if (points >= 3000) {
 				Debug.Log("5");
 				ChangeLevel.starsArray [level - 1] = 3;
-				GameControl.control.starsArray[level - 1] = 3;
-				Debug.Log(ChangeLevel.starsArray [level - 1] );
-				Debug.Log(GameControl.control.starsArray[level - 1] );
+				GameControl.control.starsArray[level - 1] = 
+					Mathf.Max(GameControl.control.starsArray[level - 1], 3);
 
 
 			}
@@ -74,45 +80,54 @@ public class PointScripts : MonoBehaviour
 			
 			if (points <= 0) {
 				ChangeLevel.starsArray [level - 1] = -1;
-				GameControl.control.starsArray[level - 1] = -1;
+				GameControl.control.starsArray [level - 1] = -1; 
 
 			} else if (points >= 1 && points <= 1999) {
 				ChangeLevel.starsArray [level - 1] = 0;
-				GameControl.control.starsArray[level - 1] = 0;
+				GameControl.control.starsArray[level - 1] = 
+					Mathf.Max(GameControl.control.starsArray[level - 1], 0);
+
 			} else if (points >= 2000 && points <= 2999) {
 				ChangeLevel.starsArray [level - 1] = 1;
-				GameControl.control.starsArray[level - 1] = 1;
+				GameControl.control.starsArray [level - 1] = 
+					Mathf.Max (GameControl.control.starsArray [level - 1], 1);
 
 			} else if (points >= 3000 && points <= 4999) {
 				ChangeLevel.starsArray [level - 1] = 2;
-				GameControl.control.starsArray[level - 1] = 2;
+				GameControl.control.starsArray[level - 1] = 
+					Mathf.Max (GameControl.control.starsArray [level - 1], 2);
 
 			} else if (points >= 5000) {
 				ChangeLevel.starsArray [level - 1] = 3;
-				GameControl.control.starsArray[level - 1] = 3;
+				GameControl.control.starsArray[level - 1] = 
+					Mathf.Max (GameControl.control.starsArray [level - 1], 3);
 			}
 			
 		} else if (level >= 6 && level <= 10) {
 			
 			if (points <= 0) {
 				ChangeLevel.starsArray [level - 1] = -1;
-				GameControl.control.starsArray[level - 1] = -1;
+				GameControl.control.starsArray [level - 1] = -1;
 
 			} else if (points >= 1 && points <= 2999) {
 				ChangeLevel.starsArray [level - 1] = 0;
-				GameControl.control.starsArray[level - 1] = 0;
+				GameControl.control.starsArray [level - 1] = 
+					Mathf.Max (GameControl.control.starsArray [level - 1], 0);
 
 			} else if (points >= 3000 && points <= 3999) {
 				ChangeLevel.starsArray [level - 1] = 1;
-				GameControl.control.starsArray[level - 1] = 1;
+				GameControl.control.starsArray [level - 1] = 
+					Mathf.Max (GameControl.control.starsArray [level - 1], 1);
 
 			} else if (points >= 4000 && points <= 6999) {
 				ChangeLevel.starsArray [level - 1] = 2;
-				GameControl.control.starsArray[level - 1] = 2;
+				GameControl.control.starsArray [level - 1] = 
+					Mathf.Max (GameControl.control.starsArray [level - 1], 2);
 
 			} else if (points >= 7000) {
 				ChangeLevel.starsArray [level - 1] = 3;
-				GameControl.control.starsArray[level - 1] = 3;
+				GameControl.control.starsArray [level - 1] = 
+					Mathf.Max (GameControl.control.starsArray [level - 1], 3);
 			}
 			
 		} else if (level >= 11 && level <= 20) {			

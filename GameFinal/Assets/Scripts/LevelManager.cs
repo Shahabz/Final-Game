@@ -88,6 +88,7 @@ public class LevelManager : MonoBehaviour
 
 	public void HandleWinLevel ()
 	{
+		GameControl.control.Save ();
 		nextLevel.gameObject.SetActive (true);
 //		PointsCalc ();
 		//Debug.Log(getCurrentLeverIndex());

@@ -11,3 +11,16 @@
 /Users/noynisanov/Desktop/GameFinal/Temp/bin/Debug/Unity.CecilTools.dll
 /Users/noynisanov/Desktop/GameFinal/Temp/bin/Debug/Mono.Cecil.Pdb.dll
 /Users/noynisanov/Desktop/GameFinal/Temp/bin/Debug/Mono.Cecil.Mdb.dll
+/Users/rotemshaul/Desktop/GameFinal/Temp/bin/Debug/UnityEngine.dll
+/Users/rotemshaul/Desktop/GameFinal/Temp/bin/Debug/UnityEditor.dll
+/Users/rotemshaul/Desktop/GameFinal/Temp/bin/Debug/UnityEngine.UI.dll
+/Users/rotemshaul/Desktop/GameFinal/Temp/bin/Debug/UnityEngine.Networking.dll
+/Users/rotemshaul/Desktop/GameFinal/Temp/bin/Debug/Mono.Cecil.dll
+/Users/rotemshaul/Desktop/GameFinal/Temp/bin/Debug/Unity.SerializationLogic.dll
+/Users/rotemshaul/Desktop/GameFinal/Temp/bin/Debug/Unity.DataContract.dll
+/Users/rotemshaul/Desktop/GameFinal/Temp/bin/Debug/ICSharpCode.NRefactory.dll
+/Users/rotemshaul/Desktop/GameFinal/Temp/bin/Debug/Unity.UNetWeaver.dll
+/Users/rotemshaul/Desktop/GameFinal/Temp/bin/Debug/Unity.UNetWeaver.dll.mdb
+/Users/rotemshaul/Desktop/GameFinal/Temp/bin/Debug/Unity.CecilTools.dll
+/Users/rotemshaul/Desktop/GameFinal/Temp/bin/Debug/Mono.Cecil.Pdb.dll
+/Users/rotemshaul/Desktop/GameFinal/Temp/bin/Debug/Mono.Cecil.Mdb.dll
