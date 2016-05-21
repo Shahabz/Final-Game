@@ -15,6 +15,8 @@ public class ChangeLevel : MonoBehaviour
 	void Start ()
 	{		
 		HandleCheckLevelsStars();
+		GameControl.control.starsArray[0] = -1;		
+		GameControl.control.starsArray[2] = -1;		
 		starsText.text =  numOfGainedStars +  "/" + ((numOfLevels - numOfCloseLevel) * 3);
 	}
 
@@ -34,7 +36,7 @@ public class ChangeLevel : MonoBehaviour
 		switch (numOfStars) {
 		case -1:
 			button.GetComponent<Image> ().sprite = Resources.Load<Sprite> ("Levels/lockLevel");
-			button.GetComponent<Button>().interactable = false;
+			button.GetComponent<Button>().enabled = false;
 			numOfCloseLevel++;
 			break;
 		
