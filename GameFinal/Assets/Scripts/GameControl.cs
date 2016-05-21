@@ -20,6 +20,7 @@ public class GameControl : MonoBehaviour {
 			for(int i = 1; i < 10; i++) {
 				starsArray[i] = -1;
 			}
+			numOfBlocks = 20;
 		} else if (control != this) {
 			Destroy (gameObject);
 		}

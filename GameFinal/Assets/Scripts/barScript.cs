@@ -17,7 +17,7 @@ public class barScript : MonoBehaviour
 	void Update ()
 	{		
 		bar.fillAmount = secondsOver / (NUM_OF_SECOND_TO_ADD_BLOCK);	
-		if (isIncreaseBar && LevelManager.numOfBlocks < MAX_NUM_OF_BLOCK_TO_ICREASE) {
+		if (isIncreaseBar && GameControl.control.numOfBlocks < MAX_NUM_OF_BLOCK_TO_ICREASE) {
 			StartCoroutine (IncreaseBar ());
 		}
 	}
@@ -32,7 +32,7 @@ public class barScript : MonoBehaviour
 		}
 		isIncreaseBar = true;
 		if (secondsOver == NUM_OF_SECOND_TO_ADD_BLOCK) {
-			LevelManager.numOfBlocks++;
+			GameControl.control.numOfBlocks++;
 			//LevelManager.numOfLeftBlocks = 
 			//	Mathf.Min (LevelManager.numOfBlocks - LevelManager.numOfUsedBlocks, LevelManager.numOfLevelBlocks - LevelManager.numOfUsedBlocks);
 		}

@@ -11,7 +11,7 @@ public class LevelManager : MonoBehaviour
 	public GameObject goodJob;
 	public GameObject newBlock;
 	public GameObject currentNewBlock;
-	public static int numOfBlocks = 3;
+	//public static int numOfBlocks = 20;
 	//public static string[] blocksSizes;
 	public Text scoreText;
 	public Text numOfTotalBlocks;
@@ -48,7 +48,7 @@ public class LevelManager : MonoBehaviour
 			}
 			currentNewBlock = null; 
 		}
-		numOfTotalBlocks.text = "x" + numOfBlocks;
+		numOfTotalBlocks.text = "x" + GameControl.control.numOfBlocks;
 		if(secondsForNextBlock < 10){
 			nextBlockTime.text = "More in "+ minutesForNextBlock + ":" + "0" + secondsForNextBlock ;
 		}else{
@@ -64,7 +64,7 @@ public class LevelManager : MonoBehaviour
 		isChangeFillTime = false;
 		yield return new WaitForSeconds (1f);
 		if (0 == secondsForNextBlock) {
-			if(numOfBlocks < barScript.MAX_NUM_OF_BLOCK_TO_ICREASE){
+			if(GameControl.control.numOfBlocks < barScript.MAX_NUM_OF_BLOCK_TO_ICREASE){
 			secondsForNextBlock = 59;
 			if(minutesForNextBlock == 0){				
 				minutesForNextBlock = 2;			
@@ -126,9 +126,9 @@ public class LevelManager : MonoBehaviour
 
 	public void HandleClickedForAnotherBlock ()
 	{		
-		if (numOfBlocks > 0) {
+		if (GameControl.control.numOfBlocks > 0) {
 			currentNewBlock = (GameObject)Instantiate (newBlock, new Vector2 (-2.5f, -4.7f), Quaternion.identity);		
-			numOfBlocks--;
+			GameControl.control.numOfBlocks--;
 		}
 	}
 

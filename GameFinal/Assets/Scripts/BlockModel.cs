@@ -45,7 +45,7 @@ public class BlockModel : MonoBehaviour
 			Destroy(gameObject);
 			Destroy (ring);
 			isPressed = false;
-			LevelManager.numOfBlocks++;
+			GameControl.control.numOfBlocks++;
 			inStash = false;
 		}
 
@@ -181,7 +181,7 @@ public class BlockModel : MonoBehaviour
 			Destroy (gameObject);
 			Destroy (ring);
 			isPressed = false;
-			LevelManager.numOfBlocks++;
+			GameControl.control.numOfBlocks++;
 			//LevelManager.numOfLeftBlocks++;
 			//LevelManager.numOfUsedBlocks--;
 		}			
