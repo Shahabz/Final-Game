@@ -16,6 +16,10 @@ public class GameControl : MonoBehaviour {
 		if (control == null) {
 			DontDestroyOnLoad (gameObject);
 			control = this;
+			starsArray[0] = 0;
+			for(int i = 1; i < 10; i++) {
+				starsArray[i] = -1;
+			}
 		} else if (control != this) {
 			Destroy (gameObject);
 		}

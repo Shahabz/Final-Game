@@ -21,7 +21,8 @@ public class ChangeLevel : MonoBehaviour
 	public void HandleCheckLevelsStars ()
 	{
 		for (int i = 0; i < numOfLevels; i++) {
-			setLevelImage(buttonsArray[i], starsArray[i]);
+//			setLevelImage(buttonsArray[i], starsArray[i]);
+			setLevelImage(buttonsArray[i], GameControl.control.starsArray[i]);
 		}
 	}
 
