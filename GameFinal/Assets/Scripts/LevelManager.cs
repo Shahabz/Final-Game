@@ -89,7 +89,8 @@ public class LevelManager : MonoBehaviour
 	public void HandleWinLevel ()
 	{
 		nextLevel.gameObject.SetActive (true);
-		PointsCalc ();
+//		PointsCalc ();
+		//Debug.Log(getCurrentLeverIndex());
 		PointScripts.setPointInLevel(getCurrentLeverIndex());
 		Instantiate (goodJob, new Vector2 (0f, 0f), Quaternion.identity);
 	}

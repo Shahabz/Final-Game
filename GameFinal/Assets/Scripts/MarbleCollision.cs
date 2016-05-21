@@ -26,6 +26,7 @@ public class MarbleCollision : MonoBehaviour
 		yield return new WaitForSeconds (0.01f);
 //		Debug.Log( other.GetComponent<SpriteRenderer>().sprite.name);
 		addKindOfBlock(other.GetComponent<SpriteRenderer>().sprite.name);
+//		Debug.Log(kindOfBlock[0] + " " + kindOfBlock[1] + " " + kindOfBlock[2]);	
 		Destroy (other);
 	}
 

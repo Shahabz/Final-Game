@@ -24,6 +24,9 @@ public class PointScripts : MonoBehaviour
 		int numOfSmallBlock = MarbleCollision.kindOfBlock [0];
 		int numOfRegularBlock = MarbleCollision.kindOfBlock [1];
 		int numOfbigBlock = MarbleCollision.kindOfBlock [2];
+		//Debug.Log(numOfbigBlock + " " + numOfRegularBlock+ " " +numOfSmallBlock);
+
+
 		if (level == 1) {
 			currentPoints = numOfSmallBlock * 4000 + numOfRegularBlock * 3000 + numOfbigBlock * 1000;
 		} else if (level >= 2 || level <= 5) {
@@ -32,7 +35,8 @@ public class PointScripts : MonoBehaviour
 			currentPoints = numOfSmallBlock * 7000 + numOfRegularBlock * 4000 + numOfbigBlock * 3000;
 		} else if (level >= 11 || level <= 20) {			
 		}
-
+//		Debug.Log(currentPoints);
+//		Debug.Log(level);
 		setNumOfStarsInLevel (currentPoints, level);
 	}
 
