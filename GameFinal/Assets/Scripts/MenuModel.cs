@@ -5,7 +5,12 @@ public class MenuModel : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		GameControl.control.Load ();
+
+		// FOR REAL VERSION: use load() here
+		// FOR DEBUGGING: use save() here
+
+		GameControl.control.Save ();
+		//GameControl.control.Load ();
 	}
 	
 	// Update is called once per frame
@@ -15,15 +20,15 @@ public class MenuModel : MonoBehaviour {
 
 	public void HandleClickedPlay ()
 	{
-		//Application.LoadLevel ("LevelMenu");
-		Application.LoadLevel ("Level1");
+		Application.LoadLevel ("Levels");
+		//Application.LoadLevel ("Level1");
 	}
 
-	public void HandleClickedLevelsButton ()
-	{
-		//Application.LoadLevel ("LevelMenu");
-		Application.LoadLevel ("Levels");
-	}
+//	public void HandleClickedLevelsButton ()
+//	{
+//		//Application.LoadLevel ("LevelMenu");
+//		Application.LoadLevel ("Levels");
+//	}
 
 	public void HandleClickedAbout ()
 	{

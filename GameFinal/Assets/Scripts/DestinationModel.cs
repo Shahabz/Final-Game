@@ -22,7 +22,7 @@ public class DestinationModel : MonoBehaviour {
 
 		transform.Rotate (0, 0, 0.2f, Space.Self);
 
-		if (Application.loadedLevelName.Equals ("Level3")) {
+		if (Application.loadedLevelName.Equals ("Level7")) {
 			if (moveVertical) {
 				MoveUpAndDown ();
 			} else
