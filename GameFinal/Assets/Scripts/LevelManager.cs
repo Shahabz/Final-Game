@@ -26,6 +26,13 @@ public class LevelManager : MonoBehaviour
 	public Image twoStars;
 	public Image oneStar;
 	public Image circle;
+	public GameObject tutorial1;
+	public GameObject tutorial12;
+	public GameObject tutorial13;
+	public GameObject placeBlockHere;
+	public GameObject placeBlockHere2;
+	public GameObject tutorial2;
+	public GameObject tutorial21;
 
 	public static int minutesForNextBlock = 2;
 	public static int secondsForNextBlock = 0;
@@ -36,7 +43,17 @@ public class LevelManager : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{	
-
+		if (getCurrentLeverIndex () == 1) {
+			placeBlockHere.GetComponent<SpriteRenderer> ().enabled = false;
+			placeBlockHere2.GetComponent<SpriteRenderer> ().enabled = false;
+			Instantiate(tutorial1, new Vector2 (0, 0), Quaternion.identity);
+			StartCoroutine (continueTutorial ());
+		}
+		if (getCurrentLeverIndex () == 2) {
+			placeBlockHere.GetComponent<SpriteRenderer> ().enabled = false;
+			Instantiate(tutorial2, new Vector2 (0, 0), Quaternion.identity);
+			StartCoroutine (continueTutorial2 ());
+		}
 		numOfTotalBlocks.GetComponent<Text> ().enabled = true;
 		//nextBlockTime.GetComponent<Text> ().enabled = true;
 		won = false;
@@ -55,6 +72,30 @@ public class LevelManager : MonoBehaviour
 		oneStar.GetComponent<Image> ().enabled = false;
 	}
 
+	public IEnumerator continueTutorial() {
+		yield return new WaitForSeconds (5f);
+		placeBlockHere.GetComponent<SpriteRenderer> ().enabled = true;
+
+		yield return new WaitForSeconds(4f);
+		placeBlockHere.GetComponent<SpriteRenderer> ().enabled = false;
+		Instantiate(tutorial12, new Vector2 (0, 0), Quaternion.identity);
+
+		yield return new WaitForSeconds(9f);
+		placeBlockHere2.GetComponent<SpriteRenderer> ().enabled = true;
+
+		yield return new WaitForSeconds(6f);
+		placeBlockHere2.GetComponent<SpriteRenderer> ().enabled = false;
+		Instantiate(tutorial13, new Vector2 (0, 0), Quaternion.identity);
+
+	}
+
+	public IEnumerator continueTutorial2() {
+		yield return new WaitForSeconds (6f);
+		placeBlockHere.GetComponent<SpriteRenderer> ().enabled = true;
+		yield return new WaitForSeconds (6f);
+		placeBlockHere.GetComponent<SpriteRenderer> ().enabled = false;
+		Instantiate(tutorial21, new Vector2 (0, 0), Quaternion.identity);
+	}
 	// Update is called once per frame
 	void Update ()
 	{

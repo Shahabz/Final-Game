@@ -15,8 +15,6 @@ public class ChangeLevel : MonoBehaviour
 	void Start ()
 	{		
 		HandleCheckLevelsStars();
-		GameControl.control.starsArray[0] = -1;		
-		GameControl.control.starsArray[2] = -1;		
 		starsText.text =  numOfGainedStars +  "/" + ((numOfLevels - numOfCloseLevel) * 3);
 	}
 
