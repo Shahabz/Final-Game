@@ -9,8 +9,8 @@ public class MenuModel : MonoBehaviour {
 		// FOR REAL VERSION: use load() here
 		// FOR DEBUGGING: use save() here
 
-		GameControl.control.Save ();
-		//GameControl.control.Load ();
+		//GameControl.control.Save ();
+		GameControl.control.Load ();
 	}
 	
 	// Update is called once per frame

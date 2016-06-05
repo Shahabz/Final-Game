@@ -8,6 +8,7 @@ public class DestinationModel : MonoBehaviour {
 	private float startX;
 	private float startY;
 	private Animator crystalAnimator;
+	public static bool playCrystalShatter = false;
 
 	// Use this for initialization
 	void Start () {
@@ -56,6 +57,7 @@ public class DestinationModel : MonoBehaviour {
 
 	public void HandleWinLevel() {
 		transform.localScale = new Vector3 (0.6f, 0.6f, 1);
+		playCrystalShatter = true;
 		crystalAnimator.SetBool ("crystalHit", true);
 		speed = 0f;
 	}

@@ -26,34 +26,19 @@ public class LevelManager : MonoBehaviour
 	public Image twoStars;
 	public Image oneStar;
 	public Image circle;
-	public GameObject tutorial1;
-	public GameObject tutorial12;
-	public GameObject tutorial13;
-	public GameObject placeBlockHere;
-	public GameObject placeBlockHere2;
-	public GameObject tutorial2;
-	public GameObject tutorial21;
 
 	public static int minutesForNextBlock = 2;
 	public static int secondsForNextBlock = 0;
 	private bool isChangeFillTime;
 	private bool won;
+
+
 		
 
 	// Use this for initialization
 	void Start ()
 	{	
-		if (getCurrentLeverIndex () == 1) {
-			placeBlockHere.GetComponent<SpriteRenderer> ().enabled = false;
-			placeBlockHere2.GetComponent<SpriteRenderer> ().enabled = false;
-			Instantiate(tutorial1, new Vector2 (0, 0), Quaternion.identity);
-			StartCoroutine (continueTutorial ());
-		}
-		if (getCurrentLeverIndex () == 2) {
-			placeBlockHere.GetComponent<SpriteRenderer> ().enabled = false;
-			Instantiate(tutorial2, new Vector2 (0, 0), Quaternion.identity);
-			StartCoroutine (continueTutorial2 ());
-		}
+		
 		numOfTotalBlocks.GetComponent<Text> ().enabled = true;
 		//nextBlockTime.GetComponent<Text> ().enabled = true;
 		won = false;
@@ -72,33 +57,13 @@ public class LevelManager : MonoBehaviour
 		oneStar.GetComponent<Image> ().enabled = false;
 	}
 
-	public IEnumerator continueTutorial() {
-		yield return new WaitForSeconds (5f);
-		placeBlockHere.GetComponent<SpriteRenderer> ().enabled = true;
 
-		yield return new WaitForSeconds(4f);
-		placeBlockHere.GetComponent<SpriteRenderer> ().enabled = false;
-		Instantiate(tutorial12, new Vector2 (0, 0), Quaternion.identity);
-
-		yield return new WaitForSeconds(9f);
-		placeBlockHere2.GetComponent<SpriteRenderer> ().enabled = true;
-
-		yield return new WaitForSeconds(6f);
-		placeBlockHere2.GetComponent<SpriteRenderer> ().enabled = false;
-		Instantiate(tutorial13, new Vector2 (0, 0), Quaternion.identity);
-
-	}
-
-	public IEnumerator continueTutorial2() {
-		yield return new WaitForSeconds (6f);
-		placeBlockHere.GetComponent<SpriteRenderer> ().enabled = true;
-		yield return new WaitForSeconds (6f);
-		placeBlockHere.GetComponent<SpriteRenderer> ().enabled = false;
-		Instantiate(tutorial21, new Vector2 (0, 0), Quaternion.identity);
-	}
 	// Update is called once per frame
 	void Update ()
 	{
+
+
+
 		if (Input.GetMouseButton (0) && currentNewBlock) {
 			currentNewBlock.transform.position = new Vector3 (Camera.main.ScreenToWorldPoint (Input.mousePosition).x, 
 				Camera.main.ScreenToWorldPoint (Input.mousePosition).y, 10f); 
@@ -107,28 +72,30 @@ public class LevelManager : MonoBehaviour
 			if (7.15f < currentNewBlock.transform.position.x && currentNewBlock.transform.position.x < 8.62f && -4.75f < currentNewBlock.transform.position.y && currentNewBlock.transform.position.y < -3.24f) {
 				//Destroy (currentNewBlock.gameObject);
 				BlockModel.inStash = true;
-			}
+			}				
+
 			currentNewBlock = null; 
 		}
 		numOfTotalBlocks.text = "x" + GameControl.control.numOfBlocks;
 
-		if(GameControl.control.numOfBlocks < 10){
+		if (GameControl.control.numOfBlocks < 10) {
 			nextBlockTime.GetComponent<Text> ().enabled = true;
-		if(secondsForNextBlock < 10){
-			nextBlockTime.text = "More in "+ minutesForNextBlock + ":" + "0" + secondsForNextBlock ;
-		}else{
-			nextBlockTime.text = "More in "+ minutesForNextBlock + ":" + secondsForNextBlock;
-		}
-		if(isChangeFillTime){
-		StartCoroutine (FillCircle ());
+			if (secondsForNextBlock < 10) {
+				nextBlockTime.text = "More in " + minutesForNextBlock + ":" + "0" + secondsForNextBlock;
+			} else {
+				nextBlockTime.text = "More in " + minutesForNextBlock + ":" + secondsForNextBlock;
 			}
-		}
-		else{
+			if (isChangeFillTime) {
+				StartCoroutine (FillCircle ());
+			}
+		} else {
 			nextBlockTime.GetComponent<Text> ().enabled = false;
 			barScript.secondsOver = 0;
 			minutesForNextBlock = 2;
 			secondsForNextBlock = 0;
 		}
+			
+
 	}
 
 	public IEnumerator FillCircle ()
@@ -136,17 +103,17 @@ public class LevelManager : MonoBehaviour
 		isChangeFillTime = false;
 		yield return new WaitForSeconds (1f);
 		if (0 == secondsForNextBlock) {
-			if(GameControl.control.numOfBlocks < barScript.MAX_NUM_OF_BLOCK_TO_ICREASE){
-			secondsForNextBlock = 59;
-			if(minutesForNextBlock == 0){				
-				minutesForNextBlock = 2;			
-				secondsForNextBlock = 0;
+			if (GameControl.control.numOfBlocks < barScript.MAX_NUM_OF_BLOCK_TO_ICREASE) {
+				secondsForNextBlock = 59;
+				if (minutesForNextBlock == 0) {				
+					minutesForNextBlock = 2;			
+					secondsForNextBlock = 0;
 				
-			}else{
-				minutesForNextBlock--;
+				} else {
+					minutesForNextBlock--;
+				}
 			}
-		}
-		}else{			
+		} else {			
 			secondsForNextBlock--;			
 		}
 		isChangeFillTime = true;
@@ -167,13 +134,14 @@ public class LevelManager : MonoBehaviour
 		GameControl.control.Save ();
 //		PointsCalc ();
 		//Debug.Log(getCurrentLeverIndex());
-		PointScripts.setPointInLevel(getCurrentLeverIndex());
+		PointScripts.setPointInLevel (getCurrentLeverIndex ());
 		scoreText.text = "" + PointScripts.currentPoints;
 		StartCoroutine (levelCompleted ());
-	//	Instantiate (goodJob, new Vector2 (0f, 0f), Quaternion.identity);
+		//	Instantiate (goodJob, new Vector2 (0f, 0f), Quaternion.identity);
 	}
 
-	public IEnumerator levelCompleted() {
+	public IEnumerator levelCompleted ()
+	{
 		yield return new WaitForSeconds (2f);
 		nextLevel.gameObject.SetActive (true);
 		replayLevel.gameObject.SetActive (true);
@@ -183,13 +151,15 @@ public class LevelManager : MonoBehaviour
 		nextBlockTime.GetComponent<Text> ().enabled = false;
 		numOfTotalBlocks.GetComponent<Text> ().enabled = false;
 		scoreText.GetComponent<Text> ().enabled = true;
-		printStarsImage(PointScripts.currentStars);
+		printStarsImage (PointScripts.currentStars);
 		circle.GetComponent<Image> ().enabled = false;
 		Instantiate (goodJob, new Vector2 (0f, 0f), Quaternion.identity);
+			
 	}
 
-	public void printStarsImage(int numOfStars){
-		switch(numOfStars){
+	public void printStarsImage (int numOfStars)
+	{
+		switch (numOfStars) {
 		case 1:
 			oneStar.GetComponent<Image> ().enabled = true;
 			break;
@@ -203,9 +173,10 @@ public class LevelManager : MonoBehaviour
 
 	}
 
-	public static int getCurrentLeverIndex(){
+	public static int getCurrentLeverIndex ()
+	{
 		string levelName = Application.loadedLevelName;
-		switch(levelName){
+		switch (levelName) {
 		case"Level1":
 			return 1;
 		case"Level2":
@@ -248,18 +219,18 @@ public class LevelManager : MonoBehaviour
 		int decreaseRegular = (int)(0.75 * decreaseBig);
 		int decreaseSmall = decreaseBig / 2;
 		int count = 0;
-	//	for (int i = 0; i < blocksSizes.Length; i++) {
-	//		if (blocksSizes [i].Equals ("big")) {
-	//			points -= decreaseBig;
-	//			count++;
-	//		} else if (blocksSizes [i].Equals ("regular")) {
-	//			points -= decreaseRegular;
-	//			count++;
-	//		} else if (blocksSizes [i].Equals ("small")) {
-	//			points -= decreaseSmall;
-	//			count++;
-	//		}
-	//	}
+		//	for (int i = 0; i < blocksSizes.Length; i++) {
+		//		if (blocksSizes [i].Equals ("big")) {
+		//			points -= decreaseBig;
+		//			count++;
+		//		} else if (blocksSizes [i].Equals ("regular")) {
+		//			points -= decreaseRegular;
+		//			count++;
+		//		} else if (blocksSizes [i].Equals ("small")) {
+		//			points -= decreaseSmall;
+		//			count++;
+		//		}
+		//	}
 		if (count == 1) {
 			points += decreaseSmall;
 		}
@@ -267,7 +238,8 @@ public class LevelManager : MonoBehaviour
 		scoreText.text += " " + points;
 	}
 
-	public void HandlePressLevelsButton(){
+	public void HandlePressLevelsButton ()
+	{
 		LastPlacedBlocks.lastBlocksList = new List<BlockData> ();
 		Application.LoadLevel ("Levels");
 	}
@@ -277,4 +249,5 @@ public class LevelManager : MonoBehaviour
 		LastPlacedBlocks.lastBlocksList = new List<BlockData> ();
 		Application.LoadLevel ("Level" + level);		
 	}
+		
 }

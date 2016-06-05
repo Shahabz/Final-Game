@@ -8,12 +8,13 @@ public class MarbleCollision : MonoBehaviour
 	public UnityEvent winLevel;
 	public static int[] kindOfBlock;
 	public GameObject starParticles;
-
+	public static bool playMarbleHitsBlock = false;
 
 	void OnCollisionEnter2D (Collision2D other)
 	{		
 		if (other.gameObject.tag == "block") {
 			Vector3 blockPos = other.transform.position;
+			playMarbleHitsBlock = true;
 			Instantiate (starParticles, blockPos, other.transform.rotation);
 			StartCoroutine (DestroyBlock (other.gameObject));
 			//Destroy (other.gameObject);
