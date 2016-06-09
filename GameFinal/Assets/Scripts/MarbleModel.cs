@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEngine.Events;
 using System.Collections.Generic;
 using UnityEngine.UI;
+using System.Diagnostics;
 
 public class MarbleModel : MonoBehaviour
 {
@@ -53,7 +54,9 @@ public class MarbleModel : MonoBehaviour
 
 	public void HandlePressedStart ()
 	{
-		LevelManager.startTime = Time.deltaTime;
+		LevelManager.sw = new Stopwatch();
+		LevelManager.sw.Start();
+//		LevelManager.startTime = Time.deltaTime;
 		//Debug.Log(LevelManager.startTime);
 		StartCoroutine (WaitToStart ());
 		//pressedStart = true;

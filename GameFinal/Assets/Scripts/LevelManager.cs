@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEngine.UI;
 using UnityEngine.Events;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 
 
@@ -13,8 +14,10 @@ public class LevelManager : MonoBehaviour
 	public GameObject currentNewBlock;
 	public GameObject inventory;
 	public GameObject blockInInventory;
-	public static float startTime;
-	float endTime;
+
+	public static Stopwatch sw;
+//	public static float startTime;
+//	float endTime;
 	//public static int numOfBlocks = 20;
 	//public static string[] blocksSizes;
 	public Text scoreText;
@@ -140,14 +143,15 @@ public class LevelManager : MonoBehaviour
 
 	public void HandleWinLevel ()
 	{
-		endTime = Time.deltaTime;
+		sw.Stop();
+		//endTime = Time.deltaTime;
 //		Debug.Log(endTime);
 //		Debug.Log(endTime - startTime);
 		won = true;
 		GameControl.control.Save ();
 //		PointsCalc ();
 		//Debug.Log(getCurrentLeverIndex());
-		PointScripts.setPointInLevel (getCurrentLeverIndex (), endTime - startTime );
+		PointScripts.setPointInLevel (getCurrentLeverIndex (), sw.Elapsed.TotalSeconds);
 		//scoreText.text = "" + PointScripts.currentPoints;
 		StartCoroutine(ShowPoints());
 		StartCoroutine (levelCompleted ());
@@ -157,7 +161,7 @@ public class LevelManager : MonoBehaviour
 	public IEnumerator ShowPoints ()
 	{
 		int i = 0;
-		Debug.Log(PointScripts.currentPoints);
+		UnityEngine.Debug.Log(PointScripts.currentPoints);
 		do{
 			scoreText.text = "" + i;
 			i += 15;
@@ -187,7 +191,7 @@ public class LevelManager : MonoBehaviour
 
 	public IEnumerator ChangeStar (int levelStars)
 	{		
-		Debug.Log(" num of stars " + levelStars);
+		UnityEngine.Debug.Log(" num of stars " + levelStars);
 //		zeroStar.GetComponent<Image> ().enabled = true;
 		oneStar.GetComponent<Image> ().enabled = true;
 		star.GetComponent<Image> ().enabled = true;
@@ -287,9 +291,9 @@ public class LevelManager : MonoBehaviour
 
 	public IEnumerator ChangeStarScale ()
 	{
-		Debug.Log("4");
+		UnityEngine.Debug.Log("4");
 			int i = 0;
-
+			
 			do {
 				yield return new WaitForSeconds (0.04f);
 		
