@@ -53,6 +53,8 @@ public class MarbleModel : MonoBehaviour
 
 	public void HandlePressedStart ()
 	{
+		LevelManager.startTime = Time.deltaTime;
+		//Debug.Log(LevelManager.startTime);
 		StartCoroutine (WaitToStart ());
 		//pressedStart = true;
 		//marble.GetComponent<Rigidbody2D> ().isKinematic = false;

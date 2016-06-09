@@ -90,8 +90,9 @@ public class BlockModel : MonoBehaviour
 		}
 
 		blockSprite.sprite = currBlock;
-//		Destroy (GetComponent<PolygonCollider2D> ());
-//		gameObject.AddComponent<PolygonCollider2D> ();
+		Destroy (GetComponent<PolygonCollider2D> ());
+		gameObject.AddComponent<PolygonCollider2D> ();
+		gameObject.GetComponent<PolygonCollider2D>().enabled = false;
 	}
 	public void HandlePlayerShrinkBlock ()
 	{
@@ -103,8 +104,9 @@ public class BlockModel : MonoBehaviour
 			currBlock = smallBlock;
 		}
 		blockSprite.sprite = currBlock;
-//		Destroy (GetComponent<PolygonCollider2D> ());
-//		gameObject.AddComponent<PolygonCollider2D> ();
+		Destroy (GetComponent<PolygonCollider2D> ());
+		gameObject.AddComponent<PolygonCollider2D> ();
+		gameObject.GetComponent<PolygonCollider2D>().enabled = false;
 	}
 	public IEnumerator RemoveRing ()
 	{

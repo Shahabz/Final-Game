@@ -4,7 +4,7 @@ using System.Collections;
 public class DragScript : MonoBehaviour {
 
 	float distance = 10;
-	private bool gameStarted = false;
+	private static bool gameStarted = false;
 
 	void Start () {
 		gameStarted = false;

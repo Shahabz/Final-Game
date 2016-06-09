@@ -21,7 +21,7 @@ public class PointScripts : MonoBehaviour
 
 
 
-	public static void setPointInLevel (int level)
+	public static void setPointInLevel (int level, float time)
 	{		
 		int numOfSmallBlock = MarbleCollision.kindOfBlock [0];
 		int numOfRegularBlock = MarbleCollision.kindOfBlock [1];
@@ -37,6 +37,9 @@ public class PointScripts : MonoBehaviour
 			currentPoints = numOfSmallBlock * 7000 + numOfRegularBlock * 4000 + numOfbigBlock * 3000;
 		} else if (level >= 11 && level <= 20) {			
 		}
+
+
+
 		setNumOfStarsInLevel (currentPoints, level);
 
 		if (GameControl.control.starsArray [level] == -1) {

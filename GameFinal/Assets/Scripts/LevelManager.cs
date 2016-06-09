@@ -13,6 +13,8 @@ public class LevelManager : MonoBehaviour
 	public GameObject currentNewBlock;
 	public GameObject inventory;
 	public GameObject blockInInventory;
+	public static float startTime;
+	float endTime;
 	//public static int numOfBlocks = 20;
 	//public static string[] blocksSizes;
 	public Text scoreText;
@@ -138,12 +140,14 @@ public class LevelManager : MonoBehaviour
 
 	public void HandleWinLevel ()
 	{
-		
+		endTime = Time.deltaTime;
+//		Debug.Log(endTime);
+//		Debug.Log(endTime - startTime);
 		won = true;
 		GameControl.control.Save ();
 //		PointsCalc ();
 		//Debug.Log(getCurrentLeverIndex());
-		PointScripts.setPointInLevel (getCurrentLeverIndex ());
+		PointScripts.setPointInLevel (getCurrentLeverIndex (), endTime - startTime );
 		//scoreText.text = "" + PointScripts.currentPoints;
 		StartCoroutine(ShowPoints());
 		StartCoroutine (levelCompleted ());
@@ -250,6 +254,7 @@ public class LevelManager : MonoBehaviour
 
 		do {
 			yield return new WaitForSeconds (0.01f);
+
 
 			star.GetComponent<RectTransform>().localScale -= new Vector3(0.02f, 0.02f, 0f);
 			i--;

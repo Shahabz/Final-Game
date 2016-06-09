@@ -83,6 +83,8 @@ public class Tutorial1 : MonoBehaviour {
 		yield return new WaitForSeconds (5f);
 		text4.GetComponent<SpriteRenderer>().enabled = false;
 		darkBeckground.GetComponent<SpriteRenderer>().enabled = false;
+
+		emptyBlock.layer = 10;
 	}
 
 
