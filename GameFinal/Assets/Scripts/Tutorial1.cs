@@ -64,7 +64,7 @@ public class Tutorial1 : MonoBehaviour {
 	public IEnumerator Tutorial2() {
 		yield return new WaitForSeconds (3f);
 		darkBeckground.GetComponent<SpriteRenderer>().enabled = true;
-		emptyBlock.transform.position = new Vector3(3.23f, -1.27f, 0f);
+//		emptyBlock.transform.position = new Vector3(3.23f, -1.27f, 0f);
 		emptyBlock.transform.rotation =  Quaternion.Euler(0, 0, 238);
 		ring.GetComponent<SpriteRenderer>().enabled = true;
 		text3.GetComponent<SpriteRenderer>().enabled = true;

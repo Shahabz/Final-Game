@@ -11,6 +11,8 @@ public class LevelManager : MonoBehaviour
 	public GameObject goodJob;
 	public GameObject newBlock;
 	public GameObject currentNewBlock;
+	public GameObject inventory;
+	public GameObject blockInInventory;
 	//public static int numOfBlocks = 20;
 	//public static string[] blocksSizes;
 	public Text scoreText;
@@ -25,12 +27,15 @@ public class LevelManager : MonoBehaviour
 	public Image threeStars;
 	public Image twoStars;
 	public Image oneStar;
+	public Image zeroStar;
+	public Image star;
 	public Image circle;
 
 	public static int minutesForNextBlock = 2;
 	public static int secondsForNextBlock = 0;
 	private bool isChangeFillTime;
 	private bool won;
+	private bool changeStar;
 
 
 		
@@ -38,7 +43,8 @@ public class LevelManager : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{	
-		
+		inventory.GetComponent<SpriteRenderer>().enabled = true;
+		blockInInventory.GetComponent<SpriteRenderer>().enabled = true;
 		numOfTotalBlocks.GetComponent<Text> ().enabled = true;
 		//nextBlockTime.GetComponent<Text> ().enabled = true;
 		won = false;
@@ -55,6 +61,8 @@ public class LevelManager : MonoBehaviour
 		threeStars.GetComponent<Image> ().enabled = false;
 		twoStars.GetComponent<Image> ().enabled = false;
 		oneStar.GetComponent<Image> ().enabled = false;
+		zeroStar.GetComponent<Image> ().enabled = false;
+		star.GetComponent<Image> ().enabled = false;
 	}
 
 
@@ -130,15 +138,29 @@ public class LevelManager : MonoBehaviour
 
 	public void HandleWinLevel ()
 	{
+		
 		won = true;
 		GameControl.control.Save ();
 //		PointsCalc ();
 		//Debug.Log(getCurrentLeverIndex());
 		PointScripts.setPointInLevel (getCurrentLeverIndex ());
-		scoreText.text = "" + PointScripts.currentPoints;
+		//scoreText.text = "" + PointScripts.currentPoints;
+		StartCoroutine(ShowPoints());
 		StartCoroutine (levelCompleted ());
 		//	Instantiate (goodJob, new Vector2 (0f, 0f), Quaternion.identity);
 	}
+
+	public IEnumerator ShowPoints ()
+	{
+		int i = 0;
+		Debug.Log(PointScripts.currentPoints);
+		do{
+			scoreText.text = "" + i;
+			i += 15;
+			yield return new WaitForSeconds(0.01f);
+		} while(i <= PointScripts.currentPoints);
+	}
+
 
 	public IEnumerator levelCompleted ()
 	{
@@ -153,24 +175,134 @@ public class LevelManager : MonoBehaviour
 		scoreText.GetComponent<Text> ().enabled = true;
 		printStarsImage (PointScripts.currentStars);
 		circle.GetComponent<Image> ().enabled = false;
+		inventory.GetComponent<SpriteRenderer>().enabled = false;
+		blockInInventory.GetComponent<SpriteRenderer>().enabled = false;
 		Instantiate (goodJob, new Vector2 (0f, 0f), Quaternion.identity);
 			
 	}
 
-	public void printStarsImage (int numOfStars)
-	{
-		switch (numOfStars) {
-		case 1:
-			oneStar.GetComponent<Image> ().enabled = true;
-			break;
-		case 2:
-			twoStars.GetComponent<Image> ().enabled = true;
-			break;
-		case 3:
-			threeStars.GetComponent<Image> ().enabled = true;
-			break;
+	public IEnumerator ChangeStar (int levelStars)
+	{		
+		Debug.Log(" num of stars " + levelStars);
+//		zeroStar.GetComponent<Image> ().enabled = true;
+		oneStar.GetComponent<Image> ().enabled = true;
+		star.GetComponent<Image> ().enabled = true;
+//		Debug.Log(star.transform.position.x);
+//		Debug.Log(star.transform.position.y);
+		star.GetComponent<RectTransform>().transform.position = new Vector3(-1.57f,3.24f,0f);
+
+		int i = 0;
+
+		do {
+			yield return new WaitForSeconds (0.01f);
+
+			star.GetComponent<RectTransform>().localScale += new Vector3(0.02f, 0.02f, 0f);
+			i++;
+		} while(i < 10);
+
+		do {
+			yield return new WaitForSeconds (0.01f);
+
+			star.GetComponent<RectTransform>().localScale -= new Vector3(0.02f, 0.02f, 0f);
+			i--;
+		} while(i > 0);
+
+		star.GetComponent<Image> ().enabled = false;
+		yield return new WaitForSeconds (0.2f);
+		if (levelStars > 1){ 
+		oneStar.GetComponent<Image> ().enabled = false;
+		twoStars.GetComponent<Image> ().enabled = true;
+		star.GetComponent<Image> ().enabled = true;
+		star.GetComponent<RectTransform>().transform.position = new Vector3(0f,3.46f,0f);
+
+		
+		do {
+			yield return new WaitForSeconds (0.01f);
+
+			star.GetComponent<RectTransform>().localScale += new Vector3(0.02f, 0.02f, 0f);
+			i++;
+		} while(i < 10);
+
+		do {
+			yield return new WaitForSeconds (0.01f);
+
+			star.GetComponent<RectTransform>().localScale -= new Vector3(0.02f, 0.02f, 0f);
+			i--;
+		} while(i > 0);
+		star.GetComponent<Image> ().enabled = false;
+
 		}
 
+		yield return new WaitForSeconds (0.2f);
+		if (levelStars > 2){ 
+		twoStars.GetComponent<Image> ().enabled = false;
+		threeStars.GetComponent<Image> ().enabled = true;
+		star.GetComponent<Image> ().enabled = true;
+		star.GetComponent<RectTransform>().transform.position = new Vector3(1.6f,3.24f,0f);
+
+		
+		do {
+			yield return new WaitForSeconds (0.01f);
+
+			star.GetComponent<RectTransform>().localScale += new Vector3(0.02f, 0.02f, 0f);
+			i++;
+		} while(i < 10);
+
+		do {
+			yield return new WaitForSeconds (0.01f);
+
+			star.GetComponent<RectTransform>().localScale -= new Vector3(0.02f, 0.02f, 0f);
+			i--;
+		} while(i > 0);
+		star.GetComponent<Image> ().enabled = false;
+		}
+	}
+
+	public void printStarsImage (int numOfStars)
+	{
+
+		StartCoroutine(ChangeStar(numOfStars));
+
+//		switch (numOfStars) {
+//		case 1:
+//			oneStar.GetComponent<Image> ().enabled = true;
+//			break;
+//		case 2:
+//			twoStars.GetComponent<Image> ().enabled = true;
+//			break;
+//		case 3:
+//			threeStars.GetComponent<Image> ().enabled = true;
+//			break;
+//		}
+
+	}
+
+
+
+
+	public IEnumerator ChangeStarScale ()
+	{
+		Debug.Log("4");
+			int i = 0;
+
+			do {
+				yield return new WaitForSeconds (0.04f);
+		
+				star.GetComponent<RectTransform>().localScale += new Vector3(0.02f, 0.02f, 0f);
+				i++;
+			} while(i < 10);
+
+			do {
+				yield return new WaitForSeconds (0.04f);
+		
+				star.GetComponent<RectTransform>().localScale -= new Vector3(0.02f, 0.02f, 0f);
+				i--;
+			} while(i > 0);
+			yield return new WaitForSeconds (3f);
+					//star.transform.position = new Vector3(0f,148f,0f);
+//		star.GetComponent<Image> ().enabled = false;
+		changeStar = true;
+			
 	}
 
 	public static int getCurrentLeverIndex ()
