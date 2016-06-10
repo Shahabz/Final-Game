@@ -381,6 +381,7 @@ public class LevelManager : MonoBehaviour
 
 	public void HandlePressLevelsButton ()
 	{
+		//TODO: return blocks to stash
 		LastPlacedBlocks.lastBlocksList = new List<BlockData> ();
 		Application.LoadLevel ("Levels");
 	}
