@@ -9,6 +9,7 @@ public class MarbleCollision : MonoBehaviour
 	public static int[] kindOfBlock;
 	public GameObject starParticles;
 	public static bool playMarbleHitsBlock = false;
+	public ParticleSystem explosionParticles;
 
 	void OnCollisionEnter2D (Collision2D other)
 	{		
@@ -21,10 +22,19 @@ public class MarbleCollision : MonoBehaviour
 		}
 
 		if (other.gameObject.tag == "destination") {
+			StartCoroutine (Explosion (other.gameObject));
 			onMarbleCollisionDestination.Invoke ();
 			winLevel.Invoke ();
 		}
 	}
+
+	public IEnumerator Explosion(GameObject other) {
+
+		Instantiate (explosionParticles, new Vector3 (other.transform.position.x, other.transform.position.y, other.transform.position.z), Quaternion.identity);
+		yield return new WaitForSeconds (1f);
+		Destroy (explosionParticles);
+	}
+
 
 	public IEnumerator DestroyBlock(GameObject other) {
 		//Instantiate (starParticles, other.transform.position, other.transform.rotation);
