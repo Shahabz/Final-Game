@@ -32,7 +32,7 @@ public class MarbleCollision : MonoBehaviour
 
 		Instantiate (explosionParticles, new Vector3 (other.transform.position.x, other.transform.position.y, other.transform.position.z), Quaternion.identity);
 		yield return new WaitForSeconds (1f);
-		Destroy (explosionParticles);
+//		Destroy (explosionParticles);
 	}
 
 

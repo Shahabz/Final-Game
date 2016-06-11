@@ -379,11 +379,11 @@ public class LevelManager : MonoBehaviour
 		scoreText.text += " " + points;
 	}
 
-	public void HandlePressLevelsButton ()
+	public void HandlePressLevelsButton (int level)
 	{
 		//TODO: return blocks to stash
 		LastPlacedBlocks.lastBlocksList = new List<BlockData> ();
-		Application.LoadLevel ("Levels");
+		Application.LoadLevel ("Levels" + ((level / 10) + 1));
 	}
 
 	public void HandleMoveNextLevel (int level)

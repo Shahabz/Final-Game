@@ -20,7 +20,7 @@ public class MenuModel : MonoBehaviour {
 
 	public void HandleClickedPlay ()
 	{
-		Application.LoadLevel ("Levels");
+		Application.LoadLevel ("Levels1");
 		//Application.LoadLevel ("Level1");
 	}
 
