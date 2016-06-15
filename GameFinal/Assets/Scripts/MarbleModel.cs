@@ -15,12 +15,15 @@ public class MarbleModel : MonoBehaviour
 	public float marbleSpeed;
 	public UnityEvent outOfBounds;
 	private Animator marbleAnimator;
+	public GameObject marbleTrail;
 
 	void Start ()
 	{
 		marble.GetComponent<Rigidbody2D> ().isKinematic = true;
 		marbleAnimator = marble.GetComponent<Animator> ();
 		//marble.transform.position = new Vector3 (-2f, -3f, 0f);
+
+		marbleTrail.GetComponent<ParticleSystem>().Pause();
 	}
 
 	void Update ()
@@ -61,6 +64,8 @@ public class MarbleModel : MonoBehaviour
 		StartCoroutine (WaitToStart ());
 		//pressedStart = true;
 		//marble.GetComponent<Rigidbody2D> ().isKinematic = false;
+
+		marbleTrail.GetComponent<ParticleSystem>().Play();
 	}
 
 	public IEnumerator WaitToStart () {
