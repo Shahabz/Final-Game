@@ -21,9 +21,14 @@ public class Tutorial2 : MonoBehaviour {
 	public Sprite handSmallBlock;
 	public Sprite handBigBlock;
 
+	public static bool continueTutorial = false;
+	private bool emptyBlockIsShowing = false;
+
+
 	// Use this for initialization
 	void Start () {
 
+		LevelManager.isTutorialRunning = true;
 		leftHand.GetComponent<SpriteRenderer>().enabled = true;
 		leftHandWithBlock.GetComponent<SpriteRenderer>().enabled = false;
 		text1.GetComponent<SpriteRenderer>().enabled = true;
@@ -42,17 +47,28 @@ public class Tutorial2 : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	
+//		Debug.Log(continueTutorial);
+		if (PauseMenuManager.MenuIsOpen && emptyBlockIsShowing) {
+			emptyBlock.GetComponent<SpriteRenderer>().enabled = false;
+		} else if (!PauseMenuManager.MenuIsOpen && emptyBlockIsShowing) {
+			emptyBlock.GetComponent<SpriteRenderer>().enabled = true;
+		}
+		if (continueTutorial)
+		{
+			StartCoroutine (ContinueTutorial ());	
+		}
 	}
 
 
 	public IEnumerator Tutorial() {
+		
 		yield return new WaitForSeconds (2.5f);
 		leftHand.GetComponent<SpriteRenderer>().enabled = false;
 		leftHandWithBlock.GetComponent<SpriteRenderer>().enabled = true;
 		yield return new WaitForSeconds (0.2f);
 		text2.GetComponent<SpriteRenderer>().enabled = true;
 		emptyBlock.GetComponent<SpriteRenderer>().enabled = true;
+		emptyBlockIsShowing = true;
 		yield return new WaitForSeconds (2f);
 		ringWithBlock.GetComponent<SpriteRenderer>().enabled = true;
 		yield return new WaitForSeconds (0.2f);
@@ -68,14 +84,21 @@ public class Tutorial2 : MonoBehaviour {
 		darkBeckground.GetComponent<SpriteRenderer>().enabled = false;
 		text1.GetComponent<SpriteRenderer>().enabled = false;
 		text2.GetComponent<SpriteRenderer>().enabled = false;
+		LevelManager.isTutorialRunning = false;
+	}
 
-		yield return new WaitForSeconds (4f);
+	public IEnumerator ContinueTutorial()		
+	{
+		LevelManager.isTutorialRunning = true;
+		continueTutorial = false;
+		yield return new WaitForSeconds (1f);
 		darkBeckground.GetComponent<SpriteRenderer>().enabled = true;
 
 		text3.GetComponent<SpriteRenderer>().enabled = true;
 		handPinchBlock.GetComponent<SpriteRenderer>().enabled = true;
 		handPinchBlock.GetComponent<SpriteRenderer>().sprite = handRegularBlock1;
 		emptyBlock.GetComponent<SpriteRenderer>().enabled = false;
+		emptyBlockIsShowing = false;
 		yield return new WaitForSeconds (1.5f);
 		handPinchBlock.GetComponent<SpriteRenderer>().sprite = handRegularBlock2;
 		yield return new WaitForSeconds (1.5f);
@@ -93,11 +116,15 @@ public class Tutorial2 : MonoBehaviour {
 		handPinchBlock.GetComponent<SpriteRenderer>().enabled = false;
 		text4.GetComponent<SpriteRenderer>().enabled = false;
 		emptyBlock.GetComponent<SpriteRenderer>().enabled = true;
+		emptyBlockIsShowing = true;
 		darkBeckground.GetComponent<SpriteRenderer>().enabled = false;
+		LevelManager.isTutorialRunning = false;
 	}
+
 
 	public void HandlePressStart()
 	{
 		emptyBlock.GetComponent<SpriteRenderer>().enabled = false;
+		emptyBlockIsShowing = false;
 	}
 }

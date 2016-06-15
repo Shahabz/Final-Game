@@ -16,6 +16,7 @@ public class PauseMenuManager : MonoBehaviour {
 	public Sprite soundOnImage;
 	public static bool musicOn = true;
 	public static bool soundOn = true;
+	public static bool MenuIsOpen = false;
 
 
 	void Start() {
@@ -47,7 +48,7 @@ public class PauseMenuManager : MonoBehaviour {
 	public void HandlePauseClicked() {
 
 		//TODO: cant press play or touch blocks
-
+		MenuIsOpen = true;
 		backButton.image.enabled = true;
 		backButton.enabled = true;
 		replayButton.image.enabled = true;
@@ -62,6 +63,7 @@ public class PauseMenuManager : MonoBehaviour {
 	}
 
 	public void OnClickBack() {
+		MenuIsOpen = false;
 		backButton.image.enabled = false;
 		backButton.enabled = false;
 		replayButton.image.enabled = false;
@@ -76,6 +78,7 @@ public class PauseMenuManager : MonoBehaviour {
 	}
 
 	public void OnClickReplay() {
+		MenuIsOpen = false;
 		OnClickBack ();
 		//TODO: return blocks to stash and reload
 	}

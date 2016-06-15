@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.Events;
+
 public class BlockModel : MonoBehaviour
 {
 	private Sprite currBlock;
@@ -13,6 +15,10 @@ public class BlockModel : MonoBehaviour
 	private int blockIndex;
 	private bool updateCollider = false;
 	public static bool inStash = false;
+//	public UnityEvent tutorial1_1;
+//	public UnityEvent tutorial1_2;
+//	public UnityEvent tutorial2;
+
 
 	void OnMouseDown ()
 	{				
@@ -35,14 +41,14 @@ public class BlockModel : MonoBehaviour
 			OnMouseDown ();		
 		}
 		updateCollider = false;
-		gameObject.GetComponent<CircleCollider2D>().enabled = true;
-		gameObject.GetComponent<PolygonCollider2D>().enabled = false;
+		gameObject.GetComponent<CircleCollider2D> ().enabled = true;
+		gameObject.GetComponent<PolygonCollider2D> ().enabled = false;
 	}
 	// Update is called once per frame
 	void Update ()
 	{
 		if (inStash && isPressed) {
-			Destroy(gameObject);
+			Destroy (gameObject);
 			Destroy (ring);
 			isPressed = false;
 			GameControl.control.numOfBlocks++;
@@ -51,7 +57,7 @@ public class BlockModel : MonoBehaviour
 
 		if (gameStarted && !updateCollider) {
 
-			gameObject.GetComponent<CircleCollider2D>().enabled = false;
+			gameObject.GetComponent<CircleCollider2D> ().enabled = false;
 			//GetComponent<CircleCollider2D> ();
 			gameObject.GetComponent<PolygonCollider2D> ().enabled = true;
 			saveBlockInList ();
@@ -92,8 +98,9 @@ public class BlockModel : MonoBehaviour
 		blockSprite.sprite = currBlock;
 		Destroy (GetComponent<PolygonCollider2D> ());
 		gameObject.AddComponent<PolygonCollider2D> ();
-		gameObject.GetComponent<PolygonCollider2D>().enabled = false;
+		gameObject.GetComponent<PolygonCollider2D> ().enabled = false;
 	}
+
 	public void HandlePlayerShrinkBlock ()
 	{
 		if (currBlock == smallBlock) {
@@ -106,8 +113,9 @@ public class BlockModel : MonoBehaviour
 		blockSprite.sprite = currBlock;
 		Destroy (GetComponent<PolygonCollider2D> ());
 		gameObject.AddComponent<PolygonCollider2D> ();
-		gameObject.GetComponent<PolygonCollider2D>().enabled = false;
+		gameObject.GetComponent<PolygonCollider2D> ().enabled = false;
 	}
+
 	public IEnumerator RemoveRing ()
 	{
 		yield return new WaitForSeconds (0.1f);
@@ -125,14 +133,16 @@ public class BlockModel : MonoBehaviour
 		ring = Instantiate (Resources.Load ("ring"), new Vector2 (transform.position.x, transform.position.y), Quaternion.identity) as GameObject;		
 		ring.transform.rotation = transform.rotation;
 	}
+
 	public void HandleGameStarted ()
 	{
 		gameStarted = true;
 	}
 
-	public void saveBlockInList () {
+	public void saveBlockInList ()
+	{
 		BlockData myBlock = new BlockData (transform.position.x,
-			transform.position.y, currBlock.name, transform.rotation);
+			                    transform.position.y, currBlock.name, transform.rotation);
 		LastPlacedBlocks.lastBlocksList.Add (myBlock);
 	}
 		
@@ -143,6 +153,7 @@ public class BlockModel : MonoBehaviour
 	private float currentDistance = 0f;
 	private float distance = 0f;
 	public static bool twoFingers = false;
+
 	void PinchUpdate ()
 	{
 		if (Input.touchCount == 2) {
@@ -169,8 +180,10 @@ public class BlockModel : MonoBehaviour
 
 	void OnMouseUp ()
 	{
+//		UnityEngine.Debug.Log("mouseUP");
 		//Debug.Log("sfsdfasd");
 		checkIfInStash ();
+		checkIfInEmptyBlock ();
 	}
 
 	public void checkIfInStash ()
@@ -179,7 +192,7 @@ public class BlockModel : MonoBehaviour
 		float positionX = gameObject.transform.position.x;
 		float positionY = gameObject.transform.position.y;
 		if (7.15f < positionX && positionX < 8.62f && -4.75f < positionY && positionY < -3.24f) {
-	//		LevelManager.blocksSizes [blockIndex] = null;
+			//		LevelManager.blocksSizes [blockIndex] = null;
 			Destroy (gameObject);
 			Destroy (ring);
 			isPressed = false;
@@ -189,4 +202,41 @@ public class BlockModel : MonoBehaviour
 		}			
 	}
 
+	public void checkIfInEmptyBlock ()
+	{
+		
+		int level = LevelManager.getCurrentLeverIndex ();
+		float positionX = gameObject.transform.position.x;
+		float positionY = gameObject.transform.position.y;
+		float rotation = gameObject.transform.eulerAngles.z;
+		Debug.Log("level " + level);
+		Debug.Log("X " + positionX);
+		Debug.Log("Y " + positionY);
+		Debug.Log("Rotation " + rotation);
+
+		if (level == 1) {
+			if (1f <= positionX && positionX <= 1.25f && -1.63f <= positionY && positionY <= -1.4f &&
+				((357f <= rotation || rotation <= 3f) || (177f <= rotation && rotation <= 183f))) {
+				UnityEngine.Debug.Log("position");
+				//Tutorial1.continueTutorial2 = false;
+				Tutorial1.continueTutorial1 = true;
+			}
+
+			if (1f <= positionX && positionX <= 1.25f && -1.63f <= positionY && positionY <= -1.4f &&
+				((54f <= rotation && rotation <= 62f) || (234f <= rotation && rotation <= 242f))) {
+				//Tutorial1.continueTutorial1 = false;
+				Tutorial1.continueTutorial2 = true;
+			}
+
+		} else if (level == 2) {
+			if (3.25f <= positionX && positionX <= 3.4f && -0.5f <= positionY && positionY <= -0.27f 
+				&& ((88f <= rotation && rotation <= 92f) || (268f <= rotation && rotation <= 272f))) {
+				Tutorial2.continueTutorial = true;
+//				Debug.Log(" right position");
+				//tutorial2.Invoke ();
+			}
+		}
+//		Debug.Log(rotation);
+//		Debug.Log(Tutorial2.continueTutorial);
+	}
 }

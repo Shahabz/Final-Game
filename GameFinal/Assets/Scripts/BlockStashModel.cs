@@ -12,7 +12,7 @@ public class BlockStashModel : MonoBehaviour
 
 	void OnMouseDown ()
 	{
-		if (!gameStarted) {
+		if (!gameStarted && !LevelManager.isTutorialRunning) {
 			onPlayerClickNewBlock.Invoke ();
 		}
 	}

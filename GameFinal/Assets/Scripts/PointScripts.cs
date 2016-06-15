@@ -27,16 +27,7 @@ public class PointScripts : MonoBehaviour
 		int numOfRegularBlock = MarbleCollision.kindOfBlock [1];
 		int numOfbigBlock = MarbleCollision.kindOfBlock [2];
 
-		currentPoints = numOfSmallBlock * 1850 + numOfRegularBlock * 1400 + numOfbigBlock * 1100 + ((int)time * 363);
-
-//		if ((level == 1) || (level == 2)) {
-//			currentPoints = numOfSmallBlock * 4000 + numOfRegularBlock * 3000 + numOfbigBlock * 1000;
-//		} else if (level >= 3 && level <= 5) {
-//			currentPoints = numOfSmallBlock * 5000 + numOfRegularBlock * 3000 + numOfbigBlock * 2000;
-//		} else if (level >= 6 && level <= 10) {
-//			currentPoints = numOfSmallBlock * 7000 + numOfRegularBlock * 4000 + numOfbigBlock * 3000;
-//		} else if (level >= 11 && level <= 20) {			
-//		}
+		currentPoints = numOfSmallBlock * 1850 + numOfRegularBlock * 1400 + numOfbigBlock * 1100 + ((int)(time * 363));
 
 		Debug.Log("Time" + time);
 
