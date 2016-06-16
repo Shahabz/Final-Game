@@ -4,7 +4,10 @@ using UnityEngine.UI;
 using UnityEngine.Advertisements;
 
 public class StoreManager : MonoBehaviour {
-	
+
+	public Button startButton;
+	public Button pauseButton;
+
 	public GameObject StoreBackground;
 	public Button closeButton;
 	public Button watchAdVideoButton;
@@ -29,7 +32,11 @@ public class StoreManager : MonoBehaviour {
 
 	public void HandleGameStoreClicked() {
 
-		//TODO: cant press play or touch blocks
+		startButton.enabled = false;
+		pauseButton.enabled = false;
+		BlockStashModel.canDragFromStash = false;
+		DragScript.canDragBlock = false;
+
 		MenuIsOpen = true;
 		closeButton.image.enabled = true;
 		closeButton.enabled = true;
@@ -45,6 +52,11 @@ public class StoreManager : MonoBehaviour {
 	}
 
 	public void OnClickBack() {
+		startButton.enabled = true;
+		pauseButton.enabled = true;
+		BlockStashModel.canDragFromStash = true;
+		DragScript.canDragBlock = true;
+
 		MenuIsOpen = false;
 		closeButton.image.enabled = false;
 		closeButton.enabled = false;
