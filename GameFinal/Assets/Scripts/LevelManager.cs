@@ -236,21 +236,13 @@ public class LevelManager : MonoBehaviour
 	public IEnumerator ShowPoints (int levelPoints, int currentLevel)
 	{
 		int levelSars = GetNumOfStarsInLevel(levelPoints, currentLevel);			
-//		UnityEngine.Debug.Log("stars " + levelSars);
-//		UnityEngine.Debug.Log("Points " + levelPoints);
-//		UnityEngine.Debug.Log("level " + currentLevel);
 		int i = 0;
 		int x =(int)  ((levelPoints / ((levelSars * 0.2f) + ((levelSars - 1) * 0.5f))) * 0.01f);
-//		UnityEngine.Debug.Log("levels " + x);
-//		UnityEngine.Debug.Log(levelPoints);
 		do{
 			scoreText.text = "" + i;
 			i += x;
-//			i += 15;
 			yield return new WaitForSeconds(0.01f);
-		} while(i <= levelPoints);
-
-//		StartCoroutine(ChangeStar(levelSars));
+		} while(i <= levelPoints);			
 	}
 
 

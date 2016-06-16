@@ -19,7 +19,7 @@ public class Tutorial1 : MonoBehaviour {
 	public GameObject rightHand;
 	public GameObject text4;
 
-	public  bool continueTutorial = false;
+	//public  bool continueTutorial = false;
 	public static bool continueTutorial1 = false;
 	public static bool continueTutorial2 = false;
 	private bool emptyBlockIsShowing = false;
@@ -145,15 +145,13 @@ public class Tutorial1 : MonoBehaviour {
 	}
 
 
-	public void HandleBlockInPosition()
+	public void HandleSkipTutorial()
 	{
-//		continueTutorial = true;
+		Debug.Log("press");
+//		continueTutorial = false;
 	}
 
-	public void HandleBlockWasRotationed()
-	{
-//		continueTutorial = true;
-	}
+
 
 	public void HandlePressStart()
 	{
