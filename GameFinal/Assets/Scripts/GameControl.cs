@@ -17,7 +17,7 @@ public class GameControl : MonoBehaviour {
 			DontDestroyOnLoad (gameObject);
 			control = this;
 			starsArray[0] = 0;
-			for(int i = 1; i < 10; i++) {
+			for(int i = 1; i < 20; i++) {
 				starsArray[i] = -1;
 			}
 			numOfBlocks = 20;

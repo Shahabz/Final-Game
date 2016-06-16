@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using System.Text.RegularExpressions;
 
 public class ChangeLevel : MonoBehaviour
 {
@@ -19,10 +20,23 @@ public class ChangeLevel : MonoBehaviour
 		starsText.text =  numOfGainedStars +  "/" + ((numOfLevels - numOfCloseLevel) * 3);
 	}
 
+	public static int getCurrentLevelIndex() {
+		Regex regex = new Regex (".+([0-9]+)$");
+		Match match = regex.Match (Application.loadedLevelName);
+		string levelString = match.Groups[1].Value;
+		int levels = int.Parse (levelString);
+		return levels;
+	}
+
 	public void HandleCheckLevelsStars ()
 	{		
+		int j = getCurrentLevelIndex();
+		j = (j - 1) * 10;
+		Debug.Log (numOfLevels);
+
 		for (int i = 0; i < numOfLevels; i++) {
-			setLevelImage(buttonsArray[i], GameControl.control.starsArray[i]);
+			setLevelImage(buttonsArray[i], GameControl.control.starsArray[j]);
+			j++;
 		}
 	}
 

@@ -8,7 +8,9 @@ public class SoundManager : MonoBehaviour {
 	public AudioClip marbleHitsBlock;
 	public AudioClip crystalShatter;
 	private bool musicIsPlaying;
-	
+
+	public static bool musicOn = true;
+	public static bool soundOn = true;
 	
 	// Use this for initialization
 	void Start () {
@@ -19,7 +21,7 @@ public class SoundManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		if (PauseMenuManager.soundOn) {
+		if (soundOn) {
 			if (MarbleCollision.playMarbleHitsBlock) {
 				sourceAudio.PlayOneShot (marbleHitsBlock, 1f);
 				MarbleCollision.playMarbleHitsBlock = false;
@@ -30,12 +32,12 @@ public class SoundManager : MonoBehaviour {
 				DestinationModel.playCrystalShatter = false;
 			}
 		}
-		if (!PauseMenuManager.musicOn && musicIsPlaying) {
+		if (!musicOn && musicIsPlaying) {
 			//sourceAudio.Pause();
 			sourceAudio.Stop();
 			musicIsPlaying = false;
 		}
-		if (PauseMenuManager.musicOn && !musicIsPlaying) {
+		if (musicOn && !musicIsPlaying) {
 			//sourceAudio.UnPause();
 			sourceAudio.Play();
 			musicIsPlaying = true;

@@ -119,7 +119,6 @@ public class LevelManager : MonoBehaviour
 			secondsForNextBlock = 0;
 		}
 			
-
 	}
 
 	public IEnumerator FillCircle ()
@@ -430,6 +429,10 @@ public class LevelManager : MonoBehaviour
 	public void HandlePressLevelsButton (int level)
 	{
 		//TODO: return blocks to stash
+		startGame.enabled = true;
+		pause.enabled = true;
+		BlockStashModel.canDragFromStash = true;
+		DragScript.canDragBlock = true;
 		PauseMenuManager.MenuIsOpen = false;
 		LastPlacedBlocks.lastBlocksList = new List<BlockData> ();
 		Application.LoadLevel ("Levels" + ((level / 10) + 1));

@@ -2,36 +2,37 @@
 using System.Collections;
 using UnityEngine.UI;
 
-public class PauseMenuManager : MonoBehaviour {
-
-	public Button startButton;
-	public Button pauseButton;
+public class PrefrencesMenu : MonoBehaviour {
 
 	public GameObject MenuBackground;
+	public GameObject CreditsBackground;
+	public Button playButton;
 	public Button backButton;
-	public Button replayButton;
-	public Button menuButton;
+	public Button backCreditsButton;
 	public Button soundButton;
 	public Button musicButton;
+	public Button creditsButton;
 	public Sprite musicOffImage;
 	public Sprite musicOnImage;
 	public Sprite soundOffImage;
 	public Sprite soundOnImage;
+
 	public static bool MenuIsOpen = false;
 
 
 	void Start() {
 		backButton.image.enabled = false;
 		backButton.enabled = false;
-		replayButton.image.enabled = false;
-		replayButton.enabled = false;
-		menuButton.image.enabled = false;
-		menuButton.enabled = false;
+		creditsButton.image.enabled = false;
+		creditsButton.enabled = false;
+		backCreditsButton.image.enabled = false;
+		backCreditsButton.enabled = false;
 		soundButton.image.enabled = false;
 		soundButton.enabled = false;
 		musicButton.image.enabled = false;
 		musicButton.enabled = false;
 		MenuBackground.GetComponent<SpriteRenderer> ().enabled = false;
+		CreditsBackground.GetComponent<SpriteRenderer> ().enabled = false;
 
 		if (SoundManager.soundOn) {
 			soundButton.image.sprite = soundOnImage;
@@ -48,54 +49,66 @@ public class PauseMenuManager : MonoBehaviour {
 
 	public void HandlePauseClicked() {
 
-		startButton.enabled = false;
-		pauseButton.enabled = false;
-		BlockStashModel.canDragFromStash = false;
-		DragScript.canDragBlock = false;
-
+		//TODO: cant press play or touch blocks
 		MenuIsOpen = true;
 		backButton.image.enabled = true;
 		backButton.enabled = true;
-		replayButton.image.enabled = true;
-		replayButton.enabled = true;
-		menuButton.image.enabled = true;
-		menuButton.enabled = true;
+		creditsButton.image.enabled = true;
+		creditsButton.enabled = true;
 		soundButton.image.enabled = true;
 		soundButton.enabled = true;
 		musicButton.image.enabled = true;
 		musicButton.enabled = true;
+		playButton.image.enabled = false;
+		playButton.enabled = false;
 		MenuBackground.GetComponent<SpriteRenderer> ().enabled = true;
 	}
 
 	public void OnClickBack() {
-
-		startButton.enabled = true;
-		pauseButton.enabled = true;
-		BlockStashModel.canDragFromStash = true;
-		DragScript.canDragBlock = true;
-
 		MenuIsOpen = false;
 		backButton.image.enabled = false;
 		backButton.enabled = false;
-		replayButton.image.enabled = false;
-		replayButton.enabled = false;
-		menuButton.image.enabled = false;
-		menuButton.enabled = false;
+		creditsButton.image.enabled = false;
+		creditsButton.enabled = false;
 		soundButton.image.enabled = false;
 		soundButton.enabled = false;
 		musicButton.image.enabled = false;
 		musicButton.enabled = false;
+		playButton.image.enabled = true;
+		playButton.enabled = true;
 		MenuBackground.GetComponent<SpriteRenderer> ().enabled = false;
 	}
 
-	public void OnClickReplay() {
-		startButton.enabled = true;
-		pauseButton.enabled = true;
-		BlockStashModel.canDragFromStash = true;
-		DragScript.canDragBlock = true;
-		MenuIsOpen = false;
-		OnClickBack ();
-		//TODO: return blocks to stash and reload
+	public void OnClickCredits() {
+		backButton.image.enabled = false;
+		backButton.enabled = false;
+		creditsButton.image.enabled = false;
+		creditsButton.enabled = false;
+		soundButton.image.enabled = false;
+		soundButton.enabled = false;
+		musicButton.image.enabled = false;
+		musicButton.enabled = false;
+		backCreditsButton.image.enabled = true;
+		backCreditsButton.enabled = true;
+		CreditsBackground.GetComponent<SpriteRenderer> ().enabled = true;
+		MenuBackground.GetComponent<SpriteRenderer> ().enabled = false;
+	}
+
+	public void OnClickBackCredits() {
+		backButton.image.enabled = true;
+		backButton.enabled = true;
+		creditsButton.image.enabled = true;
+		creditsButton.enabled = true;
+		soundButton.image.enabled = true;
+		soundButton.enabled = true;
+		musicButton.image.enabled = true;
+		musicButton.enabled = true;
+		creditsButton.image.enabled = true;
+		creditsButton.enabled = true;
+		backCreditsButton.image.enabled = false;
+		backCreditsButton.enabled = false;
+		CreditsBackground.GetComponent<SpriteRenderer> ().enabled = false;
+		MenuBackground.GetComponent<SpriteRenderer> ().enabled = true;
 	}
 
 	public void OnClickSound() {

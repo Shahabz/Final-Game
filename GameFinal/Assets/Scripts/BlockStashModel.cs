@@ -12,13 +12,15 @@ public class BlockStashModel : MonoBehaviour
 	private bool gameStarted;
 	private bool noMoreBlocks = false;
 
+	public static bool canDragFromStash = true;
+
 	void OnMouseDown ()
 	{
-		if (!gameStarted && !LevelManager.isTutorialRunning) {
+		if (!gameStarted && !LevelManager.isTutorialRunning && canDragFromStash) {
 			onPlayerClickNewBlock.Invoke ();
 		} 
 
-		if (noMoreBlocks) {
+		if (noMoreBlocks && canDragFromStash) {
 			onPlayerClickEmptyStash.Invoke ();
 		}
 	}

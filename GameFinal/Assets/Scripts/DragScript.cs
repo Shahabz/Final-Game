@@ -7,6 +7,8 @@ public class DragScript : MonoBehaviour {
 	private static bool gameStarted = false;
 	private Vector3 distance;
 
+	public static bool canDragBlock = true;
+
 	void Start () {
 		gameStarted = false;
 	}
@@ -20,7 +22,7 @@ public class DragScript : MonoBehaviour {
 
 	void OnMouseDrag()
 	{
-		if (!BlockModel.twoFingers && !gameStarted) {
+		if (!BlockModel.twoFingers && !gameStarted && canDragBlock) {
 			Vector3 distance_to_screen = Camera.main.WorldToScreenPoint (gameObject.transform.position);
 			Vector3 pos_move = Camera.main.ScreenToWorldPoint (new Vector3 (Input.mousePosition.x, Input.mousePosition.y, distance_to_screen.z));
 			transform.position = new Vector3 (pos_move.x - distance.x, pos_move.y - distance.y, pos_move.z);
