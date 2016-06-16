@@ -49,7 +49,6 @@ public class PrefrencesMenu : MonoBehaviour {
 
 	public void HandlePauseClicked() {
 
-		//TODO: cant press play or touch blocks
 		MenuIsOpen = true;
 		backButton.image.enabled = true;
 		backButton.enabled = true;

@@ -15,9 +15,7 @@ public class BlockModel : MonoBehaviour
 	private int blockIndex;
 	private bool updateCollider = false;
 	public static bool inStash = false;
-//	public UnityEvent tutorial1_1;
-//	public UnityEvent tutorial1_2;
-//	public UnityEvent tutorial2;
+	public static bool levelCompleted;
 
 
 	void OnMouseDown ()
@@ -30,6 +28,8 @@ public class BlockModel : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
+		levelCompleted = false;
+		gameObject.GetComponent<SpriteRenderer> ().enabled = true;
 		gameStarted = false;
 		blockSprite = gameObject.GetComponent<SpriteRenderer> ();
 		bigBlock = Resources.Load<Sprite> ("Textures/bigblock");
@@ -47,6 +47,9 @@ public class BlockModel : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
+		if (levelCompleted) {
+			Destroy (gameObject);
+		}
 		if (inStash && isPressed) {
 			Destroy (gameObject);
 			Destroy (ring);
@@ -209,10 +212,6 @@ public class BlockModel : MonoBehaviour
 		float positionX = gameObject.transform.position.x;
 		float positionY = gameObject.transform.position.y;
 		float rotation = gameObject.transform.eulerAngles.z;
-		Debug.Log("level " + level);
-		Debug.Log("X " + positionX);
-		Debug.Log("Y " + positionY);
-		Debug.Log("Rotation " + rotation);
 
 		if (level == 1) {
 			if (1f <= positionX && positionX <= 1.25f && -1.63f <= positionY && positionY <= -1.4f &&

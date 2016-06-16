@@ -32,7 +32,6 @@ public class ChangeLevel : MonoBehaviour
 	{		
 		int j = getCurrentLevelIndex();
 		j = (j - 1) * 10;
-		Debug.Log (numOfLevels);
 
 		for (int i = 0; i < numOfLevels; i++) {
 			setLevelImage(buttonsArray[i], GameControl.control.starsArray[j]);

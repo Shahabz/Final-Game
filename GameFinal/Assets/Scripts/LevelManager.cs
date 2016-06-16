@@ -204,6 +204,7 @@ public class LevelManager : MonoBehaviour
 	public IEnumerator levelCompleted (int levelPoints, int currentLevel)
 	{
 		yield return new WaitForSeconds (2f);
+		BlockModel.levelCompleted = true;
 		nextLevel.gameObject.SetActive (true);
 		replayLevel.gameObject.SetActive (true);
 		menu.gameObject.SetActive (true);
@@ -256,7 +257,6 @@ public class LevelManager : MonoBehaviour
 
 	public IEnumerator ChangeStar (int levelStars)
 	{		
-		UnityEngine.Debug.Log(" num of stars " + levelStars);
 		zeroStar.GetComponent<Image> ().enabled = false;
 		oneStar.GetComponent<Image> ().enabled = true;
 		star.GetComponent<Image> ().enabled = true;
@@ -355,7 +355,6 @@ public class LevelManager : MonoBehaviour
 
 	public IEnumerator ChangeStarScale ()
 	{
-		UnityEngine.Debug.Log("4");
 			int i = 0;
 			
 			do {

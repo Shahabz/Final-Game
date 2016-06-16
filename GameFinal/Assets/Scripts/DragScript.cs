@@ -11,6 +11,7 @@ public class DragScript : MonoBehaviour {
 
 	void Start () {
 		gameStarted = false;
+		canDragBlock = true;
 	}
 
 
