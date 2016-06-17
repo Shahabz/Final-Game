@@ -27,7 +27,6 @@ public class Tutorial2 : MonoBehaviour {
 	public static bool continueTutorial = false;
 	private bool emptyBlockIsShowing = false;
 
-
 	// Use this for initialization
 	void Start () {
 
@@ -87,7 +86,7 @@ public class Tutorial2 : MonoBehaviour {
 
 	public IEnumerator Tutorial() {
 		
-		yield return new WaitForSeconds (2.5f);
+		yield return new WaitForSeconds (1.5f);
 		if (!skipTutorial)
 		{
 		leftHand.GetComponent<SpriteRenderer>().enabled = false;
@@ -97,7 +96,7 @@ public class Tutorial2 : MonoBehaviour {
 		emptyBlock.GetComponent<SpriteRenderer>().enabled = true;
 		emptyBlockIsShowing = true;
 		}
-		yield return new WaitForSeconds (2f);
+		yield return new WaitForSeconds (1f);
 		if (!skipTutorial)
 		{
 		ringWithBlock.GetComponent<SpriteRenderer>().enabled = true;
@@ -135,23 +134,23 @@ public class Tutorial2 : MonoBehaviour {
 		emptyBlock.GetComponent<SpriteRenderer>().enabled = false;
 		emptyBlockIsShowing = false;
 		}
-		yield return new WaitForSeconds (1.5f);
+		yield return new WaitForSeconds (0.9f);
 		handPinchBlock.GetComponent<SpriteRenderer>().sprite = handRegularBlock2;
-		yield return new WaitForSeconds (1.5f);
+		yield return new WaitForSeconds (0.9f);
 		handPinchBlock.GetComponent<SpriteRenderer>().sprite = handBigBlock;
-		yield return new WaitForSeconds (1.5f);
+		yield return new WaitForSeconds (0.9f);
 		if (!skipTutorial)
 		{
 		handPinchBlock.GetComponent<SpriteRenderer>().sprite = handSmallBlock;
 		text3.GetComponent<SpriteRenderer>().enabled = false;
 		text4.GetComponent<SpriteRenderer>().enabled = true;
 		}
-		yield return new WaitForSeconds (1.5f);
+		yield return new WaitForSeconds (0.9f);
 		handPinchBlock.GetComponent<SpriteRenderer>().sprite = handRegularBlock1;
-		yield return new WaitForSeconds (1.5f);
+		yield return new WaitForSeconds (0.9f);
 		handPinchBlock.GetComponent<SpriteRenderer>().sprite = handSmallBlock;
 
-		yield return new WaitForSeconds (3f);
+		yield return new WaitForSeconds (1.6f);
 		if (!skipTutorial)
 		{
 		handPinchBlock.GetComponent<SpriteRenderer>().enabled = false;

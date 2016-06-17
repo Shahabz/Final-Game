@@ -14,6 +14,7 @@ public class Tutorial1 : MonoBehaviour {
 	public GameObject ring;
 	public GameObject text3;
 	public GameObject handBlockRing;
+
 	public GameObject rightHand;
 	public GameObject text4;
 	public  bool continueTutorial = false;
@@ -25,6 +26,8 @@ public class Tutorial1 : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		skipTutorial = false;
+		emptyBlock.GetComponent<SpriteRenderer>().enabled = false;
 		continueTutorial1 = false;
 		continueTutorial2 = false;
 		LevelManager.isTutorialRunning = true;
@@ -32,7 +35,7 @@ public class Tutorial1 : MonoBehaviour {
 		handWithBlock.transform.position = new Vector3(-2.44f, -8.31f,0f);
 		text1.transform.position = new Vector3(7.13f,-0.63f,0f);
 		text2.GetComponent<SpriteRenderer>().enabled = false;
-		emptyBlock.GetComponent<SpriteRenderer>().enabled = false;
+		handWithBlock.GetComponent<SpriteRenderer>().enabled = false;
 		ring.GetComponent<SpriteRenderer>().enabled = false;
 		text3.GetComponent<SpriteRenderer>().enabled = false;
 		handBlockRing.GetComponent<SpriteRenderer>().enabled = false;
@@ -68,6 +71,7 @@ public class Tutorial1 : MonoBehaviour {
 			text2.GetComponent<SpriteRenderer>().enabled = false;
 			emptyBlock.GetComponent<SpriteRenderer>().enabled = false;
 			ring.GetComponent<SpriteRenderer>().enabled = false;
+			handWithBlock.GetComponent<SpriteRenderer>().enabled = false;
 			text3.GetComponent<SpriteRenderer>().enabled = false;
 			handBlockRing.GetComponent<SpriteRenderer>().enabled = false;
 			rightHand.GetComponent<SpriteRenderer>().enabled = false;
@@ -82,17 +86,24 @@ public class Tutorial1 : MonoBehaviour {
 	}
 
 	public IEnumerator Tutorial() {
-		yield return new WaitForSeconds (3f);
-		leftHand.GetComponent<SpriteRenderer>().enabled = false;
-		yield return new WaitForSeconds (0.7f);
+		yield return new WaitForSeconds (2.2f);
 		if (!skipTutorial) 
 		{
+			handWithBlock.GetComponent<SpriteRenderer>().enabled = true;
+			leftHand.GetComponent<SpriteRenderer>().enabled = false;
+			yield return new WaitForSeconds (0.3f);
+			if (!skipTutorial) 
+			{
 			emptyBlock.GetComponent<SpriteRenderer> ().enabled = true;
 			emptyBlockIsShowing = true;
+			}
 			yield return new WaitForSeconds (0.6f);
+			if (!skipTutorial) 
+			{
 			text2.GetComponent<SpriteRenderer> ().enabled = true;
+			}
 		}
-		yield return new WaitForSeconds (3f);
+		yield return new WaitForSeconds (1.2f);
 		text1.GetComponent<SpriteRenderer>().enabled = false;
 		text2.GetComponent<SpriteRenderer>().enabled = false;
 		handWithBlock.GetComponent<SpriteRenderer>().enabled = false;
@@ -111,75 +122,94 @@ public class Tutorial1 : MonoBehaviour {
 			darkBeckground.GetComponent<SpriteRenderer> ().enabled = true;
 			emptyBlock.transform.rotation = Quaternion.Euler (0, 0, 238);
 			ring.GetComponent<SpriteRenderer> ().enabled = true;
+			StartCoroutine (ringCoroutine ());
 		}
-		StartCoroutine (ringCoroutine ());
 		if (!skipTutorial) {
 			text3.GetComponent<SpriteRenderer> ().enabled = true;
 			rightHand.GetComponent<SpriteRenderer> ().enabled = true; 
+			StartCoroutine (rightHandContinue ());
 		}
-		StartCoroutine (rightHandContinue ());
 	}
 	public IEnumerator ringCoroutine()
 	{
 		int i = 0;
 		do {
+//			if (!skipTutorial) {
 			yield return new WaitForSeconds (0.01f);
-			ring.transform.eulerAngles = new Vector3 (0f, 0f, ring.transform.eulerAngles.z - 1f);  
+			ring.transform.eulerAngles = new Vector3 (0f, 0f, ring.transform.eulerAngles.z - 1.5f);  
 			i++;
-		} while(i < 50);
+//			}
+		} while(i < 33);
 		do {
+//			if (!skipTutorial) {
 			yield return new WaitForSeconds (0.01f);
-			ring.transform.eulerAngles = new Vector3 (0f, 0f, ring.transform.eulerAngles.z + 1f); 
+			ring.transform.eulerAngles = new Vector3 (0f, 0f, ring.transform.eulerAngles.z + 1.5f); 
 			i--;
+//			}
 		} while(i > 0);
 		do {
+//			if (!skipTutorial) {
 			yield return new WaitForSeconds (0.01f);
-			ring.transform.eulerAngles = new Vector3 (0f, 0f, ring.transform.eulerAngles.z + 1f);  
+			ring.transform.eulerAngles = new Vector3 (0f, 0f, ring.transform.eulerAngles.z + 1.5f);  
 			i++;
-		} while(i < 50);
+//			}
+		} while(i < 33);
 		do {
+//			if (!skipTutorial) {
 			yield return new WaitForSeconds (0.01f);
-			ring.transform.eulerAngles = new Vector3 (0f, 0f, ring.transform.eulerAngles.z - 1f); 
+			ring.transform.eulerAngles = new Vector3 (0f, 0f, ring.transform.eulerAngles.z - 1.5f); 
 			i--;
+//			}
 		} while(i > 0);
 
 		do {
+//			if (!skipTutorial) {
 			yield return new WaitForSeconds (0.01f);
-			ring.transform.eulerAngles = new Vector3 (0f, 0f, ring.transform.eulerAngles.z - 1f);  
+			ring.transform.eulerAngles = new Vector3 (0f, 0f, ring.transform.eulerAngles.z - 1.5f);  
 			i++;
-		} while(i < 50);
+//			}
+		} while(i < 33);
 		do {
+//			if (!skipTutorial) {
 			yield return new WaitForSeconds (0.01f);
-			ring.transform.eulerAngles = new Vector3 (0f, 0f, ring.transform.eulerAngles.z + 1f); 
+			ring.transform.eulerAngles = new Vector3 (0f, 0f, ring.transform.eulerAngles.z + 1.5f); 
 			i--;
+//			}
 		} while(i > 0);
 	}
 	public IEnumerator rightHandContinue() 
 	{
-		yield return new WaitForSeconds (3.25f);
+		
+		yield return new WaitForSeconds (2.31f);
 		rightHand.transform.position = new Vector3 (7.22f, -7.03f, 0f);
 		int i = 0;
 		do {
+//			if (!skipTutorial) {
 			yield return new WaitForSeconds (0.01f);
-			rightHand.transform.position = new Vector3 (rightHand.transform.position.x - 0.033f
-				, rightHand.transform.position.y + 0.0517f, 0f);
+			rightHand.transform.position = new Vector3 (rightHand.transform.position.x - 0.05f
+				, rightHand.transform.position.y + 0.07833f, 0f);
 			i++;
-		} while(i < 100);
+//			}
+		} while(i < 66);
 		StartCoroutine (ringHandBlockCoroutine ());
 	}
 	public IEnumerator ringHandBlockCoroutine()
 	{
+		if (!skipTutorial) {
 		handBlockRing.GetComponent<SpriteRenderer>().enabled = true; 
+		}
 		ring.GetComponent<SpriteRenderer>().enabled = false;
 		rightHand.GetComponent<SpriteRenderer>().enabled = false; 
-		yield return new WaitForSeconds (1f);
+		yield return new WaitForSeconds (0.4f);
 		int i = 0;
 		do 
 		{
+//			if (!skipTutorial) {
 			yield return new WaitForSeconds (0.01f);
-			handBlockRing.transform.eulerAngles = new Vector3 (0f, 0f, handBlockRing.transform.eulerAngles.z + 1f);  
+			handBlockRing.transform.eulerAngles = new Vector3 (0f, 0f, handBlockRing.transform.eulerAngles.z + 1.5f);  
 			i++;
-		} while(i < 58);
+//			}
+		} while(i < 39);
 
 		yield return new WaitForSeconds (1f);
 		handBlockRing.GetComponent<SpriteRenderer>().enabled = false;

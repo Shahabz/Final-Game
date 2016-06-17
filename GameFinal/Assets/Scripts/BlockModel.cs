@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.Events;
-
 public class BlockModel : MonoBehaviour
 {
 	private Sprite currBlock;
@@ -29,6 +28,7 @@ public class BlockModel : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
+		PauseMenuManager.activeBlocksCounter++;
 		tutorial1_1IsDone = false;
 		tutorial1_2IsDone = false;
 		tutorial2IsDone = false;
@@ -56,6 +56,7 @@ public class BlockModel : MonoBehaviour
 			Destroy (gameObject);
 		}
 		if (inStash && isPressed) {
+			PauseMenuManager.activeBlocksCounter--;
 			Destroy (gameObject);
 			Destroy (ring);
 			isPressed = false;
@@ -141,7 +142,6 @@ public class BlockModel : MonoBehaviour
 			transform.position.y, currBlock.name, transform.rotation);
 		LastPlacedBlocks.lastBlocksList.Add (myBlock);
 	}
-
 	//pinch Code
 	private bool isTouch = false;
 	private float firstDistance = 0f;
@@ -180,8 +180,9 @@ public class BlockModel : MonoBehaviour
 	{
 		float positionX = gameObject.transform.position.x;
 		float positionY = gameObject.transform.position.y;
-		if (7.15f < positionX && positionX < 8.62f && -4.75f < positionY && positionY < -3.24f) {
+		if (5.6f < positionX && positionX < 12f && -5.5f < positionY && positionY < -2.2f) {
 			//		LevelManager.blocksSizes [blockIndex] = null;
+			PauseMenuManager.activeBlocksCounter--;
 			Destroy (gameObject);
 			Destroy (ring);
 			isPressed = false;
@@ -192,7 +193,6 @@ public class BlockModel : MonoBehaviour
 	}
 	public void checkIfInEmptyBlock ()
 	{
-
 		int level = LevelManager.getCurrentLeverIndex ();
 		float positionX = gameObject.transform.position.x;
 		float positionY = gameObject.transform.position.y;

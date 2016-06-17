@@ -1,12 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
-
 public class PauseMenuManager : MonoBehaviour {
-
 	public Button startButton;
 	public Button pauseButton;
-
 	public GameObject MenuBackground;
 	public Button backButton;
 	public Button replayButton;
@@ -18,9 +15,9 @@ public class PauseMenuManager : MonoBehaviour {
 	public Sprite soundOffImage;
 	public Sprite soundOnImage;
 	public static bool MenuIsOpen = false;
-
-
+	public static int activeBlocksCounter;
 	void Start() {
+		activeBlocksCounter = 0;
 		backButton.image.enabled = false;
 		backButton.enabled = false;
 		replayButton.image.enabled = false;
@@ -32,27 +29,22 @@ public class PauseMenuManager : MonoBehaviour {
 		musicButton.image.enabled = false;
 		musicButton.enabled = false;
 		MenuBackground.GetComponent<SpriteRenderer> ().enabled = false;
-
 		if (SoundManager.soundOn) {
 			soundButton.image.sprite = soundOnImage;
 		} else {
 			soundButton.image.sprite = soundOffImage;
 		}
-
 		if (SoundManager.musicOn) {
 			musicButton.image.sprite = musicOnImage;
 		} else {
 			musicButton.image.sprite = musicOffImage;
 		}
 	}
-
 	public void HandlePauseClicked() {
-
 		startButton.enabled = false;
 		pauseButton.enabled = false;
 		BlockStashModel.canDragFromStash = false;
 		DragScript.canDragBlock = false;
-
 		MenuIsOpen = true;
 		backButton.image.enabled = true;
 		backButton.enabled = true;
@@ -66,14 +58,11 @@ public class PauseMenuManager : MonoBehaviour {
 		musicButton.enabled = true;
 		MenuBackground.GetComponent<SpriteRenderer> ().enabled = true;
 	}
-
 	public void OnClickBack() {
-
 		startButton.enabled = true;
 		pauseButton.enabled = true;
 		BlockStashModel.canDragFromStash = true;
 		DragScript.canDragBlock = true;
-
 		MenuIsOpen = false;
 		backButton.image.enabled = false;
 		backButton.enabled = false;
@@ -87,17 +76,16 @@ public class PauseMenuManager : MonoBehaviour {
 		musicButton.enabled = false;
 		MenuBackground.GetComponent<SpriteRenderer> ().enabled = false;
 	}
-
 	public void OnClickReplay() {
+		
 		startButton.enabled = true;
 		pauseButton.enabled = true;
 		BlockStashModel.canDragFromStash = true;
 		DragScript.canDragBlock = true;
 		MenuIsOpen = false;
-		OnClickBack ();
-		//TODO: return blocks to stash and reload
+		GameControl.control.numOfBlocks = GameControl.control.numOfBlocks + activeBlocksCounter;
+		Application.LoadLevel (Application.loadedLevel);
 	}
-
 	public void OnClickSound() {
 		if (SoundManager.soundOn) {
 			SoundManager.soundOn = false;
@@ -107,7 +95,6 @@ public class PauseMenuManager : MonoBehaviour {
 			soundButton.image.sprite = soundOnImage;
 		}
 	}
-
 	public void OnClickMusic() {
 		if (SoundManager.musicOn) {
 			SoundManager.musicOn = false;
@@ -117,5 +104,4 @@ public class PauseMenuManager : MonoBehaviour {
 			musicButton.image.sprite = musicOnImage;
 		}
 	}
-
 }
