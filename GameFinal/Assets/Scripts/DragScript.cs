@@ -23,7 +23,7 @@ public class DragScript : MonoBehaviour {
 
 	void OnMouseDrag()
 	{
-		if (!BlockModel.twoFingers && !gameStarted && canDragBlock) {
+		if (!BlockModel.twoFingers && !gameStarted && canDragBlock && !LevelManager.isTutorialRunning) {
 			Vector3 distance_to_screen = Camera.main.WorldToScreenPoint (gameObject.transform.position);
 			Vector3 pos_move = Camera.main.ScreenToWorldPoint (new Vector3 (Input.mousePosition.x, Input.mousePosition.y, distance_to_screen.z));
 			transform.position = new Vector3 (pos_move.x - distance.x, pos_move.y - distance.y, pos_move.z);

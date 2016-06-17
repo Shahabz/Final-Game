@@ -2,18 +2,20 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Advertisements;
-
+using UnityEngine.UI;
 
 public class AdScript : MonoBehaviour {
 
-		public void ShowRewardedAd()
-		{
-			if (Advertisement.IsReady("rewardedVideoZone"))
-			{
-				var options = new ShowOptions { resultCallback = HandleShowResult };
-				Advertisement.Show("rewardedVideoZone", options);
-			}
+	public static void ShowRewardedAd()
+	{
+		if (Advertisement.IsReady ("rewardedVideoZone")) {
+			//var options = new ShowOptions { resultCallback = HandleShowResult };
+			//Advertisement.Show("rewardedVideoZone", options);				
+			Advertisement.Show ("rewardedVideoZone");
+			GameControl.control.numOfBlocks += 5;
 		}
+
+	}
 
 		private void HandleShowResult(ShowResult result)
 		{
@@ -24,7 +26,7 @@ public class AdScript : MonoBehaviour {
 				//
 				// YOUR CODE TO REWARD THE GAMER
 				// Give coins etc.
-				//GameControl.control.numOfBlocks += 10;
+				GameControl.control.numOfBlocks += 5;
 				break;
 			case ShowResult.Skipped:
 				Debug.Log("The ad was skipped before reaching the end.");

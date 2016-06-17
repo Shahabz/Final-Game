@@ -30,6 +30,14 @@ public class StoreManager : MonoBehaviour {
 		StoreBackground.GetComponent<SpriteRenderer> ().enabled = false;
 	}
 
+	void Update() {
+		if (!Advertisement.IsReady ("rewardedVideoZone")) {
+			watchAdVideoButton.enabled = false;
+		} else {
+			watchAdVideoButton.enabled = true;
+		}
+	}
+
 	public void HandleGameStoreClicked() {
 
 		startButton.enabled = false;
@@ -73,8 +81,9 @@ public class StoreManager : MonoBehaviour {
 
 	public void OnClickWatchAdVideo() {
 		MenuIsOpen = false;
-		Advertisement.Show("rewardedVideoZone");
-		GameControl.control.numOfBlocks += 5;
+		//Advertisement.Show("rewardedVideoZone");
+		//GameControl.control.numOfBlocks += 5;
+		AdScript.ShowRewardedAd();
 	}
 
 	public void OnClickBuyBlocks1() {

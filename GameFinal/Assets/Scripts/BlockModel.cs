@@ -16,8 +16,9 @@ public class BlockModel : MonoBehaviour
 	private bool updateCollider = false;
 	public static bool inStash = false;
 	public static bool levelCompleted;
-
-
+	private bool tutorial1_1IsDone;
+	private bool tutorial1_2IsDone;
+	private bool tutorial2IsDone;
 	void OnMouseDown ()
 	{				
 		//checkIfInStash ();
@@ -28,6 +29,9 @@ public class BlockModel : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
+		tutorial1_1IsDone = false;
+		tutorial1_2IsDone = false;
+		tutorial2IsDone = false;
 		levelCompleted = false;
 		gameObject.GetComponent<SpriteRenderer> ().enabled = true;
 		gameStarted = false;
@@ -47,6 +51,7 @@ public class BlockModel : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
+		checkIfInEmptyBlock ();
 		if (levelCompleted) {
 			Destroy (gameObject);
 		}
@@ -57,15 +62,13 @@ public class BlockModel : MonoBehaviour
 			GameControl.control.numOfBlocks++;
 			inStash = false;
 		}
-
 		if (gameStarted && !updateCollider) {
-
 			gameObject.GetComponent<CircleCollider2D> ().enabled = false;
 			//GetComponent<CircleCollider2D> ();
 			gameObject.GetComponent<PolygonCollider2D> ().enabled = true;
 			saveBlockInList ();
-//			Destroy(gameObject.GetComponent<PolygonCollider2D> ());
-//			gameObject.AddComponent<PolygonCollider2D> ();
+			//			Destroy(gameObject.GetComponent<PolygonCollider2D> ());
+			//			gameObject.AddComponent<PolygonCollider2D> ();
 			isPressed = false;
 			Destroy (ring);
 			updateCollider = true;
@@ -77,7 +80,6 @@ public class BlockModel : MonoBehaviour
 				HandlePlayerEnlargeBlock ();
 			if (Input.GetKeyDown (KeyCode.DownArrow))
 				HandlePlayerShrinkBlock ();
-
 			//if click on background- remove highlight
 			if (Input.GetMouseButtonDown (0) && !RingScript.pressOnRing) {
 				StartCoroutine (RemoveRing ());
@@ -87,7 +89,6 @@ public class BlockModel : MonoBehaviour
 			transform.rotation = ring.transform.rotation;
 		}
 	}
-
 	public void HandlePlayerEnlargeBlock ()
 	{
 		if (currBlock == smallBlock) {			
@@ -97,13 +98,11 @@ public class BlockModel : MonoBehaviour
 		} else if (currBlock == regularBlock) {			
 			currBlock = bigBlock;
 		}
-
 		blockSprite.sprite = currBlock;
 		Destroy (GetComponent<PolygonCollider2D> ());
 		gameObject.AddComponent<PolygonCollider2D> ();
 		gameObject.GetComponent<PolygonCollider2D> ().enabled = false;
 	}
-
 	public void HandlePlayerShrinkBlock ()
 	{
 		if (currBlock == smallBlock) {
@@ -118,7 +117,6 @@ public class BlockModel : MonoBehaviour
 		gameObject.AddComponent<PolygonCollider2D> ();
 		gameObject.GetComponent<PolygonCollider2D> ().enabled = false;
 	}
-
 	public IEnumerator RemoveRing ()
 	{
 		yield return new WaitForSeconds (0.1f);
@@ -136,19 +134,16 @@ public class BlockModel : MonoBehaviour
 		ring = Instantiate (Resources.Load ("ring"), new Vector2 (transform.position.x, transform.position.y), Quaternion.identity) as GameObject;		
 		ring.transform.rotation = transform.rotation;
 	}
-
 	public void HandleGameStarted ()
 	{
 		gameStarted = true;
 	}
-
 	public void saveBlockInList ()
 	{
 		BlockData myBlock = new BlockData (transform.position.x,
-			                    transform.position.y, currBlock.name, transform.rotation);
+			transform.position.y, currBlock.name, transform.rotation);
 		LastPlacedBlocks.lastBlocksList.Add (myBlock);
 	}
-		
 
 	//pinch Code
 	private bool isTouch = false;
@@ -156,7 +151,6 @@ public class BlockModel : MonoBehaviour
 	private float currentDistance = 0f;
 	private float distance = 0f;
 	public static bool twoFingers = false;
-
 	void PinchUpdate ()
 	{
 		if (Input.touchCount == 2) {
@@ -180,18 +174,13 @@ public class BlockModel : MonoBehaviour
 		} else
 			twoFingers = false;
 	}
-
 	void OnMouseUp ()
 	{
-//		UnityEngine.Debug.Log("mouseUP");
-		//Debug.Log("sfsdfasd");
 		checkIfInStash ();
-		checkIfInEmptyBlock ();
+		//checkIfInEmptyBlock ();
 	}
-
 	public void checkIfInStash ()
 	{
-		//Debug.Log("xxxx");
 		float positionX = gameObject.transform.position.x;
 		float positionY = gameObject.transform.position.y;
 		if (7.15f < positionX && positionX < 8.62f && -4.75f < positionY && positionY < -3.24f) {
@@ -204,38 +193,37 @@ public class BlockModel : MonoBehaviour
 			//LevelManager.numOfUsedBlocks--;
 		}			
 	}
-
 	public void checkIfInEmptyBlock ()
 	{
-		
+
 		int level = LevelManager.getCurrentLeverIndex ();
 		float positionX = gameObject.transform.position.x;
 		float positionY = gameObject.transform.position.y;
 		float rotation = gameObject.transform.eulerAngles.z;
-
 		if (level == 1) {
-			if (1f <= positionX && positionX <= 1.25f && -1.63f <= positionY && positionY <= -1.4f &&
-				((357f <= rotation || rotation <= 3f) || (177f <= rotation && rotation <= 183f))) {
-				UnityEngine.Debug.Log("position");
-				//Tutorial1.continueTutorial2 = false;
-				Tutorial1.continueTutorial1 = true;
+			if (!tutorial1_1IsDone) {
+				if (1f <= positionX && positionX <= 1.25f && -1.63f <= positionY && positionY <= -1.4f &&
+					((357f <= rotation || rotation <= 3f) || (177f <= rotation && rotation <= 183f))) {
+					UnityEngine.Debug.Log ("position");
+					Tutorial1.continueTutorial1 = true;
+					tutorial1_1IsDone = true;
+				}
 			}
-
-			if (1f <= positionX && positionX <= 1.25f && -1.63f <= positionY && positionY <= -1.4f &&
-				((54f <= rotation && rotation <= 62f) || (234f <= rotation && rotation <= 242f))) {
-				//Tutorial1.continueTutorial1 = false;
-				Tutorial1.continueTutorial2 = true;
+			if (!tutorial1_2IsDone) {
+				if (1f <= positionX && positionX <= 1.25f && -1.63f <= positionY && positionY <= -1.4f &&
+					((54f <= rotation && rotation <= 62f) || (234f <= rotation && rotation <= 242f))) {
+					Tutorial1.continueTutorial2 = true;
+					tutorial1_2IsDone = true;
+				}
 			}
-
 		} else if (level == 2) {
-			if (3.25f <= positionX && positionX <= 3.4f && -0.5f <= positionY && positionY <= -0.27f 
-				&& ((88f <= rotation && rotation <= 92f) || (268f <= rotation && rotation <= 272f))) {
-				Tutorial2.continueTutorial = true;
-//				Debug.Log(" right position");
-				//tutorial2.Invoke ();
+			if (!tutorial2IsDone) {
+				if (3.25f <= positionX && positionX <= 3.4f && -0.5f <= positionY && positionY <= -0.27f
+					&& ((88f <= rotation && rotation <= 92f) || (268f <= rotation && rotation <= 272f))) {
+					Tutorial2.continueTutorial = true;
+					tutorial2IsDone = true;
+				}
 			}
 		}
-//		Debug.Log(rotation);
-//		Debug.Log(Tutorial2.continueTutorial);
 	}
 }
