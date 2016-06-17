@@ -63,12 +63,9 @@ public class BlockModel : MonoBehaviour
 			inStash = false;
 		}
 		if (gameStarted && !updateCollider) {
-			gameObject.GetComponent<CircleCollider2D> ().enabled = false;
-			//GetComponent<CircleCollider2D> ();
 			gameObject.GetComponent<PolygonCollider2D> ().enabled = true;
+			gameObject.GetComponent<CircleCollider2D> ().enabled = false;
 			saveBlockInList ();
-			//			Destroy(gameObject.GetComponent<PolygonCollider2D> ());
-			//			gameObject.AddComponent<PolygonCollider2D> ();
 			isPressed = false;
 			Destroy (ring);
 			updateCollider = true;

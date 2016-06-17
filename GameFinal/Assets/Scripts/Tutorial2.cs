@@ -160,6 +160,10 @@ public class Tutorial2 : MonoBehaviour {
 		emptyBlockIsShowing = true;
 		darkBeckground.GetComponent<SpriteRenderer>().enabled = false;
 		}
+		emptyBlock.GetComponent<SpriteRenderer>().enabled = false;
+		emptyBlockIsShowing = false;
+		emptyBlockIsShowing = false;
+		skipButton.image.enabled = false; 
 		LevelManager.isTutorialRunning = false;
 	}
 		

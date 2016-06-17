@@ -37,9 +37,7 @@ public class MarbleCollision : MonoBehaviour
 
 
 	public IEnumerator DestroyBlock(GameObject other) {
-		//Instantiate (starParticles, other.transform.position, other.transform.rotation);
-		yield return new WaitForSeconds (0.01f);
-//		Debug.Log( other.GetComponent<SpriteRenderer>().sprite.name);
+		yield return new WaitForSeconds (0.02f);
 		addKindOfBlock(other.GetComponent<SpriteRenderer>().sprite.name);
 //		Debug.Log(kindOfBlock[0] + " " + kindOfBlock[1] + " " + kindOfBlock[2]);	
 		Destroy (other);
