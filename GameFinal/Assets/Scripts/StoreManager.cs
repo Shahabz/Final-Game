@@ -15,6 +15,7 @@ public class StoreManager : MonoBehaviour {
 	public Button buyBlocks2Button;
 	public Button buyBlocks3Button;
 	public static bool MenuIsOpen = false;
+	public static bool disableAdButton = false;
 
 	void Start() {
 		closeButton.image.enabled = false;
@@ -31,11 +32,10 @@ public class StoreManager : MonoBehaviour {
 	}
 
 	void Update() {
-		if (!Advertisement.IsReady ("rewardedVideoZone")) {
+		if (disableAdButton) {
 			watchAdVideoButton.enabled = false;
-		} else {
-			watchAdVideoButton.enabled = true;
-		}
+			disableAdButton = false;
+		} 
 	}
 
 	public void HandleGameStoreClicked() {

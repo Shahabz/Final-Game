@@ -13,6 +13,8 @@ public class AdScript : MonoBehaviour {
 			//Advertisement.Show("rewardedVideoZone", options);				
 			Advertisement.Show ("rewardedVideoZone");
 			GameControl.control.numOfBlocks += 5;
+		} else {
+			StoreManager.disableAdButton = true;
 		}
 
 	}
