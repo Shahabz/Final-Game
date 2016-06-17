@@ -39,6 +39,7 @@ public class LevelManager : MonoBehaviour
 	private bool changeStar;
 	public static bool isTutorialRunning = false;
 	private bool tutorialIsOver = false;
+	public GameObject starParticles;
 
 	// Use this for initialization
 	void Start ()
@@ -89,7 +90,9 @@ public class LevelManager : MonoBehaviour
 		}
 		numOfTotalBlocks.text = "x" + GameControl.control.numOfBlocks;
 		if (GameControl.control.numOfBlocks < 10) {
-			nextBlockTime.GetComponent<Text> ().enabled = true;
+			if (!won) {
+				nextBlockTime.GetComponent<Text> ().enabled = true;
+			}
 			if (secondsForNextBlock < 10) {
 				nextBlockTime.text = "More in " + minutesForNextBlock + ":" + "0" + secondsForNextBlock;
 			} else {
@@ -175,6 +178,9 @@ public class LevelManager : MonoBehaviour
 	public IEnumerator levelCompleted (int levelPoints, int currentLevel)
 	{
 		yield return new WaitForSeconds (2f);
+
+		nextBlockTime.GetComponent<Text>().enabled = false;
+
 		BlockModel.levelCompleted = true;
 		nextLevel.gameObject.SetActive (true);
 		replayLevel.gameObject.SetActive (true);
@@ -201,6 +207,7 @@ public class LevelManager : MonoBehaviour
 		//		printStarsImage (PointScripts.currentStars);
 
 	}
+
 	public IEnumerator ShowPoints (int levelPoints, int currentLevel)
 	{
 		int levelSars = GetNumOfStarsInLevel(levelPoints, currentLevel);			
@@ -212,6 +219,7 @@ public class LevelManager : MonoBehaviour
 			yield return new WaitForSeconds(0.01f);
 		} while(i <= levelPoints);			
 	}
+
 	public IEnumerator ChangeStar (int levelStars)
 	{		
 		zeroStar.GetComponent<Image> ().enabled = false;
@@ -222,6 +230,10 @@ public class LevelManager : MonoBehaviour
 		do {
 			yield return new WaitForSeconds (0.01f);
 			star.GetComponent<RectTransform>().localScale += new Vector3(0.02f, 0.02f, 0f);
+
+			//ADDEDCODE 
+			Instantiate(starParticles, star.gameObject.transform.position, Quaternion.identity);
+
 			i++;
 		} while(i < 10);
 		do {
@@ -241,6 +253,10 @@ public class LevelManager : MonoBehaviour
 			do {
 				yield return new WaitForSeconds (0.01f);
 				star.GetComponent<RectTransform>().localScale += new Vector3(0.02f, 0.02f, 0f);
+
+				//ADDEDCODE 
+				Instantiate(starParticles, star.gameObject.transform.position, Quaternion.identity);
+
 				i++;
 			} while(i < 10);
 			do {
@@ -260,6 +276,10 @@ public class LevelManager : MonoBehaviour
 			do {
 				yield return new WaitForSeconds (0.01f);
 				star.GetComponent<RectTransform>().localScale += new Vector3(0.02f, 0.02f, 0f);
+
+				//ADDEDCODE 
+				Instantiate(starParticles, star.gameObject.transform.position, Quaternion.identity);
+
 				i++;
 			} while(i < 10);
 			do {

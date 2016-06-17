@@ -10,6 +10,9 @@ public class MarbleCollision : MonoBehaviour
 	public GameObject starParticles;
 	public static bool playMarbleHitsBlock = false;
 	public ParticleSystem explosionParticles;
+	public GameObject plus1100PointsAnimation;
+	public GameObject plus1400PointsAnimation;
+	public GameObject plus1800PointsAnimation;
 
 	void OnCollisionEnter2D (Collision2D other)
 	{		
@@ -38,20 +41,23 @@ public class MarbleCollision : MonoBehaviour
 
 	public IEnumerator DestroyBlock(GameObject other) {
 		yield return new WaitForSeconds (0.02f);
-		addKindOfBlock(other.GetComponent<SpriteRenderer>().sprite.name);
+		addKindOfBlock(other.GetComponent<SpriteRenderer>().sprite.name, other);
 //		Debug.Log(kindOfBlock[0] + " " + kindOfBlock[1] + " " + kindOfBlock[2]);	
 		Destroy (other);
 	}
 
-	public void addKindOfBlock(string kindOfCurrentBlock){
+	public void addKindOfBlock(string kindOfCurrentBlock, GameObject other){
 		switch(kindOfCurrentBlock){
 		case"smallblock":
+			Instantiate (plus1800PointsAnimation, other.transform.position, Quaternion.identity);
 			kindOfBlock[0]++;
 			break;
 		case"block":
+			Instantiate (plus1400PointsAnimation, other.transform.position, Quaternion.identity);
 			kindOfBlock[1]++;
 			break;
 		case"bigblock":
+			Instantiate (plus1100PointsAnimation, other.transform.position, Quaternion.identity);
 			kindOfBlock[2]++;
 			break;
 		}
