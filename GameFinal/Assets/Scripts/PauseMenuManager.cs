@@ -82,6 +82,15 @@ public class PauseMenuManager : MonoBehaviour {
 		pauseButton.enabled = true;
 		BlockStashModel.canDragFromStash = true;
 		DragScript.canDragBlock = true;
+		StartCoroutine(CloseMenuAndReload());
+//		MenuIsOpen = false;
+//		GameControl.control.numOfBlocks = GameControl.control.numOfBlocks + activeBlocksCounter;
+//		Application.LoadLevel (Application.loadedLevel);
+	}
+
+	public IEnumerator CloseMenuAndReload()
+	{
+		yield return new WaitForSeconds(0.1f);
 		MenuIsOpen = false;
 		GameControl.control.numOfBlocks = GameControl.control.numOfBlocks + activeBlocksCounter;
 		Application.LoadLevel (Application.loadedLevel);

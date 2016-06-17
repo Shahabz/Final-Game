@@ -53,8 +53,12 @@ public class Tutorial2 : MonoBehaviour {
 //		Debug.Log(continueTutorial);
 		if (PauseMenuManager.MenuIsOpen && emptyBlockIsShowing) {
 			emptyBlock.GetComponent<SpriteRenderer>().enabled = false;
+			skipButton.enabled = false;
+			skipButton.image.enabled = false;
 		} else if (!PauseMenuManager.MenuIsOpen && emptyBlockIsShowing) {
 			emptyBlock.GetComponent<SpriteRenderer>().enabled = true;
+			skipButton.enabled = true;
+			skipButton.image.enabled = true;
 		}
 		if (continueTutorial)
 		{
