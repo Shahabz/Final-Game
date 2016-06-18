@@ -56,7 +56,7 @@ public class MarbleCollision : MonoBehaviour
 		case"block":
 			Instantiate (plus1400PointsAnimation, other.transform.position, Quaternion.identity);
 			kindOfBlock[1]++;
-			Debug.Log(kindOfBlock[1]);
+//			Debug.Log(kindOfBlock[1]);
 			break;
 		case"bigblock":
 			Instantiate (plus1100PointsAnimation, other.transform.position, Quaternion.identity);

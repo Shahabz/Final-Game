@@ -86,7 +86,7 @@ public class LevelManager : MonoBehaviour
 			}				
 			currentNewBlock = null; 
 		}
-		numOfTotalBlocks.text = "x" + GameControl.control.numOfBlocks;
+		numOfTotalBlocks.text = "x " + GameControl.control.numOfBlocks;
 		if (GameControl.control.numOfBlocks < 10) {
 			if (!won) {
 				nextBlockTime.GetComponent<Text> ().enabled = true;
@@ -162,6 +162,12 @@ public class LevelManager : MonoBehaviour
 		nextBlockTime.GetComponent<Text>().enabled = false;
 
 		nextLevel.gameObject.SetActive (true);
+
+		if(currentLevel == 10){
+			nextLevel.enabled = false;
+			nextLevel.image.enabled = false;
+		}
+
 		replayLevel.gameObject.SetActive (true);
 		menu.gameObject.SetActive (true);
 		pause.gameObject.SetActive (false);
@@ -276,7 +282,7 @@ public class LevelManager : MonoBehaviour
 		
 	public static int getCurrentLeverIndex ()
 	{
-		Regex regex = new Regex(".+([0-9]+)$");
+		Regex regex = new Regex("[a-z]+([0-9]+)$");
 		Match match = regex.Match(Application.loadedLevelName);
 		string  levelString = match.Groups[1].Value;
 		int level = int.Parse(levelString);
@@ -313,6 +319,8 @@ public class LevelManager : MonoBehaviour
 	}
 	public int GetNumOfStarsInLevel (int points, int level)
 	{
+//		UnityEngine.Debug.Log("points " + points);
+//		UnityEngine.Debug.Log("level " + level);
 		int currentStars = 0;
 		if (level == 1 || level == 2) {			
 				if (points >= 1 && points <= 999) {
@@ -347,11 +355,11 @@ public class LevelManager : MonoBehaviour
 				GameControl.control.starsArray [level - 1] = 
 					Mathf.Max (GameControl.control.starsArray [level - 1], 1);
 				currentStars = 1;
-			} else if (points >= 1800 && points <= 1999) {
+			} else if (points >= 1800 && points <= 3499) {
 				GameControl.control.starsArray [level - 1] = 
 					Mathf.Max (GameControl.control.starsArray [level - 1], 2);
 				currentStars = 2;
-			} else if (points >= 2000) {
+			} else if (points >= 3500) {
 				GameControl.control.starsArray [level - 1] = 
 					Mathf.Max (GameControl.control.starsArray [level - 1], 3);
 				currentStars = 3;
