@@ -50,8 +50,6 @@ public class LevelManager : MonoBehaviour
 		//nextBlockTime.GetComponent<Text> ().enabled = true;
 		won = false;
 		MarbleCollision.kindOfBlock = new int[3];
-		//		secondsForNextBlock = 11;
-		//		minutesForNextBlock = 0;
 		isChangeFillTime = true;
 		nextLevel.gameObject.SetActive (false);
 		replayLevel.gameObject.SetActive (false);
@@ -143,38 +141,18 @@ public class LevelManager : MonoBehaviour
 		GameControl.control.Save ();
 		int currentLevel = getCurrentLeverIndex ();
 		int levelPoints = GetPointInLevel (currentLevel, sw.Elapsed.TotalSeconds);
-		//		ShowlevelCompleted();
 		StartCoroutine (levelCompleted (levelPoints, currentLevel));
-		//		PointScripts.setPointInLevel (getCurrentLeverIndex (), sw.Elapsed.TotalSeconds);
-		//scoreText.text = "" + PointScripts.currentPoints;
-		//StartCoroutine(ShowPoints(levelPoints));
-		//		StartCoroutine (levelCompleted ());
-		//	Instantiate (goodJob, new Vector2 (0f, 0f), Quaternion.identity);
 	}
 	public int GetPointInLevel (int level, double time)
 	{		
 		int numOfSmallBlock = MarbleCollision.kindOfBlock [0];
 		int numOfRegularBlock = MarbleCollision.kindOfBlock [1];
 		int numOfbigBlock = MarbleCollision.kindOfBlock [2];
+//		UnityEngine.Debug.Log(numOfRegularBlock);
 		int currentPoints = numOfSmallBlock * 1850 + numOfRegularBlock * 1400 + numOfbigBlock * 1100 + ((int)(time * 363));
 		return currentPoints;
 	}
-	//	public void ShowlevelCompleted()
-	//	{
-	//		nextLevel.gameObject.SetActive (true);
-	//		replayLevel.gameObject.SetActive (true);
-	//		menu.gameObject.SetActive (true);
-	//		pause.gameObject.SetActive (false);
-	//		startGame.gameObject.SetActive (false);
-	//		nextBlockTime.GetComponent<Text> ().enabled = false;
-	//		numOfTotalBlocks.GetComponent<Text> ().enabled = false;
-	//		scoreText.GetComponent<Text> ().enabled = true;
-	//		circle.GetComponent<Image> ().enabled = false;
-	//		inventory.GetComponent<SpriteRenderer>().enabled = false;
-	//		blockInInventory.GetComponent<SpriteRenderer>().enabled = false;
-	//		Instantiate (goodJob, new Vector2 (0f, 0f), Quaternion.identity);
-	//		//printStarsImage (PointScripts.currentStars);
-	//	}
+
 	public IEnumerator levelCompleted (int levelPoints, int currentLevel)
 	{
 		yield return new WaitForSeconds (2f);
@@ -204,20 +182,25 @@ public class LevelManager : MonoBehaviour
 				GameControl.control.starsArray [currentLevel] = 0;
 			}			
 		}
-		//		printStarsImage (PointScripts.currentStars);
-
 	}
 
 	public IEnumerator ShowPoints (int levelPoints, int currentLevel)
 	{
+		StartCoroutine (DelayCalculatePoints());
 		int levelSars = GetNumOfStarsInLevel(levelPoints, currentLevel);			
 		int i = 0;
 		int x =(int)  ((levelPoints / ((levelSars * 0.2f) + ((levelSars - 1) * 0.5f))) * 0.01f);
+		x = Mathf.Abs(x);
 		do{
 			scoreText.text = "" + i;
 			i += x;
 			yield return new WaitForSeconds(0.01f);
 		} while(i <= levelPoints);			
+	}
+
+	public IEnumerator DelayCalculatePoints()
+	{
+		yield return new WaitForSeconds(1.4f);
 	}
 
 	public IEnumerator ChangeStar (int levelStars)
@@ -244,7 +227,6 @@ public class LevelManager : MonoBehaviour
 		star.GetComponent<Image> ().enabled = false;
 		yield return new WaitForSeconds (0.5f);
 		if (levelStars > 1){ 
-			//		zeroStar.GetComponent<Image> ().enabled = false;
 			oneStar.GetComponent<Image> ().enabled = false;
 			twoStars.GetComponent<Image> ().enabled = true;
 			star.GetComponent<Image> ().enabled = true;
@@ -290,50 +272,13 @@ public class LevelManager : MonoBehaviour
 			star.GetComponent<Image> ().enabled = false;
 		}
 	}
-	public void printStarsImage (int numOfStars)
-	{
-		//	StartCoroutine(ChangeStar(numOfStars));
-		//		switch (numOfStars) {
-		//		case 1:
-		//			oneStar.GetComponent<Image> ().enabled = true;
-		//			break;
-		//		case 2:
-		//			twoStars.GetComponent<Image> ().enabled = true;
-		//			break;
-		//		case 3:
-		//			threeStars.GetComponent<Image> ().enabled = true;
-		//			break;
-		//		}
-	}
-	public IEnumerator ChangeStarScale ()
-	{
-		int i = 0;
-
-		do {
-			yield return new WaitForSeconds (0.04f);
-
-			star.GetComponent<RectTransform>().localScale += new Vector3(0.02f, 0.02f, 0f);
-			i++;
-		} while(i < 10);
-		do {
-			yield return new WaitForSeconds (0.04f);
-
-			star.GetComponent<RectTransform>().localScale -= new Vector3(0.02f, 0.02f, 0f);
-			i--;
-		} while(i > 0);
-		yield return new WaitForSeconds (3f);
-		//star.transform.position = new Vector3(0f,148f,0f);
-		//		star.GetComponent<Image> ().enabled = false;
-		changeStar = true;
-
-	}
+		
 	public static int getCurrentLeverIndex ()
 	{
 		Regex regex = new Regex(".+([0-9]+)$");
 		Match match = regex.Match(Application.loadedLevelName);
 		string  levelString = match.Groups[1].Value;
 		int level = int.Parse(levelString);
-		UnityEngine.Debug.Log("level " + level);
 		return level;
 	}
 	public void HandleClickedForAnotherBlock ()
@@ -343,33 +288,10 @@ public class LevelManager : MonoBehaviour
 			GameControl.control.numOfBlocks--;
 		}
 	}
-	public void PointsCalc ()
-	{
-		int points = 10000;
-		int decreaseBig = 9900 / 10;
-		int decreaseRegular = (int)(0.75 * decreaseBig);
-		int decreaseSmall = decreaseBig / 2;
-		int count = 0;
-		//	for (int i = 0; i < blocksSizes.Length; i++) {
-		//		if (blocksSizes [i].Equals ("big")) {
-		//			points -= decreaseBig;
-		//			count++;
-		//		} else if (blocksSizes [i].Equals ("regular")) {
-		//			points -= decreaseRegular;
-		//			count++;
-		//		} else if (blocksSizes [i].Equals ("small")) {
-		//			points -= decreaseSmall;
-		//			count++;
-		//		}
-		//	}
-		if (count == 1) {
-			points += decreaseSmall;
-		}
-		scoreText.GetComponent<Text> ().enabled = true;
-		scoreText.text += " " + points;
-	}
+
 	public void HandlePressLevelsButton (int level)
 	{
+		level--;
 		if (!won)
 		{
 			GameControl.control.numOfBlocks = GameControl.control.numOfBlocks + PauseMenuManager.activeBlocksCounter;
@@ -391,79 +313,79 @@ public class LevelManager : MonoBehaviour
 	public int GetNumOfStarsInLevel (int points, int level)
 	{
 		int currentStars = 0;
-		if (level == 1) {			
+		if (level == 1 || level == 2) {			
 			if (points <= 0) {
 				//Debug.Log("0");
-				ChangeLevel.starsArray [level - 1] = -1;
+//				ChangeLevel.starsArray [level - 1] = -1;
 				GameControl.control.starsArray[level - 1] = -1;
 			} else if (points >= 1 && points <= 499) {
 				//Debug.Log("2");
-				ChangeLevel.starsArray [level - 1] = 0;
+//				ChangeLevel.starsArray [level - 1] = 0;
 				GameControl.control.starsArray[level - 1] = 
 					Mathf.Max(GameControl.control.starsArray[level - 1], 0);
 			} else if (points >= 500 && points <= 999) {
 				//Debug.Log("3");
-				ChangeLevel.starsArray [level - 1] = 1;
+//				ChangeLevel.starsArray [level - 1] = 1;
 				GameControl.control.starsArray[level - 1] = 
 					Mathf.Max(GameControl.control.starsArray[level - 1], 1);
 				currentStars = 1;
 			} else if (points >= 1000 && points <= 1499) {
 				//Debug.Log("4");
-				ChangeLevel.starsArray [level - 1] = 2;
+//				ChangeLevel.starsArray [level - 1] = 2;
 				GameControl.control.starsArray[level - 1] = 
 					Mathf.Max(GameControl.control.starsArray[level - 1], 2);
 				currentStars = 2;
 			} else if (points >= 1500) {
 				//Debug.Log("5");
-				ChangeLevel.starsArray [level - 1] = 3;
+//				ChangeLevel.starsArray [level - 1] = 3;
 				GameControl.control.starsArray[level - 1] = 
 					Mathf.Max(GameControl.control.starsArray[level - 1], 3);
 				currentStars = 3;
 			}
-		} else if (level >= 2 || level <= 5) {
+		} else if (level >= 3 || level <= 5) {
 			if (points <= 0) {
-				ChangeLevel.starsArray [level - 1] = -1;
+//				ChangeLevel.starsArray [level - 1] = -1;
 				GameControl.control.starsArray [level - 1] = -1; 
 			} else if (points >= 1 && points <= 499) {
-				ChangeLevel.starsArray [level - 1] = 0;
+//				ChangeLevel.starsArray [level - 1] = 0;
 				GameControl.control.starsArray[level - 1] = 
 					Mathf.Max(GameControl.control.starsArray[level - 1], 0);
-			} else if (points >= 500 && points <= 999) {
-				ChangeLevel.starsArray [level - 1] = 1;
+			} else if (points >= 500 && points <= 1499) {
+//				ChangeLevel.starsArray [level - 1] = 1;
 				GameControl.control.starsArray [level - 1] = 
 					Mathf.Max (GameControl.control.starsArray [level - 1], 1);
 				currentStars = 1;
-			} else if (points >= 1000 && points <= 1700) {
-				ChangeLevel.starsArray [level - 1] = 2;
+			} else if (points >= 1500 && points <= 1899) {
+//				ChangeLevel.starsArray [level - 1] = 2;
 				GameControl.control.starsArray[level - 1] = 
 					Mathf.Max (GameControl.control.starsArray [level - 1], 2);
 				currentStars = 2;
-			} else if (points >= 1701) {
-				ChangeLevel.starsArray [level - 1] = 3;
+			} else if (points >= 1900) {
+//				ChangeLevel.starsArray [level - 1] = 3;
 				GameControl.control.starsArray[level - 1] = 
 					Mathf.Max (GameControl.control.starsArray [level - 1], 3);
 				currentStars = 3;
 			}
 		} else if (level >= 6 && level <= 10) {
 			if (points <= 0) {
-				ChangeLevel.starsArray [level - 1] = -1;
+//				ChangeLevel.starsArray [level - 1] = -1;
 				GameControl.control.starsArray [level - 1] = -1;
-			} else if (points >= 1 && points <= 2999) {
-				ChangeLevel.starsArray [level - 1] = 0;
+			} else if (points >= 1 && points <= 999) {
+//				ChangeLevel.starsArray [level - 1] = 0;
 				GameControl.control.starsArray [level - 1] = 
 					Mathf.Max (GameControl.control.starsArray [level - 1], 0);
-			} else if (points >= 3000 && points <= 3999) {
-				ChangeLevel.starsArray [level - 1] = 1;
+			} else if (points >= 1000 && points <= 1799) {
+//				ChangeLevel.starsArray [level - 1] = 1;
 				GameControl.control.starsArray [level - 1] = 
 					Mathf.Max (GameControl.control.starsArray [level - 1], 1);
 				currentStars = 1;
-			} else if (points >= 4000 && points <= 6999) {
-				ChangeLevel.starsArray [level - 1] = 2;
+			} else if (points >= 1800 && points <= 1999) {
+//				ChangeLevel.starsArray [level - 1] = 2;
 				GameControl.control.starsArray [level - 1] = 
 					Mathf.Max (GameControl.control.starsArray [level - 1], 2);
 				currentStars = 2;
-			} else if (points >= 7000) {
-				ChangeLevel.starsArray [level - 1] = 3;
+			} else if (points >= 2000) {
+//				ChangeLevel.starsArray [level - 1] = 3;
 				GameControl.control.starsArray [level - 1] = 
 					Mathf.Max (GameControl.control.starsArray [level - 1], 3);
 				currentStars = 3;
@@ -472,5 +394,4 @@ public class LevelManager : MonoBehaviour
 		}
 		return currentStars;
 	}
-
 }

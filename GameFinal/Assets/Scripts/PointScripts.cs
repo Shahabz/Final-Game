@@ -7,10 +7,11 @@ public class PointScripts : MonoBehaviour
 	public static int currentPoints;
 	public static int currentStars;
 
+
 	// Use this for initialization
 	void Start ()
 	{
-	
+		
 	}
 	
 	// Update is called once per frame

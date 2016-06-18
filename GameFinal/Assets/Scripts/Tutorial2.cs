@@ -148,6 +148,7 @@ public class Tutorial2 : MonoBehaviour {
 		handPinchBlock.GetComponent<SpriteRenderer>().sprite = handSmallBlock;
 		text3.GetComponent<SpriteRenderer>().enabled = false;
 		text4.GetComponent<SpriteRenderer>().enabled = true;
+			StartCoroutine(PointsTextMove());
 		}
 		yield return new WaitForSeconds (0.9f);
 		handPinchBlock.GetComponent<SpriteRenderer>().sprite = handRegularBlock1;
@@ -170,6 +171,18 @@ public class Tutorial2 : MonoBehaviour {
 		LevelManager.isTutorialRunning = false;
 	}
 		
+	public IEnumerator PointsTextMove() {
+
+		int i = 0;
+		text4.transform.position = new Vector3(0f,-4f,0f);
+		do {
+			yield return new WaitForSeconds (0.01f);
+			text4.transform.position = new Vector3 (0f, text4.transform.position.y +  + 0.035f, 0f);  
+			i++;						
+		} while(i < 60);
+	}
+
+
 	public void HandlePressStart()
 	{
 		emptyBlock.GetComponent<SpriteRenderer>().enabled = false;

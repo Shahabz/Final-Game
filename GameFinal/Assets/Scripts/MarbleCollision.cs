@@ -17,6 +17,7 @@ public class MarbleCollision : MonoBehaviour
 	void OnCollisionEnter2D (Collision2D other)
 	{		
 		if (other.gameObject.tag == "block") {
+			//Debug.Log("hitBlock");
 			Vector3 blockPos = other.transform.position;
 			playMarbleHitsBlock = true;
 			Instantiate (starParticles, blockPos, other.transform.rotation);
@@ -25,6 +26,7 @@ public class MarbleCollision : MonoBehaviour
 		}
 
 		if (other.gameObject.tag == "destination") {
+			//Debug.Log("hitTarget");
 			StartCoroutine (Explosion (other.gameObject));
 			onMarbleCollisionDestination.Invoke ();
 			winLevel.Invoke ();
@@ -42,7 +44,6 @@ public class MarbleCollision : MonoBehaviour
 	public IEnumerator DestroyBlock(GameObject other) {
 		yield return new WaitForSeconds (0.02f);
 		addKindOfBlock(other.GetComponent<SpriteRenderer>().sprite.name, other);
-//		Debug.Log(kindOfBlock[0] + " " + kindOfBlock[1] + " " + kindOfBlock[2]);	
 		Destroy (other);
 	}
 
