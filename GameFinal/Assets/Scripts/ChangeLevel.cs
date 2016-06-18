@@ -12,12 +12,22 @@ public class ChangeLevel : MonoBehaviour
 	public static int[] starsArray = new int[10];
 	public Button[] buttonsArray;
 	public Text starsText;
+	public Text blocksText;
 
 	// Use this for initialization
 	void Start ()
 	{				
 		HandleCheckLevelsStars();
 		starsText.text =  numOfGainedStars +  "/" + ((numOfLevels - numOfCloseLevel) * 3);
+	}
+
+	void Update () {
+		blocksText.text = GameControl.control.numOfBlocks.ToString();
+		if (StoreManager.MenuIsOpen) {
+			blocksText.GetComponent<Text> ().enabled = false;
+		} else {
+			blocksText.GetComponent<Text> ().enabled = true;
+		}
 	}
 
 	public static int getCurrentLevelIndex() {
@@ -85,8 +95,9 @@ public class ChangeLevel : MonoBehaviour
 
 	public void HadleLoadLevel (int Level)
 	{
-		
-		Application.LoadLevel ("Level" + Level);
+		if (!StoreManager.MenuIsOpen) {
+			Application.LoadLevel ("Level" + Level);
+		}
 	}
 
 
