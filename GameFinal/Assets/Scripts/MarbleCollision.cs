@@ -42,8 +42,8 @@ public class MarbleCollision : MonoBehaviour
 
 
 	public IEnumerator DestroyBlock(GameObject other) {
-		yield return new WaitForSeconds (0.02f);
 		addKindOfBlock(other.GetComponent<SpriteRenderer>().sprite.name, other);
+		yield return new WaitForSeconds (0.02f);
 		Destroy (other);
 	}
 
@@ -56,6 +56,7 @@ public class MarbleCollision : MonoBehaviour
 		case"block":
 			Instantiate (plus1400PointsAnimation, other.transform.position, Quaternion.identity);
 			kindOfBlock[1]++;
+			Debug.Log(kindOfBlock[1]);
 			break;
 		case"bigblock":
 			Instantiate (plus1100PointsAnimation, other.transform.position, Quaternion.identity);
