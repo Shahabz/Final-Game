@@ -189,6 +189,7 @@ public class LevelManager : MonoBehaviour
 				GameControl.control.starsArray [currentLevel] = 0;
 			}			
 		}
+		GameControl.control.Save ();
 	}
 
 	public IEnumerator ShowPoints (int levelPoints, int currentLevel)
