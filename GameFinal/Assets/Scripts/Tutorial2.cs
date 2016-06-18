@@ -165,7 +165,7 @@ public class Tutorial2 : MonoBehaviour {
 		}
 		emptyBlock.GetComponent<SpriteRenderer>().enabled = false;
 		emptyBlockIsShowing = false;
-		emptyBlockIsShowing = false;
+		skipButton.enabled = false;
 		skipButton.image.enabled = false; 
 		LevelManager.isTutorialRunning = false;
 	}

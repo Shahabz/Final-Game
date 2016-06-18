@@ -237,6 +237,10 @@ public class Tutorial1 : MonoBehaviour {
 		text4.GetComponent<SpriteRenderer>().enabled = false;
 		darkBeckground.GetComponent<SpriteRenderer>().enabled = false;
 		emptyBlock.layer = 10;
+		emptyBlock.GetComponent<SpriteRenderer> ().enabled = false;
+		emptyBlockIsShowing = false;
+		skipButton.enabled = false;
+		skipButton.image.enabled = false; 
 		LevelManager.isTutorialRunning = false;
 	}
 

@@ -15,7 +15,7 @@ public class StoreManager : MonoBehaviour {
 	public Button buyBlocks2Button;
 	public Button buyBlocks3Button;
 	public static bool MenuIsOpen = false;
-	public static bool disableAdButton = false;
+//	public static bool disableAdButton = false;
 
 	void Start() {
 		closeButton.image.enabled = false;
@@ -31,12 +31,12 @@ public class StoreManager : MonoBehaviour {
 		StoreBackground.GetComponent<SpriteRenderer> ().enabled = false;
 	}
 
-	void Update() {
-		if (disableAdButton) {
-			watchAdVideoButton.enabled = false;
-			disableAdButton = false;
-		} 
-	}
+//	void Update() {
+//		if (disableAdButton) {
+//			watchAdVideoButton.enabled = false;
+//			disableAdButton = false;
+//		} 
+//	}
 
 	public void HandleGameStoreClicked() {
 
@@ -81,8 +81,8 @@ public class StoreManager : MonoBehaviour {
 
 	public void OnClickWatchAdVideo() {
 		MenuIsOpen = false;
-		//Advertisement.Show("rewardedVideoZone");
-		//GameControl.control.numOfBlocks += 5;
+//		Advertisement.Show("rewardedVideoZone");
+//		GameControl.control.numOfBlocks += 5;
 		AdScript.ShowRewardedAd();
 	}
 

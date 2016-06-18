@@ -11,7 +11,28 @@ public class SoundManager : MonoBehaviour {
 
 	public static bool musicOn = true;
 	public static bool soundOn = true;
-	
+
+	private static SoundManager instance;
+
+	void Awake()
+	{
+		if (instance != null && instance != this)
+		{
+			Destroy(gameObject);
+			return;
+		}
+		else
+		{
+			instance = this;
+		}
+		DontDestroyOnLoad(gameObject);
+	}
+
+	void OnApplicationQuit()
+	{
+		instance = null;
+	}
+
 	// Use this for initialization
 	void Start () {
 		sourceAudio = GetComponent<AudioSource> ();
