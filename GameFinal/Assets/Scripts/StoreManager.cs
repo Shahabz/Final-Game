@@ -81,7 +81,7 @@ public class StoreManager : MonoBehaviour {
 
 	public void OnClickWatchAdVideo() {
 		MenuIsOpen = false;
-//		Advertisement.Show("rewardedVideoZone");
+		//		Advertisement.Show("rewardedVideo");
 //		GameControl.control.numOfBlocks += 5;
 		AdScript.ShowRewardedAd();
 	}
