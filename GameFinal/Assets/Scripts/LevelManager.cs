@@ -180,6 +180,7 @@ public class LevelManager : MonoBehaviour
 		inventory.GetComponent<SpriteRenderer>().enabled = false;
 		blockInInventory.GetComponent<SpriteRenderer>().enabled = false;
 		Instantiate (goodJob, new Vector2 (0f, 0f), Quaternion.identity);
+		int numOfStartInCurrentLevel = GameControl.control.starsArray[currentLevel - 1];
 		int levelSars = GetNumOfStarsInLevel(levelPoints, currentLevel);
 		StartCoroutine(ShowPoints(levelPoints, currentLevel));
 		StartCoroutine(ChangeStar(levelSars));
@@ -187,8 +188,32 @@ public class LevelManager : MonoBehaviour
 		{
 			if (GameControl.control.starsArray [currentLevel] == -1) {
 				GameControl.control.starsArray [currentLevel] = 0;
+				GameControl.control.numOfCloseLevel--;
+				GameControl.control.Save ();
 			}			
 		}
+//		UnityEngine.Debug.Log(numOfStartInCurrentLevel);
+//		UnityEngine.Debug.Log(levelSars);
+
+
+
+		if (levelSars > numOfStartInCurrentLevel)
+		{
+			if (numOfStartInCurrentLevel == -1)
+			{
+				GameControl.control.numOfGainedStars = GameControl.control.numOfGainedStars + levelSars;
+				GameControl.control.Save ();
+				//GameControl.control.numOfLevels++;
+//				GameControl.control.numOfCloseLevel--;
+				UnityEngine.Debug.Log(GameControl.control.numOfCloseLevel);
+			}
+			else
+			{
+				GameControl.control.numOfGainedStars = GameControl.control.numOfGainedStars + (levelSars - numOfStartInCurrentLevel);	
+				GameControl.control.Save ();
+			}
+		}
+
 		GameControl.control.Save ();
 	}
 
@@ -311,6 +336,7 @@ public class LevelManager : MonoBehaviour
 		DragScript.canDragBlock = true;
 		PauseMenuManager.MenuIsOpen = false;
 		LastPlacedBlocks.lastBlocksList = new List<BlockData> ();
+		SoundManager.inMenu = true;
 		Application.LoadLevel ("Levels" + ((level / 10) + 1));
 	}
 	public void HandleMoveNextLevel (int level)

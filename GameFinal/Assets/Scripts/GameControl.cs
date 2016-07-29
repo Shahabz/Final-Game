@@ -11,6 +11,10 @@ public class GameControl : MonoBehaviour {
 	public float numOfBlocks;
 	public int[] starsArray;
 
+	public int numOfCloseLevel = 19;
+	public int numOfGainedStars = 0;
+	public int numOfLevels = 20;
+
 	void Awake() 
 	{
 		if (control == null) {
@@ -36,6 +40,8 @@ public class GameControl : MonoBehaviour {
 		PlayerData data = new PlayerData ();
 		data.numOfBlocks = numOfBlocks;	
 		data.starsArray = starsArray;
+		data.numOfCloseLevel = numOfCloseLevel;
+		data.numOfGainedStars = numOfGainedStars;
 
 		bf.Serialize (file, data);
 		file.Close ();
@@ -51,6 +57,9 @@ public class GameControl : MonoBehaviour {
 
 			numOfBlocks = data.numOfBlocks;
 			starsArray = data.starsArray;
+
+			numOfCloseLevel = data.numOfCloseLevel;
+			numOfGainedStars = data.numOfGainedStars;
 		}
 	}
 
@@ -67,5 +76,7 @@ public class GameControl : MonoBehaviour {
 class PlayerData {
 	public float numOfBlocks;
 	public int[] starsArray;
+	public int numOfCloseLevel;
+	public int numOfGainedStars;
 }
 

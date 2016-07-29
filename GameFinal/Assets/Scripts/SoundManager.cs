@@ -7,10 +7,17 @@ public class SoundManager : MonoBehaviour {
 
 	public AudioClip marbleHitsBlock;
 	public AudioClip crystalShatter;
+
+	public AudioClip levelMusic;
+	public AudioClip menuMusic;
+
 	private bool musicIsPlaying;
 
 	public static bool musicOn = true;
 	public static bool soundOn = true;
+
+	public static bool inLevel;
+	public static bool inMenu;
 
 	private static SoundManager instance;
 
@@ -42,6 +49,22 @@ public class SoundManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
+		if(inLevel)
+		{
+			sourceAudio.Stop();
+			sourceAudio.clip = levelMusic;
+			StartCoroutine(PlayMusic());
+			inLevel = false;
+		}
+
+		if(inMenu)
+		{
+			sourceAudio.Stop();
+			sourceAudio.clip = menuMusic;
+			StartCoroutine(PlayMusic());
+			inMenu = false;
+		}
+
 		if (soundOn) {
 			if (MarbleCollision.playMarbleHitsBlock) {
 				sourceAudio.PlayOneShot (marbleHitsBlock, 1f);
@@ -66,6 +89,11 @@ public class SoundManager : MonoBehaviour {
 				
 	}
 
+	public IEnumerator PlayMusic()
+	{
+		yield return new WaitForSeconds(0.2f);
+		sourceAudio.Play();
+	}
 }
 
 

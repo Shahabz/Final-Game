@@ -14,11 +14,22 @@ public class ChangeLevel : MonoBehaviour
 	public Text starsText;
 	public Text blocksText;
 
+
 	// Use this for initialization
 	void Start ()
 	{				
+//		GameControl.control.starsArray[0] = 0;
+//		GameControl.control.starsArray[1] = -1;
+//		GameControl.control.starsArray[2] = -1;
+//		GameControl.control.starsArray[3] = -1;
+//		GameControl.control.starsArray[4] = -1;
+//				GameControl.control.numOfGainedStars = 0;
+//		GameControl.control.Save ();
 		HandleCheckLevelsStars();
-		starsText.text =  numOfGainedStars +  "/" + ((numOfLevels - numOfCloseLevel) * 3);
+		Debug.Log(GameControl.control.numOfLevels);
+		Debug.Log(GameControl.control.numOfCloseLevel);
+
+		starsText.text =  GameControl.control.numOfGainedStars +  "/" + ((GameControl.control.numOfLevels - GameControl.control.numOfCloseLevel) * 3);
 	}
 
 	void Update () {
@@ -96,6 +107,7 @@ public class ChangeLevel : MonoBehaviour
 	public void HadleLoadLevel (int Level)
 	{
 		if (!StoreManager.MenuIsOpen) {
+			SoundManager.inLevel = true;
 			Application.LoadLevel ("Level" + Level);
 		}
 	}
@@ -103,7 +115,6 @@ public class ChangeLevel : MonoBehaviour
 
 	public void HadleLoadLevels (int Levels)
 	{
-
 		Application.LoadLevel ("Levels" + Levels);
 	}
 }
