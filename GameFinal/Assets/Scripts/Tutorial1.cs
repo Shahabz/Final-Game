@@ -246,12 +246,14 @@ public class Tutorial1 : MonoBehaviour {
 
 	public void HandlePressStart()
 	{
+		SoundManager.playButtonClick = true;
 		emptyBlock.GetComponent<SpriteRenderer>().enabled = false;
 		emptyBlockIsShowing = false;
 	}
 
 	public void HandleSkipTutorial()
-	{		
+	{	
+		SoundManager.playButtonClick = true;	
 		skipTutorial = true;
 	}
 }

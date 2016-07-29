@@ -41,7 +41,7 @@ public class StoreManager : MonoBehaviour {
 //	}
 
 	public void HandleGameStoreClicked() {
-
+		SoundManager.playButtonClick = true;
 		startButton.enabled = false;
 		pauseButton.enabled = false;
 		BlockStashModel.canDragFromStash = false;
@@ -63,6 +63,7 @@ public class StoreManager : MonoBehaviour {
 	}
 
 	public void OnClickBack() {
+		SoundManager.playButtonClick = true;
 		startButton.enabled = true;
 		pauseButton.enabled = true;
 		BlockStashModel.canDragFromStash = true;
@@ -84,6 +85,7 @@ public class StoreManager : MonoBehaviour {
 	}
 
 	public void OnClickWatchAdVideo() {
+		SoundManager.playButtonClick = true;
 		MenuIsOpen = false;
 		//		Advertisement.Show("rewardedVideo");
 //		GameControl.control.numOfBlocks += 5;
@@ -91,18 +93,21 @@ public class StoreManager : MonoBehaviour {
 	}
 
 	public void OnClickBuyBlocks1() {
+		SoundManager.playButtonClick = true;
 		MenuIsOpen = false;
 		// TODO: add buying action here - buy through google play store check out how to do this...
 		GameControl.control.numOfBlocks += 5; // TODO: update how many blocks are added for each purchase
 	}
 
 	public void OnClickBuyBlocks2() {
+		SoundManager.playButtonClick = true;
 		MenuIsOpen = false;
 		// TODO: add buying action here - buy through google play store check out how to do this...
 		GameControl.control.numOfBlocks += 10; // TODO: update how many blocks are added for each purchase
 	}
 
 	public void OnClickBuyBlocks3() {
+		SoundManager.playButtonClick = true;
 		MenuIsOpen = false;
 		// TODO: add buying action here - buy through google play store check out how to do this...
 		GameControl.control.numOfBlocks += 15; // TODO: update how many blocks are added for each purchase

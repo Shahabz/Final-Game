@@ -48,7 +48,7 @@ public class PrefrencesMenu : MonoBehaviour {
 	}
 
 	public void HandlePauseClicked() {
-
+		SoundManager.playButtonClick = true;
 		MenuIsOpen = true;
 		backButton.image.enabled = true;
 		backButton.enabled = true;
@@ -64,6 +64,7 @@ public class PrefrencesMenu : MonoBehaviour {
 	}
 
 	public void OnClickBack() {
+		SoundManager.playButtonClick = true;
 		MenuIsOpen = false;
 		backButton.image.enabled = false;
 		backButton.enabled = false;
@@ -79,6 +80,7 @@ public class PrefrencesMenu : MonoBehaviour {
 	}
 
 	public void OnClickCredits() {
+		SoundManager.playButtonClick = true;
 		backButton.image.enabled = false;
 		backButton.enabled = false;
 		creditsButton.image.enabled = false;
@@ -94,6 +96,7 @@ public class PrefrencesMenu : MonoBehaviour {
 	}
 
 	public void OnClickBackCredits() {
+		SoundManager.playButtonClick = true;
 		backButton.image.enabled = true;
 		backButton.enabled = true;
 		creditsButton.image.enabled = true;
@@ -112,15 +115,18 @@ public class PrefrencesMenu : MonoBehaviour {
 
 	public void OnClickSound() {
 		if (SoundManager.soundOn) {
+			SoundManager.playButtonClick = true;
 			SoundManager.soundOn = false;
 			soundButton.image.sprite = soundOffImage;
 		} else {
+			SoundManager.playButtonClick = true;
 			SoundManager.soundOn = true;
 			soundButton.image.sprite = soundOnImage;
 		}
 	}
 
 	public void OnClickMusic() {
+		SoundManager.playButtonClick = true;
 		if (SoundManager.musicOn) {
 			SoundManager.musicOn = false;
 			musicButton.image.sprite = musicOffImage;

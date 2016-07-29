@@ -16,6 +16,7 @@ public class PauseMenuManager : MonoBehaviour {
 	public Sprite soundOnImage;
 	public static bool MenuIsOpen = false;
 	public static int activeBlocksCounter;
+
 	void Start() {
 		activeBlocksCounter = 0;
 		backButton.image.enabled = false;
@@ -41,6 +42,7 @@ public class PauseMenuManager : MonoBehaviour {
 		}
 	}
 	public void HandlePauseClicked() {
+		SoundManager.playButtonClick = true;
 		startButton.enabled = false;
 		pauseButton.enabled = false;
 		BlockStashModel.canDragFromStash = false;
@@ -59,6 +61,7 @@ public class PauseMenuManager : MonoBehaviour {
 		MenuBackground.GetComponent<SpriteRenderer> ().enabled = true;
 	}
 	public void OnClickBack() {
+		SoundManager.playButtonClick = true;
 		startButton.enabled = true;
 		pauseButton.enabled = true;
 		BlockStashModel.canDragFromStash = true;
@@ -77,7 +80,7 @@ public class PauseMenuManager : MonoBehaviour {
 		MenuBackground.GetComponent<SpriteRenderer> ().enabled = false;
 	}
 	public void OnClickReplay() {
-		
+		SoundManager.playButtonClick = true;
 		startButton.enabled = true;
 		pauseButton.enabled = true;
 		BlockStashModel.canDragFromStash = true;
@@ -96,6 +99,7 @@ public class PauseMenuManager : MonoBehaviour {
 		Application.LoadLevel (Application.loadedLevel);
 	}
 	public void OnClickSound() {
+		SoundManager.playButtonClick = true;
 		if (SoundManager.soundOn) {
 			SoundManager.soundOn = false;
 			soundButton.image.sprite = soundOffImage;
@@ -105,6 +109,7 @@ public class PauseMenuManager : MonoBehaviour {
 		}
 	}
 	public void OnClickMusic() {
+		SoundManager.playButtonClick = true;
 		if (SoundManager.musicOn) {
 			SoundManager.musicOn = false;
 			musicButton.image.sprite = musicOffImage;

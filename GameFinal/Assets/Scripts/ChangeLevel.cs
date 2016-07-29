@@ -101,11 +101,13 @@ public class ChangeLevel : MonoBehaviour
 
 	public void HandlePressReturnButteun ()
 	{
+		SoundManager.playButtonClick = true;
 		Application.LoadLevel ("StartMenu");
 	}
 
 	public void HadleLoadLevel (int Level)
 	{
+		SoundManager.playButtonClick = true;
 		if (!StoreManager.MenuIsOpen) {
 			SoundManager.inLevel = true;
 			Application.LoadLevel ("Level" + Level);
@@ -115,6 +117,7 @@ public class ChangeLevel : MonoBehaviour
 
 	public void HadleLoadLevels (int Levels)
 	{
+		SoundManager.playButtonClick = true;
 		Application.LoadLevel ("Levels" + Levels);
 	}
 }

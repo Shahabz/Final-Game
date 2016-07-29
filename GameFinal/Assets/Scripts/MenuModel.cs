@@ -21,6 +21,7 @@ public class MenuModel : MonoBehaviour {
 	public void HandleClickedPlay ()
 	{
 		Application.LoadLevel ("Levels1");
+		SoundManager.playButtonClick = true;
 		//Application.LoadLevel ("Level1");
 	}
 
@@ -38,10 +39,12 @@ public class MenuModel : MonoBehaviour {
 	public void HandleClickedHelp ()
 	{
 		Application.LoadLevel ("Help");
+		SoundManager.playButtonClick = true;
 	}
 
 	public void HandleClickedBackToMainMenu()
 	{
 		Application.LoadLevel ("StartMenu");
+		SoundManager.playButtonClick = true;
 	}
 }

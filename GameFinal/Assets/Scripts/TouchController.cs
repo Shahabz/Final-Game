@@ -26,6 +26,7 @@ public class TouchController : MonoBehaviour {
 	}
 
 	public void HandleStartButtonClicked () {
+		SoundManager.playButtonClick = true;
 		onPlayerPressStart.Invoke ();
 		playButton.enabled = false;
 		levelsButton.enabled = false;

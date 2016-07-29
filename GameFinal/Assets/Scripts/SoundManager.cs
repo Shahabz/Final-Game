@@ -4,17 +4,17 @@ using System.Collections;
 public class SoundManager : MonoBehaviour {
 	
 	private AudioSource sourceAudio;
-
 	public AudioClip marbleHitsBlock;
 	public AudioClip crystalShatter;
-
 	public AudioClip levelMusic;
 	public AudioClip menuMusic;
+	public AudioClip buttonSound;
 
 	private bool musicIsPlaying;
 
 	public static bool musicOn = true;
 	public static bool soundOn = true;
+	public static bool playButtonClick = false;
 
 	public static bool inLevel;
 	public static bool inMenu;
@@ -75,6 +75,11 @@ public class SoundManager : MonoBehaviour {
 				sourceAudio.PlayOneShot (crystalShatter, 0.6f);
 				DestinationModel.playCrystalShatter = false;
 			}
+
+			if (playButtonClick) {
+				sourceAudio.PlayOneShot (buttonSound, 1f);
+				playButtonClick = false;
+			}
 		}
 		if (!musicOn && musicIsPlaying) {
 			//sourceAudio.Pause();
@@ -94,6 +99,7 @@ public class SoundManager : MonoBehaviour {
 		yield return new WaitForSeconds(0.2f);
 		sourceAudio.Play();
 	}
+		
 }
 
 

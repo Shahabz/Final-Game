@@ -127,6 +127,7 @@ public class LevelManager : MonoBehaviour
 		}
 		isChangeFillTime = true;
 	}
+
 	public void HandleOutOfBounds ()
 	{
 		if (!won) {
@@ -144,6 +145,7 @@ public class LevelManager : MonoBehaviour
 		int levelPoints = GetPointInLevel (currentLevel, sw.Elapsed.TotalSeconds);
 		StartCoroutine (levelCompleted (levelPoints, currentLevel));
 	}
+
 	public int GetPointInLevel (int level, double time)
 	{		
 		int numOfSmallBlock = MarbleCollision.kindOfBlock [0];
@@ -314,6 +316,7 @@ public class LevelManager : MonoBehaviour
 		int level = int.Parse(levelString);
 		return level;
 	}
+
 	public void HandleClickedForAnotherBlock ()
 	{		
 		if (GameControl.control.numOfBlocks > 0) {
@@ -324,6 +327,7 @@ public class LevelManager : MonoBehaviour
 
 	public void HandlePressLevelsButton (int level)
 	{
+		SoundManager.playButtonClick = true;
 		level--;
 		if (!won)
 		{
@@ -339,11 +343,14 @@ public class LevelManager : MonoBehaviour
 		SoundManager.inMenu = true;
 		Application.LoadLevel ("Levels" + ((level / 10) + 1));
 	}
+
 	public void HandleMoveNextLevel (int level)
 	{
+		SoundManager.playButtonClick = true;
 		LastPlacedBlocks.lastBlocksList = new List<BlockData> ();
 		Application.LoadLevel ("Level" + level);		
 	}
+
 	public int GetNumOfStarsInLevel (int points, int level)
 	{
 //		UnityEngine.Debug.Log("points " + points);
