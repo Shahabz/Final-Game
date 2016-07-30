@@ -29,6 +29,22 @@ public class DestinationModel : MonoBehaviour {
 			} else
 				MoveLeftAndRight();
 		}
+
+		if (Application.loadedLevelName.Equals ("Level11")) {
+				MoveDiagonal();
+		}
+	}
+
+	public void MoveDiagonal(){
+		transform.position = new Vector2(transform.position.x + (speed*0.5f), transform.position.y + speed);
+		if (transform.position.y >= 3f) {
+			transform.position = new Vector2(transform.position.x, 2.99f);
+			speed = speed * (-1);
+		} else if (transform.position.y <= startY) {
+			transform.position = new Vector2(transform.position.x, startY);
+			speed = speed * (-1);
+			moveVertical = false;
+		}
 	}
 
 	public void MoveUpAndDown() {

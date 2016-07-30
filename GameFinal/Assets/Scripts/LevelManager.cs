@@ -13,6 +13,9 @@ public class LevelManager : MonoBehaviour
 	public GameObject inventory;
 	public GameObject blockInInventory;
 	public static Stopwatch sw;
+
+
+
 	//	public static float startTime;
 	//	float endTime;
 	//public static int numOfBlocks = 20;
@@ -245,6 +248,8 @@ public class LevelManager : MonoBehaviour
 		star.GetComponent<Image> ().enabled = true;
 		star.GetComponent<RectTransform>().transform.position = new Vector3(-1.57f,3.24f,0f);
 		int i = 0;
+		SoundManager.oneStar = true;
+
 		do {
 			yield return new WaitForSeconds (0.01f);
 			star.GetComponent<RectTransform>().localScale += new Vector3(0.02f, 0.02f, 0f);
@@ -266,6 +271,7 @@ public class LevelManager : MonoBehaviour
 			twoStars.GetComponent<Image> ().enabled = true;
 			star.GetComponent<Image> ().enabled = true;
 			star.GetComponent<RectTransform>().transform.position = new Vector3(0f,3.46f,0f);
+			SoundManager.twoStars = true;		
 
 			do {
 				yield return new WaitForSeconds (0.01f);
@@ -289,6 +295,7 @@ public class LevelManager : MonoBehaviour
 			threeStars.GetComponent<Image> ().enabled = true;
 			star.GetComponent<Image> ().enabled = true;
 			star.GetComponent<RectTransform>().transform.position = new Vector3(1.6f,3.24f,0f);
+			SoundManager.threeStars = true;
 
 			do {
 				yield return new WaitForSeconds (0.01f);

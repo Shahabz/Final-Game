@@ -10,11 +10,20 @@ public class SoundManager : MonoBehaviour {
 	public AudioClip menuMusic;
 	public AudioClip buttonSound;
 
+	public AudioClip firstStarSound;
+	public AudioClip secondStarSound;
+	public AudioClip thirdStarSound;
+	public AudioClip lastStarSound;
+
 	private bool musicIsPlaying;
 
 	public static bool musicOn = true;
 	public static bool soundOn = true;
 	public static bool playButtonClick = false;
+
+	public static bool oneStar;
+	public static bool twoStars;
+	public static bool threeStars;
 
 	public static bool inLevel;
 	public static bool inMenu;
@@ -80,6 +89,23 @@ public class SoundManager : MonoBehaviour {
 				sourceAudio.PlayOneShot (buttonSound, 1f);
 				playButtonClick = false;
 			}
+
+			if (oneStar) {
+				sourceAudio.PlayOneShot (firstStarSound, 1f);
+				oneStar = false;
+			}
+
+			if (twoStars) {
+				sourceAudio.PlayOneShot (secondStarSound, 1f);
+				twoStars = false;
+			}
+
+			if (threeStars) {
+				sourceAudio.PlayOneShot (thirdStarSound, 1f);
+				threeStars = false;
+				StartCoroutine(fullStars());
+			}
+
 		}
 		if (!musicOn && musicIsPlaying) {
 			//sourceAudio.Pause();
@@ -90,8 +116,7 @@ public class SoundManager : MonoBehaviour {
 			//sourceAudio.UnPause();
 			sourceAudio.Play();
 			musicIsPlaying = true;
-		}
-				
+		}			
 	}
 
 	public IEnumerator PlayMusic()
@@ -99,7 +124,12 @@ public class SoundManager : MonoBehaviour {
 		yield return new WaitForSeconds(0.2f);
 		sourceAudio.Play();
 	}
-		
+
+	public IEnumerator fullStars()
+	{
+		yield return new WaitForSeconds(0.3f);
+		sourceAudio.PlayOneShot (lastStarSound, 1f);
+	}
 }
 
 
