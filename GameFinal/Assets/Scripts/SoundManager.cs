@@ -15,6 +15,8 @@ public class SoundManager : MonoBehaviour {
 	public AudioClip thirdStarSound;
 	public AudioClip lastStarSound;
 
+	public AudioClip openLockSound;
+
 	private bool musicIsPlaying;
 
 	public static bool musicOn = true;
@@ -24,6 +26,8 @@ public class SoundManager : MonoBehaviour {
 	public static bool oneStar;
 	public static bool twoStars;
 	public static bool threeStars;
+
+	public static bool openLock;
 
 	public static bool inLevel;
 	public static bool inMenu;
@@ -106,12 +110,18 @@ public class SoundManager : MonoBehaviour {
 				StartCoroutine(fullStars());
 			}
 
+			if (openLock) {
+				sourceAudio.PlayOneShot (openLockSound, 1f);
+				openLock = false;
+			}
 		}
+
 		if (!musicOn && musicIsPlaying) {
 			//sourceAudio.Pause();
 			sourceAudio.Stop();
 			musicIsPlaying = false;
 		}
+
 		if (musicOn && !musicIsPlaying) {
 			//sourceAudio.UnPause();
 			sourceAudio.Play();

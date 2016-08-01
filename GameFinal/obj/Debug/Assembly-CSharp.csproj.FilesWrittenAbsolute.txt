@@ -24,3 +24,6 @@
 /Users/rotemshaul/Desktop/GameFinal/Temp/bin/Debug/Unity.CecilTools.dll
 /Users/rotemshaul/Desktop/GameFinal/Temp/bin/Debug/Mono.Cecil.Pdb.dll
 /Users/rotemshaul/Desktop/GameFinal/Temp/bin/Debug/Mono.Cecil.Mdb.dll
+/Users/rotemshaul/Desktop/GameFinal/obj/Debug/Assembly-CSharp.dll
+/Users/rotemshaul/Desktop/GameFinal/Temp/bin/Debug/UnityEngine.Advertisements.dll
+/Users/rotemshaul/Desktop/GameFinal/Temp/bin/Debug/UnityEngine.Analytics.dll

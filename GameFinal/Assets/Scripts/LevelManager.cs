@@ -43,6 +43,7 @@ public class LevelManager : MonoBehaviour
 	public static bool isTutorialRunning = false;
 	private bool tutorialIsOver = false;
 	public GameObject starParticles;
+	public GameObject threeStarsYayParticles;
 
 	// Use this for initialization
 	void Start ()
@@ -108,8 +109,8 @@ public class LevelManager : MonoBehaviour
 			minutesForNextBlock = 2;
 			secondsForNextBlock = 0;
 		}
-
 	}
+
 	public IEnumerator FillCircle ()
 	{
 		isChangeFillTime = false;
@@ -138,6 +139,7 @@ public class LevelManager : MonoBehaviour
 			Application.LoadLevel (Application.loadedLevel);
 		}
 	}
+
 	public void HandleWinLevel ()
 	{
 		sw.Stop();
@@ -168,7 +170,7 @@ public class LevelManager : MonoBehaviour
 
 		nextLevel.gameObject.SetActive (true);
 
-		if(currentLevel == 10){
+		if(currentLevel == 20){
 			nextLevel.enabled = false;
 			nextLevel.image.enabled = false;
 		}
@@ -312,12 +314,20 @@ public class LevelManager : MonoBehaviour
 				i--;
 			} while(i > 0);
 			star.GetComponent<Image> ().enabled = false;
+
+			// NEWELY ADDED CODE ROTEM
+			StartCoroutine(yay());
 		}
 	}
 		
-	public static int getCurrentLeverIndex ()
+	public IEnumerator yay() {
+		yield return new WaitForSeconds (0.3f); 
+		Instantiate (threeStarsYayParticles, new Vector3 (-3f, 3.3f, 0f), Quaternion.identity);
+	}
+
+	public static int getCurrentLeverIndex () 
 	{
-		Regex regex = new Regex("[a-z]+([0-9]+)$");
+		Regex regex = new Regex("[a-z]+([0	-9]+)$");
 		Match match = regex.Match(Application.loadedLevelName);
 		string  levelString = match.Groups[1].Value;
 		int level = int.Parse(levelString);

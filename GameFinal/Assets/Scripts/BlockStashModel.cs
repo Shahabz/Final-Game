@@ -20,7 +20,7 @@ public class BlockStashModel : MonoBehaviour
 			onPlayerClickNewBlock.Invoke ();
 		} 
 
-		if (noMoreBlocks && canDragFromStash) {
+		if (!gameStarted && noMoreBlocks && canDragFromStash && !LevelManager.isTutorialRunning) {
 			onPlayerClickEmptyStash.Invoke ();
 		}
 	}

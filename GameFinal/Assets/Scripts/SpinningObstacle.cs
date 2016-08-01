@@ -10,7 +10,7 @@ public class SpinningObstacle : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (Application.loadedLevelName.Equals ("Level14")) 
+		if (Application.loadedLevelName.Equals ("Level9")) 
 		{
 			transform.Rotate(Vector3.back * Time.deltaTime * 90);
 		}

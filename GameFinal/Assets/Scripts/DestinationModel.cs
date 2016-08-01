@@ -23,14 +23,14 @@ public class DestinationModel : MonoBehaviour {
 
 		transform.Rotate (0, 0, 0.2f, Space.Self);
 
-		if (Application.loadedLevelName.Equals ("Level7")) {
+		if (Application.loadedLevelName.Equals ("Level8")) {
 			if (moveVertical) {
 				MoveUpAndDown ();
 			} else
 				MoveLeftAndRight();
 		}
 
-		if (Application.loadedLevelName.Equals ("Level11")) {
+		if (Application.loadedLevelName.Equals ("Level13")) {
 				MoveDiagonal();
 		}
 	}

@@ -16,6 +16,12 @@ public class MarbleModel : MonoBehaviour
 	public UnityEvent outOfBounds;
 	private Animator marbleAnimator;
 	public GameObject marbleTrail;
+	public UnityEvent starCollected; 
+
+	public float leftX;
+	public float rightX;
+	public float bottomY;
+	public float topY;
 
 	void Start ()
 	{
@@ -45,6 +51,12 @@ public class MarbleModel : MonoBehaviour
 		    marble.transform.position.y < -6.8f || marble.transform.position.y > 6.5f) {
 			outOfBounds.Invoke ();
 		}
+
+		if (marble.transform.position.x < rightX && marble.transform.position.x > leftX &&
+			marble.transform.position.y < topY && marble.transform.position.y > bottomY) {
+			starCollected.Invoke ();
+		}
+			
 	}
 		
 	public void HandleDestinationCollision ()
