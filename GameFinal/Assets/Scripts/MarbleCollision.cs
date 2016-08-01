@@ -13,6 +13,7 @@ public class MarbleCollision : MonoBehaviour
 	public GameObject plus1100PointsAnimation;
 	public GameObject plus1400PointsAnimation;
 	public GameObject plus1800PointsAnimation;
+	private bool levelCompleted = false;
 
 	void OnCollisionEnter2D (Collision2D other)
 	{		
@@ -27,9 +28,12 @@ public class MarbleCollision : MonoBehaviour
 
 		if (other.gameObject.tag == "destination") {
 			//Debug.Log("hitTarget");
-			StartCoroutine (Explosion (other.gameObject));
-			onMarbleCollisionDestination.Invoke ();
-			winLevel.Invoke ();
+			if (!levelCompleted) {
+				StartCoroutine (Explosion (other.gameObject));
+				onMarbleCollisionDestination.Invoke ();
+				winLevel.Invoke ();
+				levelCompleted = true;
+			}
 		}
 	}
 

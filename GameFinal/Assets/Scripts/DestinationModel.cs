@@ -43,7 +43,6 @@ public class DestinationModel : MonoBehaviour {
 		} else if (transform.position.y <= startY) {
 			transform.position = new Vector2(transform.position.x, startY);
 			speed = speed * (-1);
-			moveVertical = false;
 		}
 	}
 
@@ -76,5 +75,11 @@ public class DestinationModel : MonoBehaviour {
 		playCrystalShatter = true;
 		crystalAnimator.SetBool ("crystalHit", true);
 		speed = 0f;
+		StartCoroutine (destroyTarget());
+	}
+
+	public IEnumerator destroyTarget() {
+		yield return new WaitForSeconds (0.75f);
+		Destroy(gameObject);
 	}
 }

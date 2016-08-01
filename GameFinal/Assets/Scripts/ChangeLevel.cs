@@ -8,8 +8,8 @@ public class ChangeLevel : MonoBehaviour
 	public int numOfCloseLevel = 0;
 	public int numOfGainedStars = 0;
 	public int numOfLevels = 0;
-	public static int lastLevel = 10; 
-	public static int[] starsArray = new int[10];
+	public static int lastLevel = 20; 
+	public static int[] starsArray = new int[20];
 	public Button[] buttonsArray;
 	public Text starsText;
 	public Text blocksText;

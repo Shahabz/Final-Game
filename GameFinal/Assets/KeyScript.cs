@@ -3,6 +3,8 @@ using System.Collections;
 
 public class KeyScript : MonoBehaviour {
 
+	private bool keyCollected = false;
+
 	// Use this for initialization
 	void Start () {
 	
@@ -14,14 +16,18 @@ public class KeyScript : MonoBehaviour {
 	}
 
 	public void HandleKeyCollected() {
-		StartCoroutine (removeKey ());
+		if (!keyCollected) {
+			keyCollected =true;
+			StartCoroutine (removeKey ());
+		}
 	}
 
 	// DOESNT WORK...
 	public IEnumerator removeKey() {
 		yield return new WaitForSeconds (0.1f);
-		Destroy (gameObject);
 		SoundManager.openLock = true;
+		Instantiate (Resources.Load ("keyParticle"), new Vector2 (transform.position.x, transform.position.y), Quaternion.identity);
+		Destroy (gameObject);
 		// INSERT ANIMATION OR PARTICLES
 		// INSERT SOUND
 	}
