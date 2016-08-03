@@ -11,7 +11,6 @@ public class threestarsyay : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		Debug.Log (transform.rotation.z);
 		gameObject.transform.position = new Vector3 (gameObject.transform.position.x + 0.15f, gameObject.transform.position.y, gameObject.transform.position.z);
 	}
 }

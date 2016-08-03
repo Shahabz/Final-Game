@@ -18,12 +18,31 @@ public class ChangeLevel : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{				
+
+
+
 //		GameControl.control.starsArray[0] = 0;
 //		GameControl.control.starsArray[1] = -1;
 //		GameControl.control.starsArray[2] = -1;
 //		GameControl.control.starsArray[3] = -1;
 //		GameControl.control.starsArray[4] = -1;
-//				GameControl.control.numOfGainedStars = 0;
+//		GameControl.control.starsArray[5] = -1;
+//		GameControl.control.starsArray[6] = -1;
+//		GameControl.control.starsArray[7] = -1;
+//		GameControl.control.starsArray[8] = -1;
+//		GameControl.control.starsArray[9] = -1;
+//		GameControl.control.starsArray[10] = -1;
+//		GameControl.control.starsArray[11] = -1;
+//		GameControl.control.starsArray[12] = -1;
+//		GameControl.control.starsArray[13] = -1;
+//		GameControl.control.starsArray[14] = -1;
+//		GameControl.control.starsArray[15] = -1;
+//		GameControl.control.starsArray[16] = -1;
+//		GameControl.control.starsArray[17] = -1;
+//		GameControl.control.starsArray[18] = -1;
+//		GameControl.control.starsArray[19] = -1;
+//		GameControl.control.starsArray[10] = -1;
+//		GameControl.control.numOfGainedStars = 0;
 //		GameControl.control.Save ();
 		HandleCheckLevelsStars();
 		Debug.Log(GameControl.control.numOfLevels);

@@ -9,7 +9,7 @@ public class StoreManager : MonoBehaviour {
 	public Button pauseButton;
 
 	public GameObject StoreBackground;
-	public GameObject comingSoon;
+	//public GameObject comingSoon;
 	public Button closeButton;
 	public Button watchAdVideoButton;
 	public Button buyBlocks1Button;
@@ -30,7 +30,7 @@ public class StoreManager : MonoBehaviour {
 		buyBlocks3Button.image.enabled = false;
 		buyBlocks3Button.enabled = false;
 		StoreBackground.GetComponent<SpriteRenderer> ().enabled = false;
-		comingSoon.GetComponent<SpriteRenderer> ().enabled = false;
+		//comingSoon.GetComponent<SpriteRenderer> ().enabled = false;
 	}
 
 //	void Update() {
@@ -59,7 +59,7 @@ public class StoreManager : MonoBehaviour {
 		buyBlocks3Button.image.enabled = true;
 		//buyBlocks3Button.enabled = true;
 		StoreBackground.GetComponent<SpriteRenderer> ().enabled = true;
-		comingSoon.GetComponent<SpriteRenderer> ().enabled = true;
+		//comingSoon.GetComponent<SpriteRenderer> ().enabled = true;
 	}
 
 	public void OnClickBack() {
@@ -81,7 +81,7 @@ public class StoreManager : MonoBehaviour {
 		buyBlocks3Button.image.enabled = false;
 		buyBlocks3Button.enabled = false;
 		StoreBackground.GetComponent<SpriteRenderer> ().enabled = false;
-		comingSoon.GetComponent<SpriteRenderer> ().enabled = false;
+		//comingSoon.GetComponent<SpriteRenderer> ().enabled = false;
 	}
 
 	public void OnClickWatchAdVideo() {
